@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<!--
+/*
+ * blueimp Gallery Demo 1.0
+ * https://github.com/blueimp/Gallery
+ *
+ * Copyright 2013, Sebastian Tschan
+ * https://blueimp.net
+ *
+ * Licensed under the MIT license:
+ * http://www.opensource.org/licenses/MIT
+ */
+-->
+<html lang="en">
+<head>
+<!--[if IE]>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<![endif]-->
+<meta charset="utf-8">
+<title>blueimp Gallery</title>
+<meta name="description" content="blueimp Gallery is a mobile-optimized, touch-enabled, responsive and customizable image gallery, carousel and lightbox. It features swipe, mouse and keyboard navigation, transition effects, slideshow functionality and fullscreen support.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="css/blueimp-gallery.css">
+<link rel="stylesheet" href="css/demo.css">
+</head>
+<body>
+<h1>blueimp Gallery</h1>
+<p><a href="https://github.com/blueimp/Gallery">blueimp Gallery</a> is a mobile-optimized, touch-enabled, responsive and customizable image gallery, carousel and lightbox.<br>
+It features swipe, mouse and keyboard navigation, transition effects, slideshow functionality and fullscreen support.</p>
+<ul class="navigation">
+    <li><a href="https://github.com/blueimp/Gallery/tags">Download</a></li>
+    <li><a href="https://github.com/blueimp/Gallery">Source Code</a></li>
+    <li><a href="https://github.com/blueimp/Gallery/blob/master/README.md">Documentation</a></li>
+    <li><a href="https://blueimp.net">&copy; Sebastian Tschan</a></li>
+</ul>
+<p><a href="https://github.com/blueimp/Gallery">blueimp Gallery</a> is based on <a href="https://github.com/bradbirdsall/Swipe">Swipe</a>.</p>
+<h2>Carousel image gallery</h2>
+<!-- The Gallery as inline carousel, can be positioned anywhere on the page -->
+<div id="blueimp-gallery-carousel" class="blueimp-gallery blueimp-gallery-carousel">
+    <div class="blueimp-gallery-wrap"></div>
+    <h3 class="title"></h3>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+</div>
+<h2>Lightbox image gallery</h2>
+<!-- The container for the list of example images -->
+<div id="links"></div>
+<!-- The Gallery as lightbox dialog, should be a child element of the document body -->
+<div id="blueimp-gallery" class="blueimp-gallery">
+    <div class="blueimp-gallery-wrap"></div>
+    <h3 class="title"></h3>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <a class="close">×</a>
+    <ol class="indicator"></ol>
+</div>
+<script src="js/vendor/swipe.js"></script>
+<script src="js/blueimp-gallery.js"></script>
+<!-- jQuery is not required by the Gallery, but included for the demo -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<script src="js/demo.js"></script>
+</body> 
+</html>

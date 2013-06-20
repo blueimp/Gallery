@@ -1,0 +1,49 @@
+{
+    "name": "blueimp-gallery",
+    "version": "1.0.0",
+    "title": "blueimp Gallery",
+    "description": "blueimp Gallery is a mobile-optimized, touch-enabled, responsive and customizable image gallery, carousel and lightbox. It features swipe, mouse and keyboard navigation, transition effects, slideshow functionality and fullscreen support.",
+    "keywords": [
+        "image",
+        "gallery",
+        "carousel",
+        "lightbox",
+        "mobile",
+        "touch",
+        "responsive",
+        "swipe",
+        "mouse",
+        "keyboard",
+        "navigation",
+        "transition",
+        "effects",
+        "slideshow",
+        "fullscreen"
+    ],
+    "homepage": "https://github.com/blueimp/Gallery",
+    "author": {
+        "name": "Sebastian Tschan",
+        "url": "https://blueimp.net"
+    },
+    "maintainers": [
+        {
+            "name": "Sebastian Tschan",
+            "url": "https://blueimp.net"
+        }
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/blueimp/Gallery.git"
+    },
+    "bugs": "https://github.com/blueimp/Gallery/issues",
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "http://www.opensource.org/licenses/MIT"
+        }
+    ],
+    "devDependencies": {
+        "uglify-js": "2.2.5",
+        "less": "1.3.3"
+    }
+}

@@ -1,0 +1,9 @@
+.PHONY: default css js
+
+default: css js
+
+css:
+	node_modules/.bin/lessc --yui-compress css/blueimp-gallery.css > css/blueimp-gallery.min.css
+
+js:
+	node_modules/.bin/uglifyjs js/vendor/swipe.js js/blueimp-gallery.js -c -m -o js/blueimp-gallery.min.js
