@@ -1,5 +1,5 @@
 /*
- * blueimp Gallery JS 2.0.0
+ * blueimp Gallery JS 2.0.1
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -412,6 +412,12 @@
             var i;
             this.list = this.list.concat(list);
             this.num = this.list.length;
+            if (this.num > 2 && this.options.continuous === null) {
+                this.options.continuous = true;
+                this.helper.removeClass(this.container, this.options.leftEdgeClass);
+            }
+            this.helper.removeClass(this.container, this.options.rightEdgeClass);
+            this.helper.removeClass(this.container, this.options.singleClass);
             for (i = this.num - list.length; i < this.num; i += 1) {
                 this.addSlide(i);
                 this.positionSlide(i);
@@ -431,9 +437,9 @@
             }
             this.container.style.display = 'none';
             helper.removeClass(this.container, options.displayClass);
-            if (this.num === 1) {
-                helper.removeClass(this.container, options.singleClass);
-            }
+            helper.removeClass(this.container, options.singleClass);
+            helper.removeClass(this.container, options.leftEdgeClass);
+            helper.removeClass(this.container, options.rightEdgeClass);
             if (options.hidePageScrollbars) {
                 document.body.style.overflow = this.bodyOverflowStyle;
             }
@@ -1327,8 +1333,9 @@
             // Override any given options:
             this.helper.extend(this.options, options);
             if (this.num < 3) {
-                // 1 or 2 slides cannot be displayed continuous:
-                this.options.continuous = false;
+                // 1 or 2 slides cannot be displayed continuous,
+                // remember the original option by setting to null instead of false:
+                this.options.continuous = this.options.continuous ? null : false;
             }
             if (!this.support.transition) {
                 this.options.emulateTouchEvents = false;
