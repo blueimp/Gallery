@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <!--
 /*
- * blueimp Gallery Demo 1.0
+ * blueimp Gallery Demo 2.0.0
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -18,43 +18,53 @@
 <![endif]-->
 <meta charset="utf-8">
 <title>blueimp Gallery</title>
-<meta name="description" content="blueimp Gallery is a mobile-optimized, touch-enabled, responsive and customizable image gallery, carousel and lightbox. It features swipe, mouse and keyboard navigation, transition effects, slideshow functionality and fullscreen support.">
+<meta name="description" content="blueimp Gallery is a touch-enabled, responsive and customizable image and video gallery, carousel and lightbox, optimized for both mobile and desktop web browsers. It features swipe, mouse and keyboard navigation, transition effects, slideshow functionality, fullscreen support and on-demand content loading and can be extended to display additional content types.">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="css/blueimp-gallery.css">
 <link rel="stylesheet" href="css/demo.css">
 </head>
 <body>
 <h1>blueimp Gallery</h1>
-<p><a href="https://github.com/blueimp/Gallery">blueimp Gallery</a> is a mobile-optimized, touch-enabled, responsive and customizable image gallery, carousel and lightbox.<br>
-It features swipe, mouse and keyboard navigation, transition effects, slideshow functionality and fullscreen support.</p>
+<p><a href="https://github.com/blueimp/Gallery">blueimp Gallery</a> is a touch-enabled, responsive and customizable image &amp; video gallery, carousel and lightbox, optimized for both mobile and desktop web browsers.<br>
+It features swipe, mouse and keyboard navigation, transition effects, slideshow functionality, fullscreen support and on-demand content loading and can be extended to display additional content types.</p>
 <ul class="navigation">
     <li><a href="https://github.com/blueimp/Gallery/tags">Download</a></li>
     <li><a href="https://github.com/blueimp/Gallery">Source Code</a></li>
     <li><a href="https://github.com/blueimp/Gallery/blob/master/README.md">Documentation</a></li>
     <li><a href="https://blueimp.net">&copy; Sebastian Tschan</a></li>
 </ul>
-<p><a href="https://github.com/blueimp/Gallery">blueimp Gallery</a> is based on <a href="https://github.com/bradbirdsall/Swipe">Swipe</a>.</p>
+<p><a href="https://github.com/blueimp/Gallery">blueimp Gallery</a> is based on <a href="http://swipejs.com/">Swipe</a>.</p>
+<br>
 <h2>Carousel image gallery</h2>
 <!-- The Gallery as inline carousel, can be positioned anywhere on the page -->
-<div id="blueimp-gallery-carousel" class="blueimp-gallery blueimp-gallery-carousel">
-    <div class="blueimp-gallery-wrap"></div>
+<div id="blueimp-image-carousel" class="blueimp-gallery blueimp-gallery-carousel">
+    <div class="slides"></div>
     <h3 class="title"></h3>
     <a class="prev">‹</a>
     <a class="next">›</a>
 </div>
+<br>
+<h2>Carousel video gallery</h2>
+<!-- The Gallery as inline carousel, can be positioned anywhere on the page -->
+<div id="blueimp-video-carousel" class="blueimp-gallery blueimp-gallery-controls blueimp-gallery-carousel">
+    <div class="slides"></div>
+    <h3 class="title"></h3>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+</div>
+<br>
 <h2>Lightbox image gallery</h2>
 <!-- The container for the list of example images -->
-<div id="links"></div>
+<div id="links" class="links"></div>
 <!-- The Gallery as lightbox dialog, should be a child element of the document body -->
 <div id="blueimp-gallery" class="blueimp-gallery">
-    <div class="blueimp-gallery-wrap"></div>
+    <div class="slides"></div>
     <h3 class="title"></h3>
     <a class="prev">‹</a>
     <a class="next">›</a>
     <a class="close">×</a>
     <ol class="indicator"></ol>
 </div>
-<script src="js/vendor/swipe.js"></script>
 <script src="js/blueimp-gallery.js"></script>
 <!-- jQuery is not required by the Gallery, but included for the demo -->
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>

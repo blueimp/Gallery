@@ -1,5 +1,5 @@
 /*
- * blueimp Gallery Demo CSS 1.0
+ * blueimp Gallery Demo CSS 2.0.0
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -10,9 +10,11 @@
  */
 
 body {
-  margin: 0;
+  max-width: 750px;
+  margin: 0 auto;
   padding: 1em;
   font-family: 'Lucida Grande', 'Lucida Sans Unicode', Arial, sans-serif;
+  font-size: 1em;
   line-height: 1.4em;
   background: #222;
   color: #fff;
@@ -26,6 +28,10 @@ a {
 img {
   border: 0;
   vertical-align: middle;
+}
+h2,
+.links {
+  text-align: center;
 }
 @media (min-width: 481px) {
   .navigation {
