@@ -1,6 +1,6 @@
 @charset 'UTF-8';
 /*
- * blueimp Gallery CSS 2.0.0
+ * blueimp Gallery CSS 2.0.1
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -32,6 +32,7 @@
 }
 .blueimp-gallery {
   position: fixed;
+  z-index: 9999;
   overflow: hidden;
   background: #000;
   background: rgba(0, 0, 0, 0.9);
@@ -41,6 +42,7 @@
 }
 .blueimp-gallery-carousel {
   position: relative;
+  z-index: auto;
   height: 432px;
   max-width: 768px;
   margin: 1em auto;
@@ -50,7 +52,6 @@
   display: block;
   visibility: visible;
   opacity: 1;
-  z-index: 9999;
 }
 .blueimp-gallery > .slides {
   position: relative;
