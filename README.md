@@ -139,6 +139,10 @@ var options = {
     clearSlides: true,
     // Defines if the gallery should open in fullscreen mode:
     fullScreen: false,
+    // Defines if images should be stretched to fill the available space,
+    // while maintaining their aspect ratio (will only be enabled for browsers
+    // supporting background-size="contain", which excludes IE < 9):
+    stretchImages: false,
     // Toggle the controls on pressing the Return key:
     toggleControlsOnReturn: true,
     // Navigate the gallery by pressing left and right on the keyboard:

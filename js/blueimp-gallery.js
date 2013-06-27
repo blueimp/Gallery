@@ -1,5 +1,5 @@
 /*
- * blueimp Gallery JS 2.1.0
+ * blueimp Gallery JS 2.2.0
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -221,6 +221,10 @@
             clearSlides: true,
             // Defines if the gallery should open in fullscreen mode:
             fullScreen: false,
+            // Defines if images should be stretched to fill the available space,
+            // while maintaining their aspect ratio (will only be enabled for browsers
+            // supporting background-size="contain", which excludes IE < 9):
+            stretchImages: false,
             // Toggle the controls on pressing the Return key:
             toggleControlsOnReturn: true,
             // Navigate the gallery by pressing left and right on the keyboard:
@@ -278,7 +282,7 @@
             interval: 5000 // 5 seconds
         },
 
-        // Detect touch, transition and transform support:
+        // Detect touch, transition, transform and background-size support:
         support: (function (element) {
             var support = {
                     touch: window.ontouchstart !== undefined ||
@@ -314,8 +318,8 @@
                     break;
                 }
             }
+            document.body.appendChild(element);
             if (transition) {
-                document.body.appendChild(element);
                 prop = transition.name.slice(0, -9) + 'ransform';
                 if (element.style[prop] !== undefined) {
                     element.style[prop] = 'translateZ(0)';
@@ -328,8 +332,15 @@
                         translateZ: translateZ && translateZ !== 'none'
                     };
                 }
-                document.body.removeChild(element);
             }
+            if (element.style.backgroundSize !== undefined) {
+                element.style.backgroundSize = 'contain';
+                support.backgroundSize = {
+                    contain: window.getComputedStyle(element)
+                        .getPropertyValue('background-size') === 'contain'
+                };
+            }
+            document.body.removeChild(element);
             return support;
             // Test element, has to be standard HTML and must not be hidden
             // for the CSS3 transform translateZ test to be applicable:
@@ -901,7 +912,7 @@
         videoFactory: function (obj, callback) {
             var that = this,
                 options = this.options,
-                videoContainer = document.createElement('div'),
+                videoContainer = this.elementPrototype.cloneNode(false),
                 errorArgs = [{
                     type: 'error',
                     target: videoContainer
@@ -944,7 +955,7 @@
             }
             if (posterUrl) {
                 video.setAttribute('poster', posterUrl);
-                posterImage = document.createElement('img');
+                posterImage = this.imagePrototype.cloneNode(false);
                 this.helper.addClass(posterImage, options.toggleClass);
                 posterImage.src = posterUrl;
                 posterImage.draggable = false;
@@ -1006,27 +1017,48 @@
 
         imageFactory: function (obj, callback) {
             var img = this.imagePrototype.cloneNode(false),
+                element,
                 url = obj,
                 title;
             if (typeof url !== 'string') {
                 url = this.getItemProperty(obj, this.options.urlProperty);
                 title = this.getItemProperty(obj, this.options.titleProperty);
             }
-            if (title) {
-                img.title = title;
+            if (this.options.stretchImages && this.support.backgroundSize &&
+                    this.support.backgroundSize.contain) {
+                element = this.elementPrototype.cloneNode(false);
+                this.helper.addListener(img, 'load', function () {
+                    element.style.background = 'url("' + url + '") center no-repeat';
+                    element.style.backgroundSize = 'contain';
+                    callback({
+                        type: 'load',
+                        target: element
+                    });
+                });
+                this.helper.addListener(img, 'error', function () {
+                    callback({
+                        type: 'error',
+                        target: element
+                    });
+                });
+            } else {
+                element = img;
+                img.draggable = false;
+                this.helper.addListener(img, 'load', callback);
+                this.helper.addListener(img, 'error', callback);
             }
-            this.helper.addListener(img, 'load', callback);
-            this.helper.addListener(img, 'error', callback);
+            if (title) {
+                element.title = title;
+            }
             img.src = url;
-            img.draggable = false;
             // Fix for IE7 not firing load events for cached images:
             if (img.complete) {
                 this.setTimeout(callback, [{
                     type: 'load',
-                    target: img
+                    target: element
                 }]);
             }
-            return img;
+            return element;
         },
 
         createElement: function (obj, callback) {
