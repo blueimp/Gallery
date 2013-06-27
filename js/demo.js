@@ -1,5 +1,5 @@
 /*
- * blueimp Gallery Demo JS 2.0.0
+ * blueimp Gallery Demo JS 2.0.2
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -56,7 +56,7 @@ $(function () {
         });
         // Initialize the Gallery as image carousel:
         blueimp.Gallery(carouselLinks, {
-            containerId: 'blueimp-image-carousel',
+            container: '#blueimp-image-carousel',
             carousel: true
         });
     });
@@ -82,7 +82,7 @@ $(function () {
             poster: 'http://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Elephants_Dream_s1_proog.jpg/800px-Elephants_Dream_s1_proog.jpg'
         }
     ], {
-        containerId: 'blueimp-video-carousel',
+        container: '#blueimp-video-carousel',
         carousel: true
     });
 

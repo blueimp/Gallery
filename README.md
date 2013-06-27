@@ -77,8 +77,14 @@ The following are the default options set by the Gallery:
 
 ```js
 var options = {
-    // The document ID of the gallery widget:
-    containerId: 'blueimp-gallery',
+    // The Id, element or querySelector of the gallery widget:
+    container: '#blueimp-gallery',
+    // The tag name, Id, element or querySelector of the slides container:
+    slidesContainer: 'div',
+    // The tag name, Id, element or querySelector of the title element:
+    titleElement: 'h3',
+    // The tag name, Id, element or querySelector of the indicator container:
+    indicatorContainer: 'ol',
     // The class to add when the gallery is visible:
     displayClass: 'blueimp-gallery-display',
     // The class to add when the gallery controls are visible:
@@ -113,12 +119,6 @@ var options = {
     closeClass: 'close',
     // The class for the active indicator:
     activeClass: 'active',
-    // The tag name, element or querySelector of the slides container:
-    slidesContainer: 'div',
-    // The tag name, element or querySelector of the title element:
-    titleElement: 'h3',
-    // The tag name, element or querySelector of the indicator container:
-    indicatorContainer: 'ol',
     // The list object property (or data attribute) with the object type:
     typeProperty: 'type',
     // The list object property (or data attribute) with the object title:
@@ -155,7 +155,7 @@ var options = {
     hidePageScrollbars: true,
     // Stops any touches on the container from scrolling the page:
     disableScroll: true,
-    // Carousel mode (shortcut for the carouselOptions):
+    // Carousel mode (shortcut for carousel specific options):
     carousel: false,
     // Allow continuous navigation, moving from last to first
     // and from first to last slide:

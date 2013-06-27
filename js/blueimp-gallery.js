@@ -1,5 +1,5 @@
 /*
- * blueimp Gallery JS 2.0.1
+ * blueimp Gallery JS 2.0.2
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -113,6 +113,9 @@
                 if (container.querySelector) {
                     return container.querySelector(element);
                 }
+                if (element.charAt(0) === '#') {
+                    return container.getElementById(element.slice(1));
+                }
                 return container.getElementsByTagName(element)[0];
             }
             return element;
@@ -139,8 +142,14 @@
         helper: helper,
 
         options: {
-            // The document ID of the gallery widget:
-            containerId: 'blueimp-gallery',
+            // The Id, element or querySelector of the gallery widget:
+            container: '#blueimp-gallery',
+            // The tag name, Id, element or querySelector of the slides container:
+            slidesContainer: 'div',
+            // The tag name, Id, element or querySelector of the title element:
+            titleElement: 'h3',
+            // The tag name, Id, element or querySelector of the indicator container:
+            indicatorContainer: 'ol',
             // The class to add when the gallery is visible:
             displayClass: 'blueimp-gallery-display',
             // The class to add when the gallery controls are visible:
@@ -175,12 +184,6 @@
             closeClass: 'close',
             // The class for the active indicator:
             activeClass: 'active',
-            // The tag name, element or querySelector of the slides container:
-            slidesContainer: 'div',
-            // The tag name, element or querySelector of the title element:
-            titleElement: 'h3',
-            // The tag name, element or querySelector of the indicator container:
-            indicatorContainer: 'ol',
             // The list object property (or data attribute) with the object type:
             typeProperty: 'type',
             // The list object property (or data attribute) with the object title:
@@ -217,7 +220,7 @@
             hidePageScrollbars: true,
             // Stops any touches on the container from scrolling the page:
             disableScroll: true,
-            // Carousel mode (shortcut for the carouselOptions):
+            // Carousel mode (shortcut for carousel specific options):
             carousel: false,
             // Allow continuous navigation, moving from last to first
             // and from first to last slide:
@@ -1293,14 +1296,20 @@
         },
 
         initWidget: function () {
-            this.container = document.getElementById(this.options.containerId);
-            if (!this.container || !this.container.hasChildNodes()) {
+            this.container = this.helper.query(
+                document,
+                this.options.container
+            );
+            if (!this.container) {
                 return false;
             }
             this.slidesContainer = this.helper.query(
                 this.container,
                 this.options.slidesContainer
             );
+            if (!this.slidesContainer) {
+                return false;
+            }
             this.titleElement = this.helper.query(
                 this.container,
                 this.options.titleElement
