@@ -1,5 +1,5 @@
 /*
- * blueimp Gallery JS 2.0.2
+ * blueimp Gallery JS 2.1.0
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -12,6 +12,7 @@
  * http://www.opensource.org/licenses/MIT
  */
 
+/*jslint regexp: true */
 /*global define, window, document, DocumentTouch */
 
 (function () {
@@ -133,6 +134,22 @@
 
         parseJSON: function (string) {
             return window.JSON && JSON.parse(string);
+        },
+
+        getNestedProperty: function (obj, property) {
+            property.replace(
+                // Matches native JavaScript notation in a String,
+                // e.g. '["doubleQuoteProp"].dotProp[2]'
+                /\[(?:'([^']+)'|"([^"]+)"|(\d+))\]|(?:(?:^|\.)([^\.\[]+))/g,
+                function (str, singleQuoteProp, doubleQuoteProp, arrayIndex, dotProp) {
+                    var prop = dotProp || singleQuoteProp || doubleQuoteProp ||
+                            (arrayIndex && parseInt(arrayIndex, 10));
+                    if (str && obj) {
+                        obj = obj[prop];
+                    }
+                }
+            );
+            return obj;
         }
 
     };
@@ -1212,9 +1229,10 @@
             return parseInt(element.getAttribute('data-index'), 10);
         },
 
-        getItemProperty: function (object, property) {
-            return object[property] || (object.getAttribute &&
-                object.getAttribute('data-' + property));
+        getItemProperty: function (obj, property) {
+            return obj[property] || (obj.getAttribute &&
+                obj.getAttribute('data-' + property)) ||
+                this.helper.getNestedProperty(obj, property);
         },
 
         initStartIndex: function () {
