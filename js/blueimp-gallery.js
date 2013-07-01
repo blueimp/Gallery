@@ -39,7 +39,7 @@
         // Load the slide at the given index:
         this.onslide(this.index);
         // start the automatic slideshow if applicable:
-        if (this.options.interval) {
+        if (this.options.autoSlideshow) {
             this.play();
         }
         if (this.options.fullScreen && !this.getFullScreenElement()) {
@@ -252,11 +252,16 @@
             // Can also be an object of the given list,
             // or an equal object with the same url property:
             index: 0,
-            // Delay in milliseconds between slides for an automatic slideshow,
-            // is disabled if set to a falsy value (e.g. 0, false, null):
-            interval: 0,
+            // Delay in milliseconds between slides for slideshow
+            interval: 4000,
+            // Auto-start gallery slideshow
+            autoSlideshow: false,
             // The transition speed between slide changes in milliseconds:
             speed: 400,
+            // The transition speed between slideshow slide changes in milliseconds:
+            slideshowSpeed: 1000,
+            // Toggle slideshow on pressing the Space key:
+            toggleSlideshowOnSpace: true,
             // Callback function executed on slide change.
             // Is called with the list object as "this" object and the
             // current index and slide as arguments:
@@ -428,7 +433,7 @@
             if (this.status[this.index] > 1) {
                 this.timeout = this.setTimeout(
                     this.slide,
-                    [this.index + 1],
+                    [this.index + 1,this.options.slideshowSpeed],
                     this.interval
                 );
             }
@@ -786,6 +791,12 @@
             case 27: // ESC
                 if (this.options.closeOnEscape) {
                     this.close();
+                }
+                break;
+            case 32: // Space
+                if (this.options.toggleSlideshowOnSpace) {
+                    this.helper.preventDefault(event);
+                    this.toggleSlideshow();
                 }
                 break;
             case 37: // left
@@ -1254,6 +1265,14 @@
                 this.helper.removeClass(this.container, controlsClass);
             } else {
                 this.helper.addClass(this.container, controlsClass);
+            }
+        },
+
+        toggleSlideshow: function () {
+            if (this.interval == null) {
+                this.play()
+            } else {
+                this.pause()
             }
         },
 
