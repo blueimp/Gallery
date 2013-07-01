@@ -170,11 +170,16 @@ var options = {
     // Can also be an object of the given list,
     // or an equal object with the same url property:
     index: 0,
-    // Delay in milliseconds between slides for an automatic slideshow,
-    // is disabled if set to a falsy value (e.g. 0, false, null):
-    interval: 0,
+    // Delay in milliseconds between slides for slideshow
+    interval: 4000,
+    // Auto-start gallery slideshow
+    autoSlideshow: false,
     // The transition speed between slide changes in milliseconds:
     speed: 400,
+    // The transition speed between slideshow slide changes in milliseconds:
+    slideshowSpeed: 1000,
+    // Toggle slideshow on pressing the Space key:
+    toggleSlideshowOnSpace: true,
     // Callback function executed on slide change.
     // Is called with the list object as "this" object and the
     // current index and slide as arguments:
