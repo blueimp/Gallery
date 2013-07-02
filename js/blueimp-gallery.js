@@ -1,5 +1,5 @@
 /*
- * blueimp Gallery JS 2.3.0
+ * blueimp Gallery JS 2.3.1
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -490,16 +490,16 @@
             this.destroyEventListeners();
             // Cancel the slideshow:
             this.pause();
-            // Reset the slides container:
-            this.slidesContainer.style.width = 'auto';
-            this.slidesContainer.style.left = 0;
+            // Reset the slides:
             if (options.clearSlides) {
                 helper.empty(this.slidesContainer);
                 if (this.indicatorContainer) {
                     helper.empty(this.indicatorContainer);
                 }
-            } else if (this.activeIndicator) {
-                helper.removeClass(this.activeIndicator, options.activeClass);
+            } else {
+                if (this.activeIndicator) {
+                    helper.removeClass(this.activeIndicator, options.activeClass);
+                }
             }
         },
 
@@ -1166,8 +1166,8 @@
         addIndicator: function (index) {
             if (this.indicators) {
                 var indicator = this.createIndicator(this.list[index]);
-                this.indicatorContainer.appendChild(indicator);
                 indicator.setAttribute('data-index', index);
+                this.indicatorContainer.appendChild(indicator);
                 this.indicators.push(indicator);
             }
         },
@@ -1201,39 +1201,37 @@
                     this.positions.length = this.num;
                 this.imagePrototype = document.createElement('img');
                 this.elementPrototype = document.createElement('div');
-                this.slides = this.slidesContainer.children;
+                this.slidePrototype = document.createElement('div');
+                this.helper.addClass(this.slidePrototype, this.options.slideClass);
                 if (this.indicatorContainer) {
+                    this.indicatorPrototype = document.createElement('li');
+                    if (this.options.thumbnailIndicators) {
+                        this.thumbnailPrototype = this.imagePrototype.cloneNode(false);
+                    }
                     this.indicators = this.indicatorContainer.children;
                 }
+                this.slides = this.slidesContainer.children;
                 clearSlides = this.options.clearSlides || this.slides.length !== this.num;
             }
             this.slideWidth = this.container.offsetWidth;
             this.slideHeight = this.container.offsetHeight;
             this.slidesContainer.style.width = (this.num * this.slideWidth) + 'px';
-            if (clearSlides || reload) {
-                if (!reload) {
-                    this.helper.empty(this.slidesContainer);
-                    if (this.indicatorContainer) {
-                        this.helper.empty(this.indicatorContainer);
-                    }
-                    this.slidePrototype = document.createElement('div');
-                    this.helper.addClass(this.slidePrototype, this.options.slideClass);
-                    this.slides = [];
-                    if (this.indicatorContainer) {
-                        this.indicatorPrototype = document.createElement('li');
-                        this.indicators = [];
-                        if (this.options.thumbnailIndicators) {
-                            this.thumbnailPrototype = this.imagePrototype.cloneNode(false);
-                        }
-                    }
+            if (clearSlides) {
+                this.helper.empty(this.slidesContainer);
+                if (this.indicatorContainer) {
+                    this.helper.empty(this.indicatorContainer);
                 }
-                for (i = 0; i < this.num; i += 1) {
-                    if (!reload) {
-                        this.addIndicator(i);
-                        this.addSlide(i);
-                    }
-                    this.positionSlide(i);
+                this.slides = [];
+                if (this.indicatorContainer) {
+                    this.indicators = [];
                 }
+            }
+            for (i = 0; i < this.num; i += 1) {
+                if (clearSlides) {
+                    this.addIndicator(i);
+                    this.addSlide(i);
+                }
+                this.positionSlide(i);
             }
             // Reposition the slides before and after the given index:
             if (this.options.continuous && this.support.transition) {
