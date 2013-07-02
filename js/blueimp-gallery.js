@@ -1,5 +1,5 @@
 /*
- * blueimp Gallery JS 2.2.0
+ * blueimp Gallery JS 2.3.0
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -38,8 +38,8 @@
         this.initEventListeners();
         // Load the slide at the given index:
         this.onslide(this.index);
-        // start the automatic slideshow if applicable:
-        if (this.options.autoSlideshow) {
+        // Start the automatic slideshow if applicable:
+        if (this.options.startSlideshow) {
             this.play();
         }
         if (this.options.fullScreen && !this.getFullScreenElement()) {
@@ -177,6 +177,8 @@
             leftEdgeClass: 'blueimp-gallery-left',
             // The class to add when the right edge has been reached:
             rightEdgeClass: 'blueimp-gallery-right',
+            // The class to add when the automatic slideshow is active:
+            playingClass: 'blueimp-gallery-playing',
             // The class for all slides:
             slideClass: 'slide',
             // The slide class for loading elements:
@@ -199,6 +201,8 @@
             nextClass: 'next',
             // The class for the "close" control:
             closeClass: 'close',
+            // The class for the "play-pause" toggle control:
+            playPauseClass: 'play-pause',
             // The class for the active indicator:
             activeClass: 'active',
             // The list object property (or data attribute) with the object type:
@@ -227,6 +231,8 @@
             stretchImages: false,
             // Toggle the controls on pressing the Return key:
             toggleControlsOnReturn: true,
+            // Toggle the automatic slideshow interval on pressing the Space key:
+            toggleSlideshowOnSpace: true,
             // Navigate the gallery by pressing left and right on the keyboard:
             enableKeyboardNavigation: true,
             // Close the gallery on pressing the ESC key:
@@ -246,22 +252,21 @@
             // Allow continuous navigation, moving from last to first
             // and from first to last slide:
             continuous: true,
-            // The number of elements to load around the current index:
-            preloadRange: 2,
+            // Start with the automatic slideshow:
+            startSlideshow: false,
+            // Delay in milliseconds between slides for the automatic slideshow:
+            slideshowInterval: 5000,
             // The starting index as integer.
             // Can also be an object of the given list,
             // or an equal object with the same url property:
             index: 0,
-            // Delay in milliseconds between slides for slideshow
-            interval: 4000,
-            // Auto-start gallery slideshow
-            autoSlideshow: false,
+            // The number of elements to load around the current index:
+            preloadRange: 2,
             // The transition speed between slide changes in milliseconds:
-            speed: 400,
-            // The transition speed between slideshow slide changes in milliseconds:
-            slideshowSpeed: 1000,
-            // Toggle slideshow on pressing the Space key:
-            toggleSlideshowOnSpace: true,
+            transitionSpeed: 400,
+            // The transition speed for automatic slide changes, set to an integer
+            // greater 0 to override the default transition speed:
+            slideshowTransitionSpeed: undefined,
             // Callback function executed on slide change.
             // Is called with the list object as "this" object and the
             // current index and slide as arguments:
@@ -279,12 +284,13 @@
         carouselOptions: {
             hidePageScrollbars: false,
             toggleControlsOnReturn: false,
+            toggleSlideshowOnSpace: false,
             enableKeyboardNavigation: false,
             closeOnEscape: false,
             closeOnSlideClick: false,
             closeOnSwipeUpOrDown: false,
             disableScroll: false,
-            interval: 5000 // 5 seconds
+            startSlideshow: true
         },
 
         // Detect touch, transition, transform and background-size support:
@@ -361,7 +367,7 @@
                 return;
             }
             if (!speed) {
-                speed = this.options.speed;
+                speed = this.options.transitionSpeed;
             }
             if (this.support.transition) {
                 if (!this.options.continuous) {
@@ -429,19 +435,21 @@
 
         play: function (time) {
             window.clearTimeout(this.timeout);
-            this.interval = time || this.options.interval;
+            this.interval = time || this.options.slideshowInterval;
             if (this.status[this.index] > 1) {
                 this.timeout = this.setTimeout(
                     this.slide,
-                    [this.index + 1,this.options.slideshowSpeed],
+                    [this.index + 1, this.options.slideshowTransitionSpeed],
                     this.interval
                 );
             }
+            this.helper.addClass(this.container, this.options.playingClass);
         },
 
         pause: function () {
             window.clearTimeout(this.timeout);
             this.interval = null;
+            this.helper.removeClass(this.container, this.options.playingClass);
         },
 
         add: function (list) {
@@ -661,7 +669,7 @@
 
         ontouchend: function () {
             var index = this.index,
-                speed = this.options.speed,
+                speed = this.options.transitionSpeed,
                 slideWidth = this.slideWidth,
                 isShortDuration = Number(Date.now() - this.touchStart.time) < 250,
                 // Determine if slide attempt triggers next/prev slide:
@@ -866,6 +874,10 @@
                 // Click on "close" control
                 helper.preventDefault(event);
                 this.close();
+            } else if (isTarget(options.playPauseClass)) {
+                // Click on "play-pause" control
+                helper.preventDefault(event);
+                this.toggleSlideshow();
             }
         },
 
@@ -1269,10 +1281,10 @@
         },
 
         toggleSlideshow: function () {
-            if (this.interval == null) {
-                this.play()
+            if (!this.interval) {
+                this.play();
             } else {
-                this.pause()
+                this.pause();
             }
         },
 

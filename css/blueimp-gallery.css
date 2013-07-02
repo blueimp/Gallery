@@ -1,6 +1,6 @@
 @charset 'UTF-8';
 /*
- * blueimp Gallery CSS 2.0.1
+ * blueimp Gallery CSS 2.3.0
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -85,8 +85,7 @@
   margin: -64px auto 0;
   width: 128px;
   height: 128px;
-  background: url(../img/play.png) center no-repeat;
-  background-size: 64px 64px;
+  background: url(../img/video-play.png) center no-repeat;
   cursor: pointer;
 }
 .blueimp-gallery > .slides > .slide > .video-playing > a,
@@ -109,7 +108,6 @@
 }
 .blueimp-gallery > .slides > .slide-error {
   background: url(../img/error.png) center no-repeat;
-  background-size: 64px 64px;
 }
 .blueimp-gallery > .slides > .slide-error > .slide-content {
   display: none;
@@ -151,10 +149,10 @@
 }
 .blueimp-gallery > .close,
 .blueimp-gallery > .title {
-  margin: 0 60px 0 0;
   position: absolute;
   top: 15px;
   left: 15px;
+  margin: 0 40px 0 0;
   font-size: 20px;
   line-height: 30px;
   color: #fff;
@@ -162,14 +160,28 @@
   display: none;
 }
 .blueimp-gallery > .close {
-  margin: -15px;
   padding: 15px;
   right: 15px;
   left: auto;
+  margin: -15px;
   font-size: 30px;
   text-decoration: none;
   opacity: 0.8;
   cursor: pointer;
+}
+.blueimp-gallery > .play-pause {
+  position: absolute;
+  right: 15px;
+  bottom: 15px;
+  width: 15px;
+  height: 15px;
+  background: url(../img/play-pause.png) 0 0 no-repeat;
+  cursor: pointer;
+  opacity: 0.8;
+  display: none;
+}
+.blueimp-gallery-playing > .play-pause {
+  background-position: -15px 0;
 }
 .blueimp-gallery > .indicator {
   position: absolute;
@@ -177,7 +189,7 @@
   right: 15px;
   bottom: 15px;
   left: 15px;
-  margin: 0;
+  margin: 0 40px;
   padding: 0;
   list-style: none;
   text-align: center;
@@ -214,6 +226,7 @@
 .blueimp-gallery-controls > .next,
 .blueimp-gallery-controls > .close,
 .blueimp-gallery-controls > .title,
+.blueimp-gallery-controls > .play-pause,
 .blueimp-gallery-controls > .indicator {
   display: block;
   /* Fix z-index issues (controls behind slide element) on Android: */
@@ -227,8 +240,20 @@
 .blueimp-gallery-left > .prev,
 .blueimp-gallery-single > .next,
 .blueimp-gallery-right > .next,
+.blueimp-gallery-single > .play-pause,
 .blueimp-gallery-single > .indicator {
   display: none;
+}
+
+/* Replace PNGs with SVGs for capable browsers (excluding IE<9) */
+body:last-child .blueimp-gallery > .slides > .slide > .video-content > a {
+  background-image: url(../img/video-play.svg);
+}
+body:last-child .blueimp-gallery > .slides > .slide-error {
+  background-image: url(../img/error.svg);
+}
+body:last-child .blueimp-gallery > .play-pause {
+  background-image: url(../img/play-pause.svg);
 }
 
 @media (max-width: 767px) {

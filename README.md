@@ -26,6 +26,7 @@ Add the following HTML snippet with the Gallery widget to the body of your webpa
     <a class="prev">‹</a>
     <a class="next">›</a>
     <a class="close">×</a>
+    <a class="play-pause"></a>
     <ol class="indicator"></ol>
 </div>
 ```
@@ -61,8 +62,6 @@ Initialize the Gallery the following way:
 ```js
 var links = document.getElementById('links').getElementsByTagName('a'),
     options = {
-        // Start an automatic slideshow with a delay of 5 seconds between slides:
-        interval: 5000,
         // Set to true to initialize the Gallery with carousel specific options:
         carousel: false
     },
@@ -95,6 +94,8 @@ var options = {
     leftEdgeClass: 'blueimp-gallery-left',
     // The class to add when the right edge has been reached:
     rightEdgeClass: 'blueimp-gallery-right',
+    // The class to add when the automatic slideshow is active:
+    playingClass: 'blueimp-gallery-playing',
     // The class for all slides:
     slideClass: 'slide',
     // The slide class for loading elements:
@@ -117,6 +118,8 @@ var options = {
     nextClass: 'next',
     // The class for the "close" control:
     closeClass: 'close',
+    // The class for the "play-pause" toggle control:
+    playPauseClass: 'play-pause',
     // The class for the active indicator:
     activeClass: 'active',
     // The list object property (or data attribute) with the object type:
@@ -145,6 +148,8 @@ var options = {
     stretchImages: false,
     // Toggle the controls on pressing the Return key:
     toggleControlsOnReturn: true,
+    // Toggle the automatic slideshow interval on pressing the Space key:
+    toggleSlideshowOnSpace: true,
     // Navigate the gallery by pressing left and right on the keyboard:
     enableKeyboardNavigation: true,
     // Close the gallery on pressing the ESC key:
@@ -164,22 +169,21 @@ var options = {
     // Allow continuous navigation, moving from last to first
     // and from first to last slide:
     continuous: true,
-    // The number of elements to load around the current index:
-    preloadRange: 2,
+    // Start with the automatic slideshow:
+    startSlideshow: false,
+    // Delay in milliseconds between slides for the automatic slideshow:
+    slideshowInterval: 5000,
     // The starting index as integer.
     // Can also be an object of the given list,
     // or an equal object with the same url property:
     index: 0,
-    // Delay in milliseconds between slides for slideshow
-    interval: 4000,
-    // Auto-start gallery slideshow
-    autoSlideshow: false,
+    // The number of elements to load around the current index:
+    preloadRange: 2,
     // The transition speed between slide changes in milliseconds:
-    speed: 400,
-    // The transition speed between slideshow slide changes in milliseconds:
-    slideshowSpeed: 1000,
-    // Toggle slideshow on pressing the Space key:
-    toggleSlideshowOnSpace: true,
+    transitionSpeed: 400,
+    // The transition speed for automatic slide changes, set to an integer
+    // greater 0 to override the default transition speed:
+    slideshowTransitionSpeed: undefined,
     // Callback function executed on slide change.
     // Is called with the list object as "this" object and the
     // current index and slide as arguments:
@@ -201,12 +205,13 @@ If the **carousel** option is **true**, the following options are set to differe
 var carouselOptions = {
     hidePageScrollbars: false,
     toggleControlsOnReturn: false,
+    toggleSlideshowOnSpace: false,
     enableKeyboardNavigation: false,
     closeOnEscape: false,
     closeOnSlideClick: false,
     closeOnSwipeUpOrDown: false,
     disableScroll: false,
-    interval: 5000 // 5 seconds
+    startSlideshow: true
 };
 ```
 
@@ -240,7 +245,7 @@ gallery.next();
 // Move to the given slide index with the (optional) given duraction speed in milliseconds:
 gallery.slide(index, duration);
 
-// Start an automatic slideshow with the given delay:
+// Start an automatic slideshow with the given delay (optional):
 gallery.play(delay);
 
 // Stop the automatic slideshow:
