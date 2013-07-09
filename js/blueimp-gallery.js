@@ -1,5 +1,5 @@
 /*
- * blueimp Gallery JS 2.3.1
+ * blueimp Gallery JS 2.3.2
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -1110,6 +1110,8 @@
                 thumbnail = obj.getElementsByTagName && this.helper.query(obj, 'img');
                 if (thumbnail) {
                     thumbnail = thumbnail.cloneNode(false);
+                    thumbnail.className = '';
+                    thumbnail.removeAttribute('id');
                 } else if (thumbnailProperty) {
                     thumbnailUrl = this.getItemProperty(obj, thumbnailProperty);
                     if (thumbnailUrl) {
