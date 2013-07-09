@@ -1110,6 +1110,7 @@
                 thumbnail = obj.getElementsByTagName && this.helper.query(obj, 'img');
                 if (thumbnail) {
                     thumbnail = thumbnail.cloneNode(false);
+                    thumbnail.setAttribute('class', '');
                 } else if (thumbnailProperty) {
                     thumbnailUrl = this.getItemProperty(obj, thumbnailProperty);
                     if (thumbnailUrl) {
