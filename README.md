@@ -10,7 +10,7 @@ It features swipe, mouse and keyboard navigation, transition effects, slideshow 
 ## Setup
 Copy the **css**, **img** and **js** directories to your website.
 
-Add the following stylesheet resource to the head section of your webpage:
+Include the Gallery stylesheet in the head section of your webpage:
 
 ```html
 <link rel="stylesheet" href="css/blueimp-gallery.min.css">
@@ -31,16 +31,15 @@ Add the following HTML snippet with the Gallery widget to the body of your webpa
 </div>
 ```
 
-If you want to display the Gallery as inline carousel, add the CSS class **blueimp-gallery-carousel** to the Gallery container and remove the child element with the **close** class.  
-To initialize the Gallery with visible controls, add the CSS class **blueimp-gallery-controls** to the Gallery container.
+To initialize the Gallery with visible controls, add the CSS class **blueimp-gallery-controls** to the Gallery widget.
 
-Add the following script resource to the bottom of the body of your webpage:
+Include the Gallery script at the bottom of the body of your webpage:
 
 ```html
 <script src="js/blueimp-gallery.min.js"></script>
 ```
 
-Create a list of links to image files, optionally with enclosed thumbnails, somewhere on your webpage:
+Create a list of links to image files, optionally with enclosed thumbnails and add them to the body of your webpage, before including the Gallery script:
 
 ```html
 <div id="links">
@@ -56,20 +55,51 @@ Create a list of links to image files, optionally with enclosed thumbnails, some
 </div>
 ```
 
-## Initialization
-Initialize the Gallery the following way:
+Add the following JavaScript code after including the Gallery script, to display the images in the Gallery lightbox on click of the links:
 
-```js
-var links = document.getElementById('links').getElementsByTagName('a'),
-    options = {
-        // Set to true to initialize the Gallery with carousel specific options:
-        carousel: false
-    },
-    gallery = blueimp.Gallery(links, options);
+```html
+<script>
+document.getElementById('links').onclick = function (event) {
+    event = event || window.event;
+    var target = event.target || event.srcElement,
+        link = target.src ? target.parentNode : target,
+        options = {index: link},
+        links = this.getElementsByTagName('a');
+    if (blueimp.Gallery(links, options)) {
+        return false;
+    }
+};
+</script>
 ```
 
-The object returned by executing the Gallery function (the **gallery** variable in the example code above) is a new instance of the Gallery and allows to access the public API methods provided by the Gallery.  
-The Gallery initialization function returns **false** if the given list was empty, the Gallery widget is missing, or the browser doesn't pass the functionality test.
+### Carousel setup
+To display the images in an inline carousel instead of a lightbox, add the CSS class **blueimp-gallery-carousel** to the Gallery widget and remove the child element with the **close** class, or add a new Gallery widget with a different **id** to your webpage:
+
+```html
+<!-- The Gallery as inline carousel, can be positioned anywhere on the page -->
+<div id="blueimp-gallery-carousel" class="blueimp-gallery blueimp-gallery-carousel">
+    <div class="slides"></div>
+    <h3 class="title"></h3>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <a class="play-pause"></a>
+    <ol class="indicator"></ol>
+</div>
+```
+
+Add the following JavaScript code after including the Gallery script to initialize the carousel:
+
+```html
+<script>
+blueimp.Gallery(
+    document.getElementById('links').getElementsByTagName('a'),
+    {
+        container: '#blueimp-gallery-carousel',
+        carousel: true
+    }
+);
+</script>
+```
 
 ## Options
 The following are the default options set by the Gallery:
@@ -199,6 +229,8 @@ var options = {
 };
 ```
 
+### Carousel options
+
 If the **carousel** option is **true**, the following options are set to different default values:
 
 ```js
@@ -217,6 +249,62 @@ var carouselOptions = {
 
 The options object passed to the Gallery function extends the default options and also those options set via **carousel** mode.
 
+### Container and element options
+The widget **container** option can be set as id string (with "#" as prefix) or element node, so the following are equivalent:
+
+```js
+var options = {
+    container: '#blueimp-gallery'
+};
+```
+
+```js
+var options = {
+    container: document.getElementById('blueimp-gallery')
+};
+```
+
+The **slidesContainer**, **titleElement** and **indicatorContainer** options can also be defined using a tag name, which selects the first tag of this kind found inside of the widget container:
+
+```js
+var options = {
+    slidesContainer: 'div',
+    titleElement: 'h3',
+    indicatorContainer: 'ol'
+};
+```
+
+It is also possible to define the container and element options with a more complex [querySelector](https://developer.mozilla.org/en-US/docs/Web/API/document.querySelector), although this won't work in IE7.
+
+### Property options
+The options ending with "Property" define how the properties of each link element are accessed.  
+For example, the **urlProperty** is by default set to **href**. This allows to define link elements with **href** or **data-href** attributes:
+
+```html
+<div id="links">
+    <a href="images/banana.jpg">Banana</a>
+    <a data-href="images/apple.jpg">Apple</a>
+</div>
+```
+
+If the links are passed as JavaScript array, it is also possible to define nested property names, by using the native JavaScript accessor syntax for the property string:
+
+```js
+blueimp.Gallery(
+    [
+        {
+            data: {urls: ['http://example.org/images/banana.jpg']}
+        },
+        {
+            data: {urls: ['http://example.org/images/apple.jpg']}
+        }
+    ],
+    {
+        urlProperty: 'data.urls[0]'
+    }
+);
+```
+
 ## API
 The blueimp Gallery can be initialized by simply calling it as a function with an array of links as first argument and an optional options object as second argument:
 
@@ -227,7 +315,12 @@ var gallery = blueimp.Gallery(links, options);
 The links array can be a list of URL strings or a list of objects with URL properties.  
 The URL property name defined by each list object can be configured via the **urlProperty** option. By default, it is set to **href**, which allows to pass a list of HTML link elements as first argument.
 
-The Gallery object provides the following public API methods::
+The object returned by executing the Gallery function (the **gallery** variable in the example code above) is a new instance of the Gallery and allows to access the public API methods provided by the Gallery.  
+The Gallery initialization function returns **false** if the given list was empty, the Gallery widget is missing, or the browser doesn't pass the functionality test.
+
+### API methods
+
+The Gallery object returned by executing the Gallery function provides the following public API methods:
 
 ```js
 // Return the current slide index position:
@@ -306,6 +399,20 @@ blueimp.Gallery([
         ]
     }
 ]);
+```
+
+It is also possible to define the video sources as data-attribute on a link element in [JSON](https://developer.mozilla.org/en-US/docs/JSON) array format:
+
+```html
+<div id="links">
+    <a
+        href="http://example.org/videos/fruits.mp4"
+        title="Fruits"
+        type="video/mp4"
+        data-poster="http://example.org/images/fruits.jpg"
+        data-sources='[{"href": "http://example.org/videos/fruits.mp4", "type": "video/mp4"}, {"href": "http://example.org/videos/fruits.ogg", "type": "video/ogg"}]'
+    >Fruits</a>
+</div>
 ```
 
 ### Additional content types
