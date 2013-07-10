@@ -511,10 +511,12 @@ Next, add the attribute **data-gallery** to your Gallery links:
 The onclick handler from the Setup guide is not required and can be removed.
 
 #### HTML5 data-attributes
-Options for the Gallery lightbox opened via the jQuery plugin can be defined as [HTML5 data-attributes](http://api.jquery.com/data/#data-html5) on the Gallery widget container:
+Options for the Gallery lightbox opened via the jQuery plugin can be defined as [HTML5 data-attributes](http://api.jquery.com/data/#data-html5) on the Gallery widget container.
+
+The jQuery plugin also introduces the additional **filter** option, which is applied to the Gallery links via [jQuery's filter method](http://api.jquery.com/filter/) and allows to remove duplicates from the list:
 
 ```html
-<div id="blueimp-gallery" class="blueimp-gallery" data-start-slideshow="true">
+<div id="blueimp-gallery" class="blueimp-gallery" data-start-slideshow="true" data-filter=":even">
     <div class="slides"></div>
     <h3 class="title"></h3>
     <a class="prev">‹</a>
@@ -525,7 +527,8 @@ Options for the Gallery lightbox opened via the jQuery plugin can be defined as 
 </div>
 ```
 
-This will initialize the Gallery with the option **startSlideshow** set to **true**.
+This will initialize the Gallery with the option **startSlideshow** set to **true**.  
+It will also filter the Gallery links so that only links with an even index number will be included.
 
 #### Container ids and link grouping
 If the **data-gallery** attribute value is a valid id string (e.g. "#blueimp-gallery"), it is used as container option.  
