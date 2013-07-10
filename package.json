@@ -46,6 +46,6 @@
     ],
     "devDependencies": {
         "uglify-js": "2.3.6",
-        "less": "1.4.0"
+        "less": "1.4.1"
     }
 }
