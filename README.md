@@ -215,17 +215,20 @@ var options = {
     // greater 0 to override the default transition speed:
     slideshowTransitionSpeed: undefined,
     // Callback function executed on slide change.
-    // Is called with the list object as "this" object and the
+    // Is called with the gallery instance as "this" object and the
     // current index and slide as arguments:
     onslide: undefined,
     // Callback function executed after the slide change transition.
-    // Is called with the list object as "this" object and the
+    // Is called with the gallery instance as "this" object and the
     // current index and slide as arguments:
     onslideend: undefined,
     // Callback function executed on slide content load.
-    // Is called with the list object as "this" object and the
+    // Is called with the gallery instance as "this" object and the
     // slide index and slide element as arguments:
-    onslidecomplete: undefined
+    onslidecomplete: undefined,
+    // Callback function executed when the Gallery is closed.
+    // Is called with the gallery instance as "this" object:
+    onclose: undefined
 };
 ```
 

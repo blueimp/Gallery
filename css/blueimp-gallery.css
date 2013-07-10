@@ -1,6 +1,6 @@
 @charset 'UTF-8';
 /*
- * blueimp Gallery CSS 2.3.0
+ * blueimp Gallery CSS 2.4.0
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -198,28 +198,20 @@
 }
 .blueimp-gallery > .indicator > li {
   display: inline-block;
-  width: 10px;
-  height: 10px;
+  width: 9px;
+  height: 9px;
   margin: 6px 3px 0 3px;
+  border: 1px solid transparent;
   background: #ccc;
-  background: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.25) center no-repeat;
   border-radius: 5px;
   box-shadow: 0 0 2px #000;
+  opacity: 0.5;
   cursor: pointer;
 }
-.blueimp-gallery > .indicator > li > img {
-  display: block;
-  width: 10px;
-  height: 10px;
-  border-radius: 5px;
-  opacity: 0.5;
-}
 .blueimp-gallery > .indicator > .active {
-  background: #fff;
-}
-.blueimp-gallery > .indicator > .active > img {
-  margin: -1px;
-  border: 1px solid #fff;
+  background-color: #fff;
+  border-color: #fff;
   opacity: 1;
 }
 .blueimp-gallery-controls > .prev,

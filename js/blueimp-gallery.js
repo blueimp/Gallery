@@ -1,5 +1,5 @@
 /*
- * blueimp Gallery JS 2.3.2
+ * blueimp Gallery JS 2.4.0
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -268,17 +268,20 @@
             // greater 0 to override the default transition speed:
             slideshowTransitionSpeed: undefined,
             // Callback function executed on slide change.
-            // Is called with the list object as "this" object and the
+            // Is called with the gallery instance as "this" object and the
             // current index and slide as arguments:
             onslide: undefined,
             // Callback function executed after the slide change transition.
-            // Is called with the list object as "this" object and the
+            // Is called with the gallery instance as "this" object and the
             // current index and slide as arguments:
             onslideend: undefined,
             // Callback function executed on slide content load.
-            // Is called with the list object as "this" object and the
+            // Is called with the gallery instance as "this" object and the
             // slide index and slide element as arguments:
-            onslidecomplete: undefined
+            onslidecomplete: undefined,
+            // Callback function executed when the Gallery is closed.
+            // Is called with the gallery instance as "this" object:
+            onclose: undefined
         },
 
         carouselOptions: {
@@ -500,6 +503,9 @@
                 if (this.activeIndicator) {
                     helper.removeClass(this.activeIndicator, options.activeClass);
                 }
+            }
+            if (this.options.onclose) {
+                this.options.onclose.call(this);
             }
         },
 
@@ -1102,28 +1108,22 @@
 
         createIndicator: function (obj) {
             var indicator = this.indicatorPrototype.cloneNode(false),
+                title = this.getItemProperty(obj, this.options.titleProperty),
                 thumbnailProperty = this.options.thumbnailProperty,
                 thumbnailUrl,
-                thumbnail,
-                title = this.getItemProperty(obj, this.options.titleProperty);
+                thumbnail;
             if (this.options.thumbnailIndicators) {
                 thumbnail = obj.getElementsByTagName && this.helper.query(obj, 'img');
                 if (thumbnail) {
-                    thumbnail = thumbnail.cloneNode(false);
-                    thumbnail.className = '';
-                    thumbnail.removeAttribute('id');
+                    thumbnailUrl = thumbnail.src;
                 } else if (thumbnailProperty) {
                     thumbnailUrl = this.getItemProperty(obj, thumbnailProperty);
-                    if (thumbnailUrl) {
-                        thumbnail = this.thumbnailPrototype.cloneNode(false);
-                        thumbnail.src = thumbnailUrl;
-                    }
                 }
-                if (thumbnail) {
-                    indicator.appendChild(thumbnail);
+                if (thumbnailUrl) {
+                    indicator.style.backgroundImage = 'url("' + thumbnailUrl + '")';
                 }
             }
-            if (title && !(thumbnail && thumbnail.title)) {
+            if (title) {
                 indicator.title = title;
             }
             return indicator;
@@ -1207,9 +1207,6 @@
                 this.helper.addClass(this.slidePrototype, this.options.slideClass);
                 if (this.indicatorContainer) {
                     this.indicatorPrototype = document.createElement('li');
-                    if (this.options.thumbnailIndicators) {
-                        this.thumbnailPrototype = this.imagePrototype.cloneNode(false);
-                    }
                     this.indicators = this.indicatorContainer.children;
                 }
                 this.slides = this.slidesContainer.children;
