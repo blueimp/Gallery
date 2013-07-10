@@ -481,8 +481,94 @@ blueimp.Gallery([
 ]);
 ```
 
+### jQuery plugin
+The blueimp Gallery jQuery plugin registers a global click handler to open links with **data-gallery** attribute in the Gallery lightbox.
+
+To use it, follow the Setup guide, then include the plugin script after including the Gallery script and [jQuery](http://jquery.com/):
+
+```html
+<script src="js/blueimp-gallery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<script src="js/jquery.blueimp-gallery.min.js"></script>
+```
+
+Next, add the attribute **data-gallery** to your Gallery links:
+
+```html
+<div id="links">
+    <a href="images/banana.jpg" title="Banana" data-gallery>
+        <img src="images/thumbnails/banana.jpg" alt="Banana">
+    </a>
+    <a href="images/apple.jpg" title="Apple" data-gallery>
+        <img src="images/thumbnails/apple.jpg" alt="Apple">
+    </a>
+    <a href="images/orange.jpg" title="Orange" data-gallery>
+        <img src="images/thumbnails/orange.jpg" alt="Orange">
+    </a>
+</div>
+```
+
+The onclick handler from the Setup guide is not required and can be removed.
+
+#### HTML5 data-attributes
+Options for the Gallery lightbox opened via the jQuery plugin can be defined as [HTML5 data-attributes](http://api.jquery.com/data/#data-html5) on the Gallery widget container:
+
+```html
+<div id="blueimp-gallery" class="blueimp-gallery" data-start-slideshow="true">
+    <div class="slides"></div>
+    <h3 class="title"></h3>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <a class="close">×</a>
+    <a class="play-pause"></a>
+    <ol class="indicator"></ol>
+</div>
+```
+
+This will initialize the Gallery with the option **startSlideshow** set to **true**.
+
+#### Container ids and link grouping
+If the **data-gallery** attribute value is a valid id string (e.g. "#blueimp-gallery"), it is used as container option.  
+Setting **data-gallery** to a non-empty string also allows to group links into different sets of Gallery images:
+
+```html
+<div id="fruits">
+    <a href="images/banana.jpg" title="Banana" data-gallery="#blueimp-gallery-fruits">
+        <img src="images/thumbnails/banana.jpg" alt="Banana">
+    </a>
+    <a href="images/apple.jpg" title="Apple" data-gallery="#blueimp-gallery-fruits">
+        <img src="images/thumbnails/apple.jpg" alt="Apple">
+    </a>
+</div>
+<div id="vegetables">
+    <a href="images/tomato.jpg" title="Tomato" data-gallery="#blueimp-gallery-vegetables">
+        <img src="images/thumbnails/tomato.jpg" alt="Tomato">
+    </a>
+    <a href="images/onion.jpg" title="Onion" data-gallery="#blueimp-gallery-vegetables">
+        <img src="images/thumbnails/onion.jpg" alt="Onion">
+    </a>
+</div>
+```
+
+This will open the links with the **data-gallery** attribute **#blueimp-gallery-fruits** in the Gallery widget with the id **blueimp-gallery-fruits**, and the links with the **data-gallery** attribute **#blueimp-gallery-vegetables**  in the Gallery widget with the id **blueimp-gallery-vegetables**.
+
+#### Gallery object
+The gallery object is stored via [jQuery data storage](http://api.jquery.com/category/miscellaneous/data-storage/) on the Gallery widget when the Gallery is opened and can be retrieved the following way:
+
+```js
+var gallery = $('#blueimp-gallery').data('gallery');
+```
+
+This gallery object provides all methods outlined in the API methods section.
+
 ## Requirements
-blueimp Gallery doesn't require any other libraries and can be used standalone without any dependencies.
+blueimp Gallery doesn't require any other libraries and can be used standalone without any dependencies.  
+
+The jQuery plugin has the following dependencies:
+* blueimp Gallery v. 2.4+ (included)
+* [jQuery](http://jquery.com/) v. 1.7+
+
+Please note that the jQuery plugin is an optional extension and not required for the Gallery functionality.
 
 ## Browsers
 blueimp Gallery has been tested with and supports the following browsers:

@@ -7,3 +7,4 @@ css:
 
 js:
 	node_modules/.bin/uglifyjs js/blueimp-gallery.js -c -m -o js/blueimp-gallery.min.js
+	node_modules/.bin/uglifyjs js/jquery.blueimp-gallery.js -c -m -o js/jquery.blueimp-gallery.min.js

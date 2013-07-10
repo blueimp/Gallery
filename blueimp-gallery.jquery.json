@@ -33,10 +33,6 @@
             "url": "https://blueimp.net"
         }
     ],
-    "repository": {
-        "type": "git",
-        "url": "git://github.com/blueimp/Gallery.git"
-    },
     "bugs": "https://github.com/blueimp/Gallery/issues",
     "licenses": [
         {
@@ -44,19 +40,9 @@
             "url": "http://www.opensource.org/licenses/MIT"
         }
     ],
-    "devDependencies": {
-        "uglify-js": "2.3.6",
-        "less": "1.4.0"
+    "dependencies": {
+        "jquery": ">=1.7"
     },
-    "main": [
-        "./css/blueimp-gallery.css",
-        "./img/error.png",
-        "./img/error.svg",
-        "./img/loading.gif",
-        "./img/play-pause.png",
-        "./img/play-pause.svg",
-        "./img/video-play.png",
-        "./img/video-play.svg",
-        "./js/blueimp-gallery.js"
-    ]
+    "docs": "https://github.com/blueimp/Gallery/blob/master/README.md",
+    "demo": "http://blueimp.github.io/Gallery/"
 }

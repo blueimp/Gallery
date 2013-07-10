@@ -1,5 +1,5 @@
 /*
- * blueimp Gallery Demo JS 2.3.3
+ * blueimp Gallery Demo JS 2.4.0
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -9,22 +9,11 @@
  * http://www.opensource.org/licenses/MIT
  */
 
+/*jslint unparam: true */
 /*global window, document, blueimp, $ */
 
 $(function () {
     'use strict';
-
-    var linksContainer = $('#links').on('click', 'a', function (event) {
-        // Show the Gallery as lightbox when selecting a link,
-        // starting with the selected image:
-        if (blueimp.Gallery(linksContainer.find('a'), {
-                index: $(this).data('index')
-            })) {
-            // Prevent the default link action on
-            // successful Gallery initialization:
-            event.preventDefault();
-        }
-    });
 
     // Load demo images from flickr:
     $.ajax({
@@ -39,8 +28,9 @@ $(function () {
         dataType: 'jsonp',
         jsonp: 'jsoncallback'
     }).done(function (result) {
-        var baseUrl,
-            carouselLinks = [];
+        var carouselLinks = [],
+            linksContainer = $('#links'),
+            baseUrl;
         // Add the demo images as links with thumbnails to the page:
         $.each(result.photos.photo, function (index, photo) {
             baseUrl = 'http://farm' + photo.farm + '.static.flickr.com/' +
@@ -49,7 +39,7 @@ $(function () {
                 .append($('<img>').prop('src', baseUrl + '_s.jpg'))
                 .prop('href', baseUrl + '_b.jpg')
                 .prop('title', photo.title)
-                .data('index', index)
+                .attr('data-gallery', '')
                 .appendTo(linksContainer);
             carouselLinks.push({
                 href: baseUrl + '_c.jpg',
