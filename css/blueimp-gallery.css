@@ -1,6 +1,6 @@
 @charset 'UTF-8';
 /*
- * blueimp Gallery CSS 2.4.0
+ * blueimp Gallery CSS 2.4.1
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -86,6 +86,7 @@
   width: 128px;
   height: 128px;
   background: url(../img/video-play.png) center no-repeat;
+  opacity: 0.8;
   cursor: pointer;
 }
 .blueimp-gallery > .slides > .slide > .video-playing > a,
@@ -137,11 +138,6 @@
   opacity: 0.5;
   cursor: pointer;
   display: none;
-  -webkit-user-select: none;
-   -khtml-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
 }
 .blueimp-gallery > .next {
   left: auto;
@@ -157,6 +153,7 @@
   line-height: 30px;
   color: #fff;
   text-shadow: 0 0 2px #000;
+  opacity: 0.8;
   display: none;
 }
 .blueimp-gallery > .close {
@@ -166,7 +163,6 @@
   margin: -15px;
   font-size: 30px;
   text-decoration: none;
-  opacity: 0.8;
   cursor: pointer;
 }
 .blueimp-gallery > .play-pause {
@@ -177,7 +173,7 @@
   height: 15px;
   background: url(../img/play-pause.png) 0 0 no-repeat;
   cursor: pointer;
-  opacity: 0.8;
+  opacity: 0.5;
   display: none;
 }
 .blueimp-gallery-playing > .play-pause {
@@ -236,6 +232,18 @@
 .blueimp-gallery-single > .indicator {
   display: none;
 }
+.blueimp-gallery > .slides > .slide > .slide-content,
+.blueimp-gallery > .prev,
+.blueimp-gallery > .next,
+.blueimp-gallery > .close,
+.blueimp-gallery > .play-pause
+.blueimp-gallery > .indicator {
+  -webkit-user-select: none;
+   -khtml-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
 
 /* Replace PNGs with SVGs for capable browsers (excluding IE<9) */
 body:last-child .blueimp-gallery > .slides > .slide > .video-content > a {
@@ -245,7 +253,13 @@ body:last-child .blueimp-gallery > .slides > .slide-error {
   background-image: url(../img/error.svg);
 }
 body:last-child .blueimp-gallery > .play-pause {
+  width: 20px;
+  height: 20px;
+  background-size: 40px 20px;
   background-image: url(../img/play-pause.svg);
+}
+body:last-child .blueimp-gallery-playing > .play-pause {
+  background-position: -20px 0;
 }
 
 @media (max-width: 767px) {
