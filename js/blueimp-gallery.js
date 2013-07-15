@@ -1,5 +1,5 @@
 /*
- * blueimp Gallery JS 2.4.0
+ * blueimp Gallery JS 2.5.0
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -15,7 +15,19 @@
 /*jslint regexp: true */
 /*global define, window, document, DocumentTouch */
 
-(function () {
+(function (factory) {
+    'use strict';
+    if (typeof define === 'function' && define.amd) {
+        // Register as an anonymous AMD module:
+        define(['./blueimp-helper'], factory);
+    } else {
+        // Browser globals:
+        window.blueimp = window.blueimp || {};
+        window.blueimp.Gallery = factory(
+            window.blueimp.helper || window.jQuery
+        );
+    }
+}(function ($) {
     'use strict';
 
     function Gallery(list, options) {
@@ -31,132 +43,10 @@
         this.list = list;
         this.num = list.length;
         this.initOptions(options);
-        this.initStartIndex();
-        if (this.initWidget() === false) {
-            return false;
-        }
-        this.initEventListeners();
-        // Load the slide at the given index:
-        this.onslide(this.index);
-        // Start the automatic slideshow if applicable:
-        if (this.options.startSlideshow) {
-            this.play();
-        }
-        if (this.options.fullScreen && !this.getFullScreenElement()) {
-            this.requestFullScreen(this.container);
-        }
+        this.initialize();
     }
 
-    var helper = {
-
-        extend: function (obj1, obj2) {
-            var prop;
-            for (prop in obj2) {
-                if (obj2.hasOwnProperty(prop)) {
-                    obj1[prop] = obj2[prop];
-                }
-            }
-            return obj1;
-        },
-
-        hasClass: function (element, className) {
-            return new RegExp('(^|\\s+)' + className + '(\\s+|$)').test(element.className);
-        },
-
-        addClass: function (element, className) {
-            if (!element.className) {
-                element.className = className;
-                return;
-            }
-            if (this.hasClass(element, className)) {
-                return;
-            }
-            element.className += ' ' + className;
-        },
-
-        removeClass: function (element, className) {
-            var regexp = new RegExp('(^|\\s+)' + className + '(\\s+|$)');
-            element.className = element.className.replace(regexp, ' ');
-        },
-
-        addListener: function (element, eventName, handler) {
-            if (element.addEventListener) {
-                element.addEventListener(eventName, handler, false);
-            } else if (element.attachEvent) {
-                element.attachEvent('on' + eventName, handler);
-            }
-        },
-
-        removeListener: function (element, eventName, handler) {
-            if (element.removeEventListener) {
-                element.removeEventListener(eventName, handler, false);
-            } else if (element.detachEvent) {
-                element.detachEvent('on' + eventName, handler);
-            }
-        },
-
-        preventDefault: function (event) {
-            if (event.preventDefault) {
-                event.preventDefault();
-            } else {
-                event.returnValue = false;
-            }
-        },
-
-        empty: function (element) {
-            while (element.hasChildNodes()) {
-                element.removeChild(element.lastChild);
-            }
-        },
-
-        query: function (container, element) {
-            if (typeof element === 'string') {
-                if (container.querySelector) {
-                    return container.querySelector(element);
-                }
-                if (element.charAt(0) === '#') {
-                    return container.getElementById(element.slice(1));
-                }
-                return container.getElementsByTagName(element)[0];
-            }
-            return element;
-        },
-
-        contains: function (container, element) {
-            do {
-                element = element.parentNode;
-                if (element === container) {
-                    return true;
-                }
-            } while (element);
-            return false;
-        },
-
-        parseJSON: function (string) {
-            return window.JSON && JSON.parse(string);
-        },
-
-        getNestedProperty: function (obj, property) {
-            property.replace(
-                // Matches native JavaScript notation in a String,
-                // e.g. '["doubleQuoteProp"].dotProp[2]'
-                /\[(?:'([^']+)'|"([^"]+)"|(\d+))\]|(?:(?:^|\.)([^\.\[]+))/g,
-                function (str, singleQuoteProp, doubleQuoteProp, arrayIndex, dotProp) {
-                    var prop = dotProp || singleQuoteProp || doubleQuoteProp ||
-                            (arrayIndex && parseInt(arrayIndex, 10));
-                    if (str && obj) {
-                        obj = obj[prop];
-                    }
-                }
-            );
-            return obj;
-        }
-
-    };
-
-    helper.extend(Gallery.prototype, {
-
-        helper: helper,
+    $.extend(Gallery.prototype, {
 
         options: {
             // The Id, element or querySelector of the gallery widget:
@@ -165,8 +55,6 @@
             slidesContainer: 'div',
             // The tag name, Id, element or querySelector of the title element:
             titleElement: 'h3',
-            // The tag name, Id, element or querySelector of the indicator container:
-            indicatorContainer: 'ol',
             // The class to add when the gallery is visible:
             displayClass: 'blueimp-gallery-display',
             // The class to add when the gallery controls are visible:
@@ -187,12 +75,6 @@
             slideErrorClass: 'slide-error',
             // The class for the content element loaded into each slide:
             slideContentClass: 'slide-content',
-            // The class for video content elements:
-            videoContentClass: 'video-content',
-            // The class for video when it is loading:
-            videoLoadingClass: 'video-loading',
-            // The class for video when it is playing:
-            videoPlayingClass: 'video-playing',
             // The class for the "toggle" control:
             toggleClass: 'toggle',
             // The class for the "prev" control:
@@ -203,28 +85,15 @@
             closeClass: 'close',
             // The class for the "play-pause" toggle control:
             playPauseClass: 'play-pause',
-            // The class for the active indicator:
-            activeClass: 'active',
             // The list object property (or data attribute) with the object type:
             typeProperty: 'type',
             // The list object property (or data attribute) with the object title:
             titleProperty: 'title',
             // The list object property (or data attribute) with the object URL:
             urlProperty: 'href',
-            // The list object property (or data attribute) with the thumbnail URL,
-            // used as alternative to a thumbnail child element:
-            thumbnailProperty: 'thumbnail',
-            // The list object property (or data attribute) for the video poster URL:
-            videoPosterProperty: 'poster',
-            // The list object property (or data attribute) for the video sources array:
-            videoSourcesProperty: 'sources',
-            // Defines if the gallery indicators should display a thumbnail:
-            thumbnailIndicators: true,
             // Defines if the gallery slides are cleared from the gallery modal,
             // or reused for the next gallery initialization:
             clearSlides: true,
-            // Defines if the gallery should open in fullscreen mode:
-            fullScreen: false,
             // Defines if images should be stretched to fill the available space,
             // while maintaining their aspect ratio (will only be enabled for browsers
             // supporting background-size="contain", which excludes IE < 9):
@@ -235,7 +104,7 @@
             toggleSlideshowOnSpace: true,
             // Navigate the gallery by pressing left and right on the keyboard:
             enableKeyboardNavigation: true,
-            // Close the gallery on pressing the ESC key:
+            // Close the gallery on pressing the Esc key:
             closeOnEscape: true,
             // Close the gallery when clicking on an empty slide area:
             closeOnSlideClick: true,
@@ -360,6 +229,20 @@
             // for the CSS3 transform translateZ test to be applicable:
         }(document.createElement('div'))),
 
+        initialize: function () {
+            this.initStartIndex();
+            if (this.initWidget() === false) {
+                return false;
+            }
+            this.initEventListeners();
+            // Load the slide at the given index:
+            this.onslide(this.index);
+            // Start the automatic slideshow if applicable:
+            if (this.options.startSlideshow) {
+                this.play();
+            }
+        },
+
         slide: function (to, speed) {
             window.clearTimeout(this.timeout);
             var index = this.index,
@@ -446,13 +329,13 @@
                     this.interval
                 );
             }
-            this.helper.addClass(this.container, this.options.playingClass);
+            this.container.addClass(this.options.playingClass);
         },
 
         pause: function () {
             window.clearTimeout(this.timeout);
             this.interval = null;
-            this.helper.removeClass(this.container, this.options.playingClass);
+            this.container.removeClass(this.options.playingClass);
         },
 
         add: function (list) {
@@ -461,14 +344,14 @@
             this.num = this.list.length;
             if (this.num > 2 && this.options.continuous === null) {
                 this.options.continuous = true;
-                this.helper.removeClass(this.container, this.options.leftEdgeClass);
+                this.container.removeClass(this.options.leftEdgeClass);
             }
-            this.helper.removeClass(this.container, this.options.rightEdgeClass);
-            this.helper.removeClass(this.container, this.options.singleClass);
+            this.container
+                .removeClass(this.options.rightEdgeClass)
+                .removeClass(this.options.singleClass);
             for (i = this.num - list.length; i < this.num; i += 1) {
                 this.addSlide(i);
                 this.positionSlide(i);
-                this.addIndicator(i);
             }
             this.elements.length =
                 this.status.length =
@@ -476,33 +359,27 @@
             this.initSlides(true);
         },
 
+        resetSlides: function () {
+            this.slidesContainer.empty();
+            this.slides = [];
+        },
+
         close: function () {
-            var helper = this.helper,
-                options = this.options;
-            if (this.getFullScreenElement() === this.container) {
-                this.exitFullScreen();
-            }
-            this.container.style.display = 'none';
-            helper.removeClass(this.container, options.displayClass);
-            helper.removeClass(this.container, options.singleClass);
-            helper.removeClass(this.container, options.leftEdgeClass);
-            helper.removeClass(this.container, options.rightEdgeClass);
-            if (options.hidePageScrollbars) {
-                document.body.style.overflow = this.bodyOverflowStyle;
-            }
+            var options = this.options;
             this.destroyEventListeners();
             // Cancel the slideshow:
             this.pause();
-            // Reset the slides:
-            if (options.clearSlides) {
-                helper.empty(this.slidesContainer);
-                if (this.indicatorContainer) {
-                    helper.empty(this.indicatorContainer);
-                }
-            } else {
-                if (this.activeIndicator) {
-                    helper.removeClass(this.activeIndicator, options.activeClass);
-                }
+            this.container[0].style.display = 'none';
+            this.container
+                .removeClass(options.displayClass)
+                .removeClass(options.singleClass)
+                .removeClass(options.leftEdgeClass)
+                .removeClass(options.rightEdgeClass);
+            if (options.hidePageScrollbars) {
+                document.body.style.overflow = this.bodyOverflowStyle;
+            }
+            if (this.options.clearSlides) {
+                this.resetSlides();
             }
             if (this.options.onclose) {
                 this.options.onclose.call(this);
@@ -538,7 +415,7 @@
 
         animate: function (from, to, speed) {
             if (!speed) {
-                this.slidesContainer.style.left = to + 'px';
+                this.slidesContainer[0].style.left = to + 'px';
                 return;
             }
             var that = this,
@@ -546,14 +423,23 @@
                 timer = window.setInterval(function () {
                     var timeElap = new Date().getTime() - start;
                     if (timeElap > speed) {
-                        that.slidesContainer.style.left = to + 'px';
+                        that.slidesContainer[0].style.left = to + 'px';
                         that.ontransitionend();
                         window.clearInterval(timer);
                         return;
                     }
-                    that.slidesContainer.style.left = (((to - from) *
-                        (Math.floor((timeElap / speed) * 100) / 100)) + from) + 'px';
+                    that.slidesContainer[0].style.left = (((to - from) *
+                        (Math.floor((timeElap / speed) * 100) / 100)) +
+                            from) + 'px';
                 }, 4);
+        },
+
+        preventDefault: function (event) {
+            if (event.preventDefault) {
+                event.preventDefault();
+            } else {
+                event.returnValue = false;
+            }
         },
 
         onresize: function () {
@@ -593,7 +479,7 @@
                 var target = event.target,
                     related = event.relatedTarget;
                 if (!related || (related !== target &&
-                        !this.helper.contains(target, related))) {
+                        !$.contains(target, related))) {
                     this.onmouseup(event);
                 }
             }
@@ -766,16 +652,16 @@
                 return;
             }
             index = this.getNodeIndex(parent);
-            this.helper.removeClass(parent, this.options.slideLoadingClass);
+            $(parent).removeClass(this.options.slideLoadingClass);
             if (event.type === 'error') {
-                this.helper.addClass(parent, this.options.slideErrorClass);
+                $(parent).addClass(this.options.slideErrorClass);
                 this.status[index] = 3; // Fail
             } else {
                 this.status[index] = 2; // Done
             }
             // Fix for IE7's lack of support for percentage max-height:
-            if (target.clientHeight > this.container.clientHeight) {
-                target.style.maxHeight = this.container.clientHeight;
+            if (target.clientHeight > this.container[0].clientHeight) {
+                target.style.maxHeight = this.container[0].clientHeight;
             }
             if (this.interval && this.slides[this.index] === parent) {
                 this.play();
@@ -798,33 +684,77 @@
             switch (event.which || event.keyCode) {
             case 13: // Return
                 if (this.options.toggleControlsOnReturn) {
-                    this.helper.preventDefault(event);
+                    this.preventDefault(event);
                     this.toggleControls();
                 }
                 break;
-            case 27: // ESC
+            case 27: // Esc
                 if (this.options.closeOnEscape) {
                     this.close();
                 }
                 break;
             case 32: // Space
                 if (this.options.toggleSlideshowOnSpace) {
-                    this.helper.preventDefault(event);
+                    this.preventDefault(event);
                     this.toggleSlideshow();
                 }
                 break;
-            case 37: // left
+            case 37: // Left
                 if (this.options.enableKeyboardNavigation) {
-                    this.helper.preventDefault(event);
+                    this.preventDefault(event);
                     this.prev();
                 }
                 break;
-            case 39: // right
+            case 39: // Right
                 if (this.options.enableKeyboardNavigation) {
-                    this.helper.preventDefault(event);
+                    this.preventDefault(event);
                     this.next();
                 }
                 break;
+            }
+        },
+
+        handleClick: function (event) {
+            var options = this.options,
+                target = event.target || event.srcElement,
+                parent = target.parentNode,
+                isTarget = function (className) {
+                    return $(target).hasClass(className) ||
+                        $(parent).hasClass(className);
+                };
+            if (parent === this.slidesContainer[0]) {
+                // Click on slide background
+                this.preventDefault(event);
+                if (options.closeOnSlideClick) {
+                    this.close();
+                } else {
+                    this.toggleControls();
+                }
+            } else if (parent.parentNode &&
+                    parent.parentNode === this.slidesContainer[0]) {
+                // Click on displayed element
+                this.preventDefault(event);
+                this.toggleControls();
+            } else if (isTarget(options.toggleClass)) {
+                // Click on "toggle" control
+                this.preventDefault(event);
+                this.toggleControls();
+            } else if (isTarget(options.prevClass)) {
+                // Click on "prev" control
+                this.preventDefault(event);
+                this.prev();
+            } else if (isTarget(options.nextClass)) {
+                // Click on "next" control
+                this.preventDefault(event);
+                this.next();
+            } else if (isTarget(options.closeClass)) {
+                // Click on "close" control
+                this.preventDefault(event);
+                this.close();
+            } else if (isTarget(options.playPauseClass)) {
+                // Click on "play-pause" control
+                this.preventDefault(event);
+                this.toggleSlideshow();
             }
         },
 
@@ -835,99 +765,43 @@
                 delete this.touchDelta;
                 return;
             }
-            var options = this.options,
-                target = event.target || event.srcElement,
-                parent = target.parentNode,
-                helper = this.helper,
-                isTarget = function (className) {
-                    return helper.hasClass(target, className) ||
-                        helper.hasClass(parent, className);
-                };
-            if (parent === this.slidesContainer) {
-                // Click on slide background
-                helper.preventDefault(event);
-                if (options.closeOnSlideClick) {
-                    this.close();
-                } else {
-                    this.toggleControls();
-                }
-            } else if (parent.parentNode &&
-                    parent.parentNode === this.slidesContainer) {
-                // Click on displayed element
-                helper.preventDefault(event);
-                this.toggleControls();
-            } else if (parent === this.indicatorContainer) {
-                // Click on indicator element
-                helper.preventDefault(event);
-                this.slide(this.getNodeIndex(target));
-            } else if (parent.parentNode === this.indicatorContainer) {
-                // Click on indicator child element
-                helper.preventDefault(event);
-                this.slide(this.getNodeIndex(parent));
-            } else if (isTarget(options.toggleClass)) {
-                // Click on "toggle" control
-                helper.preventDefault(event);
-                this.toggleControls();
-            } else if (isTarget(options.prevClass)) {
-                // Click on "prev" control
-                helper.preventDefault(event);
-                this.prev();
-            } else if (isTarget(options.nextClass)) {
-                // Click on "next" control
-                helper.preventDefault(event);
-                this.next();
-            } else if (isTarget(options.closeClass)) {
-                // Click on "close" control
-                helper.preventDefault(event);
-                this.close();
-            } else if (isTarget(options.playPauseClass)) {
-                // Click on "play-pause" control
-                helper.preventDefault(event);
-                this.toggleSlideshow();
-            }
+            return this.handleClick(event);
         },
 
         updateEdgeClasses: function (index) {
             if (!index) {
-                this.helper.addClass(this.container, this.options.leftEdgeClass);
+                this.container.addClass(this.options.leftEdgeClass);
             } else {
-                this.helper.removeClass(this.container, this.options.leftEdgeClass);
+                this.container.removeClass(this.options.leftEdgeClass);
             }
             if (index === this.num - 1) {
-                this.helper.addClass(this.container, this.options.rightEdgeClass);
+                this.container.addClass(this.options.rightEdgeClass);
             } else {
-                this.helper.removeClass(this.container, this.options.rightEdgeClass);
+                this.container.removeClass(this.options.rightEdgeClass);
             }
         },
 
-        onslide: function (index) {
+        handleSlide: function (index) {
             if (!this.options.continuous) {
                 this.updateEdgeClasses(index);
             }
             this.loadElements(index);
             this.setTitle(index);
-            this.setActiveIndicator(index);
+        },
+
+        onslide: function (index) {
+            this.handleSlide(index);
             this.setTimeout(this.options.onslide, [index, this.slides[index]]);
         },
 
         setTitle: function (index) {
             var text = this.elements[index].title,
                 titleElement = this.titleElement;
-            if (titleElement) {
-                this.helper.empty(titleElement);
+            if (titleElement.length) {
+                this.titleElement.empty();
                 if (text) {
-                    titleElement.appendChild(document.createTextNode(text));
+                    titleElement[0].appendChild(document.createTextNode(text));
                 }
-            }
-        },
-
-        setActiveIndicator: function (index) {
-            if (this.indicators) {
-                if (this.activeIndicator) {
-                    this.helper.removeClass(this.activeIndicator, this.options.activeClass);
-                }
-                this.activeIndicator = this.indicators[index];
-                this.helper.addClass(this.activeIndicator, this.options.activeClass);
             }
         },
 
@@ -936,112 +810,6 @@
             return func && window.setTimeout(function () {
                 func.apply(that, args || []);
             }, wait || 0);
-        },
-
-        videoFactory: function (obj, callback) {
-            var that = this,
-                options = this.options,
-                videoContainer = this.elementPrototype.cloneNode(false),
-                errorArgs = [{
-                    type: 'error',
-                    target: videoContainer
-                }],
-                video = document.createElement('video'),
-                url = this.getItemProperty(obj, options.urlProperty),
-                type = this.getItemProperty(obj, options.typeProperty),
-                title = this.getItemProperty(obj, options.titleProperty),
-                posterUrl = this.getItemProperty(obj, options.videoPosterProperty),
-                posterImage,
-                sources = this.getItemProperty(
-                    obj,
-                    options.videoSourcesProperty
-                ),
-                source,
-                playMediaControl,
-                isLoading,
-                hasControls;
-            this.helper.addClass(videoContainer, options.videoContentClass);
-            if (title) {
-                videoContainer.title = title;
-            }
-            if (video.canPlayType) {
-                if (url && type && video.canPlayType(type)) {
-                    video.src = url;
-                } else if (sources) {
-                    if (typeof sources === 'string') {
-                        sources = this.helper.parseJSON(sources);
-                    }
-                    while (sources && sources.length) {
-                        source = sources.shift();
-                        url = this.getItemProperty(source, options.urlProperty);
-                        type = this.getItemProperty(source, options.typeProperty);
-                        if (url && type && video.canPlayType(type)) {
-                            video.src = url;
-                            break;
-                        }
-                    }
-                }
-            }
-            if (posterUrl) {
-                video.setAttribute('poster', posterUrl);
-                posterImage = this.imagePrototype.cloneNode(false);
-                this.helper.addClass(posterImage, options.toggleClass);
-                posterImage.src = posterUrl;
-                posterImage.draggable = false;
-                videoContainer.appendChild(posterImage);
-            }
-            playMediaControl = document.createElement('a');
-            playMediaControl.setAttribute('target', '_blank');
-            playMediaControl.setAttribute('download', title);
-            playMediaControl.href = url;
-            if (video.src) {
-                video.controls = true;
-                this.helper.addListener(video, 'error', function () {
-                    that.setTimeout(callback, errorArgs);
-                });
-                this.helper.addListener(video, 'pause', function () {
-                    isLoading = false;
-                    that.helper.removeClass(videoContainer, that.options.videoLoadingClass);
-                    that.helper.removeClass(videoContainer, that.options.videoPlayingClass);
-                    if (hasControls) {
-                        that.helper.addClass(that.container, that.options.controlsClass);
-                    }
-                    if (that.interval) {
-                        that.play();
-                    }
-                });
-                this.helper.addListener(video, 'playing', function () {
-                    isLoading = false;
-                    that.helper.removeClass(videoContainer, that.options.videoLoadingClass);
-                    that.helper.addClass(videoContainer, that.options.videoPlayingClass);
-                    if (that.helper.hasClass(that.container, that.options.controlsClass)) {
-                        hasControls = true;
-                        that.helper.removeClass(that.container, that.options.controlsClass);
-                    } else {
-                        hasControls = false;
-                    }
-                });
-                this.helper.addListener(video, 'play', function () {
-                    window.clearTimeout(that.timeout);
-                    isLoading = true;
-                    that.helper.addClass(videoContainer, that.options.videoLoadingClass);
-                });
-                this.helper.addListener(playMediaControl, 'click', function (event) {
-                    event.preventDefault();
-                    if (isLoading) {
-                        video.pause();
-                    } else {
-                        video.play();
-                    }
-                });
-                videoContainer.appendChild(video);
-            }
-            videoContainer.appendChild(playMediaControl);
-            this.setTimeout(callback, [{
-                type: 'load',
-                target: videoContainer
-            }]);
-            return videoContainer;
         },
 
         imageFactory: function (obj, callback) {
@@ -1056,25 +824,27 @@
             if (this.options.stretchImages && this.support.backgroundSize &&
                     this.support.backgroundSize.contain) {
                 element = this.elementPrototype.cloneNode(false);
-                this.helper.addListener(img, 'load', function () {
-                    element.style.background = 'url("' + url + '") center no-repeat';
-                    element.style.backgroundSize = 'contain';
-                    callback({
-                        type: 'load',
-                        target: element
+                $(img)
+                    .on('load', function () {
+                        element.style.background = 'url("' + url +
+                            '") center no-repeat';
+                        element.style.backgroundSize = 'contain';
+                        callback({
+                            type: 'load',
+                            target: element
+                        });
+                    })
+                    .on('error', function () {
+                        callback({
+                            type: 'error',
+                            target: element
+                        });
                     });
-                });
-                this.helper.addListener(img, 'error', function () {
-                    callback({
-                        type: 'error',
-                        target: element
-                    });
-                });
             } else {
                 element = img;
                 img.draggable = false;
-                this.helper.addListener(img, 'load', callback);
-                this.helper.addListener(img, 'error', callback);
+                $(img)
+                    .on('load error', callback);
             }
             if (title) {
                 element.title = title;
@@ -1102,31 +872,8 @@
                     target: element
                 }]);
             }
-            this.helper.addClass(element, this.options.slideContentClass);
+            $(element).addClass(this.options.slideContentClass);
             return element;
-        },
-
-        createIndicator: function (obj) {
-            var indicator = this.indicatorPrototype.cloneNode(false),
-                title = this.getItemProperty(obj, this.options.titleProperty),
-                thumbnailProperty = this.options.thumbnailProperty,
-                thumbnailUrl,
-                thumbnail;
-            if (this.options.thumbnailIndicators) {
-                thumbnail = obj.getElementsByTagName && this.helper.query(obj, 'img');
-                if (thumbnail) {
-                    thumbnailUrl = thumbnail.src;
-                } else if (thumbnailProperty) {
-                    thumbnailUrl = this.getItemProperty(obj, thumbnailProperty);
-                }
-                if (thumbnailUrl) {
-                    indicator.style.backgroundImage = 'url("' + thumbnailUrl + '")';
-                }
-            }
-            if (title) {
-                indicator.title = title;
-            }
-            return indicator;
         },
 
         loadElement: function (index) {
@@ -1134,7 +881,7 @@
                 if (this.slides[index].firstChild) {
                     this.elements[index] = this.slides[index].firstChild;
                 } else {
-                    this.helper.addClass(this.slides[index], this.options.slideLoadingClass);
+                    $(this.slides[index]).addClass(this.options.slideLoadingClass);
                     this.elements[index] = this.createElement(
                         this.list[index],
                         this.proxyListener
@@ -1165,19 +912,10 @@
             }
         },
 
-        addIndicator: function (index) {
-            if (this.indicators) {
-                var indicator = this.createIndicator(this.list[index]);
-                indicator.setAttribute('data-index', index);
-                this.indicatorContainer.appendChild(indicator);
-                this.indicators.push(indicator);
-            }
-        },
-
         addSlide: function (index) {
             var slide = this.slidePrototype.cloneNode(false);
             slide.setAttribute('data-index', index);
-            this.slidesContainer.appendChild(slide);
+            this.slidesContainer[0].appendChild(slide);
             this.slides.push(slide);
         },
 
@@ -1204,30 +942,20 @@
                 this.imagePrototype = document.createElement('img');
                 this.elementPrototype = document.createElement('div');
                 this.slidePrototype = document.createElement('div');
-                this.helper.addClass(this.slidePrototype, this.options.slideClass);
-                if (this.indicatorContainer) {
-                    this.indicatorPrototype = document.createElement('li');
-                    this.indicators = this.indicatorContainer.children;
-                }
-                this.slides = this.slidesContainer.children;
-                clearSlides = this.options.clearSlides || this.slides.length !== this.num;
+                $(this.slidePrototype).addClass(this.options.slideClass);
+                this.slides = this.slidesContainer[0].children;
+                clearSlides = this.options.clearSlides ||
+                    this.slides.length !== this.num;
             }
-            this.slideWidth = this.container.offsetWidth;
-            this.slideHeight = this.container.offsetHeight;
-            this.slidesContainer.style.width = (this.num * this.slideWidth) + 'px';
+            this.slideWidth = this.container[0].offsetWidth;
+            this.slideHeight = this.container[0].offsetHeight;
+            this.slidesContainer[0].style.width =
+                (this.num * this.slideWidth) + 'px';
             if (clearSlides) {
-                this.helper.empty(this.slidesContainer);
-                if (this.indicatorContainer) {
-                    this.helper.empty(this.indicatorContainer);
-                }
-                this.slides = [];
-                if (this.indicatorContainer) {
-                    this.indicators = [];
-                }
+                this.resetSlides();
             }
             for (i = 0; i < this.num; i += 1) {
                 if (clearSlides) {
-                    this.addIndicator(i);
                     this.addSlide(i);
                 }
                 this.positionSlide(i);
@@ -1238,42 +966,17 @@
                 this.move(this.circle(this.index + 1), this.slideWidth, 0);
             }
             if (!this.support.transition) {
-                this.slidesContainer.style.left = (this.index * -this.slideWidth) + 'px';
-            }
-        },
-
-        getFullScreenElement: function () {
-            return document.fullscreenElement ||
-                document.webkitFullscreenElement ||
-                document.mozFullScreenElement;
-        },
-
-        requestFullScreen: function (element) {
-            if (element.requestFullscreen) {
-                element.requestFullscreen();
-            } else if (element.webkitRequestFullscreen) {
-                element.webkitRequestFullscreen();
-            } else if (element.mozRequestFullScreen) {
-                element.mozRequestFullScreen();
-            }
-        },
-
-        exitFullScreen: function () {
-            if (document.exitFullscreen) {
-                document.exitFullscreen();
-            } else if (document.webkitCancelFullScreen) {
-                document.webkitCancelFullScreen();
-            } else if (document.mozCancelFullScreen) {
-                document.mozCancelFullScreen();
+                this.slidesContainer[0].style.left =
+                    (this.index * -this.slideWidth) + 'px';
             }
         },
 
         toggleControls: function () {
             var controlsClass = this.options.controlsClass;
-            if (this.helper.hasClass(this.container, controlsClass)) {
-                this.helper.removeClass(this.container, controlsClass);
+            if (this.container.hasClass(controlsClass)) {
+                this.container.removeClass(controlsClass);
             } else {
-                this.helper.addClass(this.container, controlsClass);
+                this.container.addClass(controlsClass);
             }
         },
 
@@ -1289,10 +992,26 @@
             return parseInt(element.getAttribute('data-index'), 10);
         },
 
+        getNestedProperty: function (obj, property) {
+            property.replace(
+                // Matches native JavaScript notation in a String,
+                // e.g. '["doubleQuoteProp"].dotProp[2]'
+                /\[(?:'([^']+)'|"([^"]+)"|(\d+))\]|(?:(?:^|\.)([^\.\[]+))/g,
+                function (str, singleQuoteProp, doubleQuoteProp, arrayIndex, dotProp) {
+                    var prop = dotProp || singleQuoteProp || doubleQuoteProp ||
+                            (arrayIndex && parseInt(arrayIndex, 10));
+                    if (str && obj) {
+                        obj = obj[prop];
+                    }
+                }
+            );
+            return obj;
+        },
+
         getItemProperty: function (obj, property) {
             return obj[property] || (obj.getAttribute &&
                 obj.getAttribute('data-' + property)) ||
-                this.helper.getNestedProperty(obj, property);
+                this.getNestedProperty(obj, property);
         },
 
         initStartIndex: function () {
@@ -1316,7 +1035,6 @@
 
         initEventListeners: function () {
             var that = this,
-                helper = this.helper,
                 slidesContainer = this.slidesContainer,
                 proxyListener = function (event) {
                     var type = that.support.transition &&
@@ -1324,77 +1042,61 @@
                                     'transitionend' : event.type;
                     that['on' + type](event);
                 };
-            helper.addListener(window, 'resize', proxyListener);
-            helper.addListener(document.body, 'keydown', proxyListener);
-            helper.addListener(this.container, 'click', proxyListener);
+            $(window).on('resize', proxyListener);
+            $(document.body).on('keydown', proxyListener);
+            this.container.on('click', proxyListener);
             if (this.support.touch) {
-                slidesContainer.addEventListener('touchstart', proxyListener, false);
-                slidesContainer.addEventListener('touchmove', proxyListener, false);
-                slidesContainer.addEventListener('touchend', proxyListener, false);
-            } else if (this.options.emulateTouchEvents && slidesContainer.addEventListener) {
-                slidesContainer.addEventListener('mousedown', proxyListener, false);
-                slidesContainer.addEventListener('mousemove', proxyListener, false);
-                slidesContainer.addEventListener('mouseup', proxyListener, false);
-                slidesContainer.addEventListener('mouseout', proxyListener, false);
+                slidesContainer
+                    .on('touchstart touchmove touchend', proxyListener);
+            } else if (this.options.emulateTouchEvents &&
+                    this.support.transition) {
+                slidesContainer
+                    .on('mousedown mousemove mouseup mouseout', proxyListener);
             }
             if (this.support.transition) {
-                slidesContainer.addEventListener(
+                slidesContainer.on(
                     this.support.transition.end,
-                    proxyListener,
-                    false
+                    proxyListener
                 );
             }
             this.proxyListener = proxyListener;
         },
 
         destroyEventListeners: function () {
-            var helper = this.helper,
-                slidesContainer = this.slidesContainer,
+            var slidesContainer = this.slidesContainer,
                 proxyListener = this.proxyListener;
-            helper.removeListener(window, 'resize', proxyListener);
-            helper.removeListener(document.body, 'keydown', proxyListener);
-            helper.removeListener(this.container, 'click', proxyListener);
+            $(window).off('resize', proxyListener);
+            $(document.body).off('keydown', proxyListener);
+            this.container.off('click', proxyListener);
             if (this.support.touch) {
-                slidesContainer.removeEventListener('touchstart', proxyListener, false);
-                slidesContainer.removeEventListener('touchmove', proxyListener, false);
-                slidesContainer.removeEventListener('touchend', proxyListener, false);
-            } else if (this.options.emulateTouchEvents && slidesContainer.removeEventListener) {
-                slidesContainer.removeEventListener('mousedown', proxyListener, false);
-                slidesContainer.removeEventListener('mousemove', proxyListener, false);
-                slidesContainer.removeEventListener('mouseup', proxyListener, false);
-                slidesContainer.removeEventListener('mouseout', proxyListener, false);
+                slidesContainer
+                    .off('touchstart touchmove touchend', proxyListener);
+            } else if (this.options.emulateTouchEvents &&
+                    this.support.transition) {
+                slidesContainer
+                    .off('mousedown mousemove mouseup mouseout', proxyListener);
             }
             if (this.support.transition) {
-                slidesContainer.removeEventListener(
+                slidesContainer.off(
                     this.support.transition.end,
-                    proxyListener,
-                    false
+                    proxyListener
                 );
             }
         },
 
         initWidget: function () {
-            this.container = this.helper.query(
-                document,
-                this.options.container
-            );
-            if (!this.container) {
+            this.container = $(this.options.container);
+            if (!this.container.length) {
                 return false;
             }
-            this.slidesContainer = this.helper.query(
-                this.container,
+            this.slidesContainer = this.container.find(
                 this.options.slidesContainer
             );
-            if (!this.slidesContainer) {
+            if (!this.slidesContainer.length) {
                 return false;
             }
-            this.titleElement = this.helper.query(
-                this.container,
+            this.titleElement = this.container.find(
                 this.options.titleElement
-            );
-            this.indicatorContainer = this.helper.query(
-                this.container,
-                this.options.indicatorContainer
             );
             if (this.options.hidePageScrollbars) {
                 // Hide the page scrollbars:
@@ -1402,23 +1104,23 @@
                 document.body.style.overflow = 'hidden';
             }
             if (this.num === 1) {
-                this.helper.addClass(this.container, this.options.singleClass);
+                this.container.addClass(this.options.singleClass);
             }
-            this.container.style.display = 'block';
+            this.container[0].style.display = 'block';
             this.initSlides();
-            this.helper.addClass(this.container, this.options.displayClass);
+            this.container.addClass(this.options.displayClass);
         },
 
         initOptions: function (options) {
             // Create a copy of the prototype options:
-            this.options = this.helper.extend({}, this.options);
+            this.options = $.extend({}, this.options);
             // Check if carousel mode is enabled:
             if ((options && options.carousel) ||
                     (this.options.carousel && (!options || options.carousel !== false))) {
-                this.helper.extend(this.options, this.carouselOptions);
+                $.extend(this.options, this.carouselOptions);
             }
             // Override any given options:
-            this.helper.extend(this.options, options);
+            $.extend(this.options, options);
             if (this.num < 3) {
                 // 1 or 2 slides cannot be displayed continuous,
                 // remember the original option by setting to null instead of false:
@@ -1431,12 +1133,5 @@
 
     });
 
-    if (typeof define === 'function' && define.amd) {
-        define(function () {
-            return Gallery;
-        });
-    } else {
-        window.blueimp = window.blueimp || {};
-        window.blueimp.Gallery = Gallery;
-    }
-}());
+    return Gallery;
+}));

@@ -1,5 +1,35 @@
 # blueimp Gallery
 
+- [Demo](#demo)
+- [Description](#description)
+- [Setup](#setup)
+    - [Controls](#controls)
+    - [Carousel setup](#carousel-setup)
+- [Keyboard shortcuts](#keyboard-shortcuts)
+- [Options](#options)
+    - [Carousel options](#carousel-options)
+    - [Indicator options](#indicator-options)
+    - [Fullscreen options](#fullscreen-options)
+    - [Video factory options](#video-factory-options)
+    - [Container and element options](#container-and-element-options)
+    - [Property options](#property-options)
+- [API](#api)
+    - [API methods](#api-methods)
+    - [Videos](#videos)
+        - [Multiple video sources](#multiple-video-sources)
+    - [Additional content types](#additional-content-types)
+        - [Example HTML text factory implementation](#example-html-text-factory-implementation)
+    - [jQuery plugin](#jquery-plugin)
+        - [HTML5 data-attributes](#html5-data-attributes)
+        - [Container ids and link grouping](#container-ids-and-link-grouping)
+        - [Gallery object](#gallery-object)
+- [Requirements](#requirements)
+- [Browsers](#browsers)
+    - [Desktop browsers](#desktop-browsers)
+    - [Mobile browsers](#mobile-browsers)
+- [License](#license)
+- [Credits](#credits)
+
 ## Demo
 [blueimp Gallery Demo](http://blueimp.github.io/Gallery/)
 
@@ -30,8 +60,6 @@ Add the following HTML snippet with the Gallery widget to the body of your webpa
     <ol class="indicator"></ol>
 </div>
 ```
-
-To initialize the Gallery with visible controls, add the CSS class **blueimp-gallery-controls** to the Gallery widget.
 
 Include the Gallery script at the bottom of the body of your webpage:
 
@@ -72,6 +100,21 @@ document.getElementById('links').onclick = function (event) {
 </script>
 ```
 
+### Controls
+To initialize the Gallery with visible controls, add the CSS class **blueimp-gallery-controls** to the Gallery widget:
+
+```html
+<div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
+    <div class="slides"></div>
+    <h3 class="title"></h3>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <a class="close">×</a>
+    <a class="play-pause"></a>
+    <ol class="indicator"></ol>
+</div>
+```
+
 ### Carousel setup
 To display the images in an inline carousel instead of a lightbox, add the CSS class **blueimp-gallery-carousel** to the Gallery widget and remove the child element with the **close** class, or add a new Gallery widget with a different **id** to your webpage:
 
@@ -101,6 +144,17 @@ blueimp.Gallery(
 </script>
 ```
 
+## Keyboard shortcuts
+The Gallery can be controlled with the following keyboard shortcuts:
+
+* **Return**: Toggle controls visibility.
+* **Esc**: Close the Gallery lightbox.
+* **Space**: Toggle the slideshow (play/pause).
+* **Left**: Move to the previous slide.
+* **Right**: Move to the next slide.
+
+Please note that setting the **carousel** option to **true** disables the keyboard shortcuts by default.
+
 ## Options
 The following are the default options set by the Gallery:
 
@@ -112,8 +166,6 @@ var options = {
     slidesContainer: 'div',
     // The tag name, Id, element or querySelector of the title element:
     titleElement: 'h3',
-    // The tag name, Id, element or querySelector of the indicator container:
-    indicatorContainer: 'ol',
     // The class to add when the gallery is visible:
     displayClass: 'blueimp-gallery-display',
     // The class to add when the gallery controls are visible:
@@ -134,12 +186,6 @@ var options = {
     slideErrorClass: 'slide-error',
     // The class for the content element loaded into each slide:
     slideContentClass: 'slide-content',
-    // The class for video content elements:
-    videoContentClass: 'video-content',
-    // The class for video when it is loading:
-    videoLoadingClass: 'video-loading',
-    // The class for video when it is playing:
-    videoPlayingClass: 'video-playing',
     // The class for the "toggle" control:
     toggleClass: 'toggle',
     // The class for the "prev" control:
@@ -150,28 +196,15 @@ var options = {
     closeClass: 'close',
     // The class for the "play-pause" toggle control:
     playPauseClass: 'play-pause',
-    // The class for the active indicator:
-    activeClass: 'active',
     // The list object property (or data attribute) with the object type:
     typeProperty: 'type',
     // The list object property (or data attribute) with the object title:
     titleProperty: 'title',
     // The list object property (or data attribute) with the object URL:
     urlProperty: 'href',
-    // The list object property (or data attribute) with the thumbnail URL,
-    // used as alternative to a thumbnail child element:
-    thumbnailProperty: 'thumbnail',
-    // The list object property (or data attribute) for the video poster URL:
-    videoPosterProperty: 'poster',
-    // The list object property (or data attribute) for the video sources array:
-    videoSourcesProperty: 'sources',
-    // Defines if the gallery indicators should display a thumbnail:
-    thumbnailIndicators: true,
     // Defines if the gallery slides are cleared from the gallery modal,
     // or reused for the next gallery initialization:
     clearSlides: true,
-    // Defines if the gallery should open in fullscreen mode:
-    fullScreen: false,
     // Defines if images should be stretched to fill the available space,
     // while maintaining their aspect ratio (will only be enabled for browsers
     // supporting background-size="contain", which excludes IE < 9):
@@ -252,6 +285,51 @@ var carouselOptions = {
 
 The options object passed to the Gallery function extends the default options and also those options set via **carousel** mode.
 
+### Indicator options
+The following are the additional default options set for the slide position indicator:
+
+```js
+var options = {
+    // The tag name, Id, element or querySelector of the indicator container:
+    indicatorContainer: 'ol',
+    // The class for the active indicator:
+    activeIndicatorClass: 'active',
+    // The list object property (or data attribute) with the thumbnail URL,
+    // used as alternative to a thumbnail child element:
+    thumbnailProperty: 'thumbnail',
+    // Defines if the gallery indicators should display a thumbnail:
+    thumbnailIndicators: true
+};
+```
+
+### Fullscreen options
+The following are the additional default options set for the fullscreen mode:
+
+```js
+var options = {
+    // Defines if the gallery should open in fullscreen mode:
+    fullScreen: false
+};
+```
+
+### Video factory options
+The following are the additional default options set for the video factory:
+
+```js
+var options = {
+    // The class for video content elements:
+    videoContentClass: 'video-content',
+    // The class for video when it is loading:
+    videoLoadingClass: 'video-loading',
+    // The class for video when it is playing:
+    videoPlayingClass: 'video-playing',
+    // The list object property (or data attribute) for the video poster URL:
+    videoPosterProperty: 'poster',
+    // The list object property (or data attribute) for the video sources array:
+    videoSourcesProperty: 'sources'
+};
+```
+
 ### Container and element options
 The widget **container** option can be set as id string (with "#" as prefix) or element node, so the following are equivalent:
 
@@ -277,7 +355,9 @@ var options = {
 };
 ```
 
-It is also possible to define the container and element options with a more complex [querySelector](https://developer.mozilla.org/en-US/docs/Web/API/document.querySelector), although this won't work in IE7.
+It is also possible to define the container and element options with a more complex [querySelector](https://developer.mozilla.org/en-US/docs/Web/API/document.querySelector), which is supported by IE8+ and all modern web browsers.
+
+If the helper script is replaced with [jQuery](http://jquery.com/), the container and element options can be any valid jQuery selector.
 
 ### Property options
 The options ending with "Property" define how the properties of each link element are accessed.  
@@ -341,8 +421,8 @@ gallery.next();
 // Move to the given slide index with the (optional) given duraction speed in milliseconds:
 gallery.slide(index, duration);
 
-// Start an automatic slideshow with the given delay (optional):
-gallery.play(delay);
+// Start an automatic slideshow with the given interval in milliseconds (optional):
+gallery.play(interval);
 
 // Stop the automatic slideshow:
 gallery.pause();
@@ -425,7 +505,7 @@ The Gallery uses the **type** property of each content object to determine which
 The main type (the string in front of the slash, **text** in the example above) is concatenated with the string **Factory** to create the factory method name, e.g. **textFactory**.
 
 #### Example HTML text factory implementation
-Although blueimp Gallery doesn't require [jQuery](http://jquery.com/), the following example uses it for convenience.
+Please note that although blueimp Gallery doesn't require [jQuery](http://jquery.com/), the following example uses it for convenience.
 
 Extend the Gallery prototype with the **textFactory** method:
 
@@ -484,11 +564,10 @@ blueimp.Gallery([
 ### jQuery plugin
 The blueimp Gallery jQuery plugin registers a global click handler to open links with **data-gallery** attribute in the Gallery lightbox.
 
-To use it, follow the Setup guide, then include the plugin script after including the Gallery script and [jQuery](http://jquery.com/):
+To use it, follow the Setup guide, but replace the minified Gallery script with the jQuery plugin version and include it after including [jQuery](http://jquery.com/):
 
 ```html
-<script src="js/blueimp-gallery.min.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="js/jquery.blueimp-gallery.min.js"></script>
 ```
 
@@ -565,11 +644,35 @@ var gallery = $('#blueimp-gallery').data('gallery');
 This gallery object provides all methods outlined in the API methods section.
 
 ## Requirements
-blueimp Gallery doesn't require any other libraries and can be used standalone without any dependencies.  
+blueimp Gallery doesn't require any other libraries and can be used standalone without any dependencies.
 
-The jQuery plugin has the following dependencies:
-* blueimp Gallery v. 2.4+ (included)
-* [jQuery](http://jquery.com/) v. 1.7+
+You can also use the individual source files instead of the standalone minified version:
+
+```html
+<link rel="stylesheet" href="css/blueimp-gallery.css">
+<link rel="stylesheet" href="css/blueimp-gallery-indicator.css">
+<link rel="stylesheet" href="css/blueimp-gallery-video.css">
+<!-- ... -->
+<script src="js/blueimp-helper.js"></script>
+<script src="js/blueimp-gallery.js"></script>
+<script src="js/blueimp-gallery-fullscreen.js"></script>
+<script src="js/blueimp-gallery-indicator.js"></script>
+<script src="js/blueimp-gallery-video.js"></script>
+```
+
+The helper script can be replaced by [jQuery](http://jquery.com/) v. 1.7+.  
+The fullscreen, indicator and video source files are optional if their functionality is not required.
+
+The jQuery plugin requires [jQuery](http://jquery.com/) v. 1.7+ and the basic Gallery script, while the fullscreen, indicator and video source files are also optional:
+
+```html
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="js/blueimp-gallery.js"></script>
+<script src="js/blueimp-gallery-fullscreen.js"></script>
+<script src="js/blueimp-gallery-indicator.js"></script>
+<script src="js/blueimp-gallery-video.js"></script>
+<script src="js/jquery.blueimp-gallery.js"></script>
+```
 
 Please note that the jQuery plugin is an optional extension and not required for the Gallery functionality.
 
@@ -596,4 +699,4 @@ blueimp Gallery has been tested with and supports the following browsers:
 Released under the [MIT license](http://www.opensource.org/licenses/MIT).
 
 ## Credits
-blueimp Gallery is based on [Swipe](http://swipejs.com/).
+The swipe implementation is based on code from the [Swipe](http://swipejs.com/) library.
