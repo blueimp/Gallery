@@ -1,5 +1,5 @@
 /*
- * blueimp Gallery JS 2.5.0
+ * blueimp Gallery JS 2.6.0
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -121,6 +121,8 @@
             // Allow continuous navigation, moving from last to first
             // and from first to last slide:
             continuous: true,
+            // Remove elements outside of the preload range from the DOM:
+            unloadElements: true,
             // Start with the automatic slideshow:
             startSlideshow: false,
             // Delay in milliseconds between slides for the automatic slideshow:
@@ -295,7 +297,6 @@
                 to = this.circle(to);
                 this.animate(index * -this.slideWidth, to * -this.slideWidth, speed);
             }
-            this.index = to;
             this.onslide(to);
         },
 
@@ -322,7 +323,7 @@
         play: function (time) {
             window.clearTimeout(this.timeout);
             this.interval = time || this.options.slideshowInterval;
-            if (this.status[this.index] > 1) {
+            if (this.elements[this.index] > 1) {
                 this.timeout = this.setTimeout(
                     this.slide,
                     [this.index + 1, this.options.slideshowTransitionSpeed],
@@ -353,9 +354,7 @@
                 this.addSlide(i);
                 this.positionSlide(i);
             }
-            this.elements.length =
-                this.status.length =
-                this.positions.length = this.num;
+            this.positions.length = this.num;
             this.initSlides(true);
         },
 
@@ -628,7 +627,6 @@
                     this.translateY(index, 0, speed);
                 }
             }
-            this.index = index;
         },
 
         ontransitionend: function (event) {
@@ -655,9 +653,9 @@
             $(parent).removeClass(this.options.slideLoadingClass);
             if (event.type === 'error') {
                 $(parent).addClass(this.options.slideErrorClass);
-                this.status[index] = 3; // Fail
+                this.elements[index] = 3; // Fail
             } else {
-                this.status[index] = 2; // Done
+                this.elements[index] = 2; // Done
             }
             // Fix for IE7's lack of support for percentage max-height:
             if (target.clientHeight > this.container[0].clientHeight) {
@@ -786,16 +784,20 @@
                 this.updateEdgeClasses(index);
             }
             this.loadElements(index);
+            if (this.options.unloadElements) {
+                this.unloadElements(index);
+            }
             this.setTitle(index);
         },
 
         onslide: function (index) {
+            this.index = index;
             this.handleSlide(index);
             this.setTimeout(this.options.onslide, [index, this.slides[index]]);
         },
 
         setTitle: function (index) {
-            var text = this.elements[index].title,
+            var text = this.slides[index].firstChild.title,
                 titleElement = this.titleElement;
             if (titleElement.length) {
                 this.titleElement.empty();
@@ -850,13 +852,6 @@
                 element.title = title;
             }
             img.src = url;
-            // Fix for IE7 not firing load events for cached images:
-            if (img.complete) {
-                this.setTimeout(callback, [{
-                    type: 'load',
-                    target: element
-                }]);
-            }
             return element;
         },
 
@@ -879,23 +874,20 @@
         loadElement: function (index) {
             if (!this.elements[index]) {
                 if (this.slides[index].firstChild) {
-                    this.elements[index] = this.slides[index].firstChild;
+                    this.elements[index] = this.slides[index]
+                        .hasClass(this.options.slideErrorClass) ? 3 : 2;
                 } else {
+                    this.elements[index] = 1; // Loading
                     $(this.slides[index]).addClass(this.options.slideLoadingClass);
-                    this.elements[index] = this.createElement(
+                    this.slides[index].appendChild(this.createElement(
                         this.list[index],
                         this.proxyListener
-                    );
-                    this.slides[index].appendChild(this.elements[index]);
+                    ));
                 }
             }
         },
 
         loadElements: function (index) {
-            if (this.status[index]) {
-                return;
-            }
-            this.status[index] = 1; // Loading
             var limit = Math.min(this.num, this.options.preloadRange * 2 + 1),
                 j = index,
                 i;
@@ -909,6 +901,23 @@
                 // continuous navigation:
                 j = this.circle(j);
                 this.loadElement(j);
+            }
+        },
+
+        unloadElements: function (index) {
+            var i,
+                slide,
+                diff;
+            for (i in this.elements) {
+                if (this.elements.hasOwnProperty(i)) {
+                    diff = Math.abs(index - i);
+                    if (diff > this.options.preloadRange &&
+                            diff + this.options.preloadRange < this.num) {
+                        slide = this.slides[i];
+                        slide.removeChild(slide.firstChild);
+                        delete this.elements[i];
+                    }
+                }
             }
         },
 
@@ -933,12 +942,9 @@
             var clearSlides,
                 i;
             if (!reload) {
-                this.elements = [];
-                this.status = [];
                 this.positions = [];
-                this.elements.length =
-                    this.status.length =
-                    this.positions.length = this.num;
+                this.positions.length = this.num;
+                this.elements = {};
                 this.imagePrototype = document.createElement('img');
                 this.elementPrototype = document.createElement('div');
                 this.slidePrototype = document.createElement('div');

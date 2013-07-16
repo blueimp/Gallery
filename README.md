@@ -232,6 +232,8 @@ var options = {
     // Allow continuous navigation, moving from last to first
     // and from first to last slide:
     continuous: true,
+    // Remove elements outside of the preload range from the DOM:
+    unloadElements: true,
     // Start with the automatic slideshow:
     startSlideshow: false,
     // Delay in milliseconds between slides for the automatic slideshow:
