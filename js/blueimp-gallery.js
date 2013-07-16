@@ -1,5 +1,5 @@
 /*
- * blueimp Gallery JS 2.6.0
+ * blueimp Gallery JS 2.6.1
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -874,7 +874,7 @@
         loadElement: function (index) {
             if (!this.elements[index]) {
                 if (this.slides[index].firstChild) {
-                    this.elements[index] = this.slides[index]
+                    this.elements[index] = $(this.slides[index])
                         .hasClass(this.options.slideErrorClass) ? 3 : 2;
                 } else {
                     this.elements[index] = 1; // Loading
