@@ -1,5 +1,5 @@
 /*
- * blueimp helper JS 1.0.0
+ * blueimp helper JS 1.0.1
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -34,7 +34,7 @@
             if (typeof query === 'string') {
                 query = this.find(query);
             }
-            if (query.nodeType) {
+            if (query.nodeType || query === query.window) {
                 // Single HTML element
                 this.push(query);
             } else {
