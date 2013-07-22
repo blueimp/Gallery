@@ -1,5 +1,5 @@
 /*
- * blueimp Gallery jQuery plugin 1.0.0
+ * blueimp Gallery jQuery plugin 1.1.0
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -42,22 +42,34 @@
                 {
                     container: container[0],
                     index: this,
+                    event: event,
+                    onopen: function () {
+                        container
+                            .data('gallery', this)
+                            .trigger('open', arguments);
+                    },
+                    onslide: function () {
+                        container.trigger('slide', arguments);
+                    },
+                    onslideend: function () {
+                        container.trigger('slideend', arguments);
+                    },
+                    onslidecomplete: function () {
+                        container.trigger('slidecomplete', arguments);
+                    },
                     onclose: function () {
-                        container.removeData('gallery');
+                        container
+                            .trigger('close')
+                            .removeData('gallery');
                     }
                 }
             ),
             // Select all links with the same data-gallery attribute:
-            links = $('[data-gallery="' + id + '"]'),
-            gallery;
+            links = $('[data-gallery="' + id + '"]');
         if (options.filter) {
             links = links.filter(options.filter);
         }
-        gallery = new Gallery(links, options);
-        if (gallery) {
-            event.preventDefault();
-            container.data('gallery', gallery);
-        }
+        return new Gallery(links, options);
     });
 
 }));

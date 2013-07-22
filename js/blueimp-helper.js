@@ -1,5 +1,5 @@
 /*
- * blueimp helper JS 1.0.1
+ * blueimp helper JS 1.1.0
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -30,24 +30,26 @@
             // so we simply return a new instance:
             return new Helper(query);
         }
+        this.length = 0;
         if (query) {
             if (typeof query === 'string') {
                 query = this.find(query);
             }
             if (query.nodeType || query === query.window) {
                 // Single HTML element
-                this.push(query);
+                this.length = 1;
+                this[0] = query;
             } else {
                 // HTML element collection
-                var i;
-                for (i = 0; i < query.length; i += 1) {
-                    this.push(query[i]);
+                var i = query.length;
+                this.length = i;
+                while (i) {
+                    i -= 1;
+                    this[i] = query[i];
                 }
             }
         }
     }
-
-    Helper.prototype = [];
 
     Helper.extend = extend;
 

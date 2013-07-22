@@ -1,5 +1,5 @@
 /*
- * blueimp Gallery JS 2.6.1
+ * blueimp Gallery JS 2.7.0
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -138,6 +138,12 @@
             // The transition speed for automatic slide changes, set to an integer
             // greater 0 to override the default transition speed:
             slideshowTransitionSpeed: undefined,
+            // The event object for which the default action will be canceled
+            // on Gallery initialization (e.g. the click event to open the Gallery):
+            event: undefined,
+            // Callback function executed when the Gallery is initialized.
+            // Is called with the gallery instance as "this" object:
+            onopen: undefined,
             // Callback function executed on slide change.
             // Is called with the gallery instance as "this" object and the
             // current index and slide as arguments:
@@ -237,8 +243,13 @@
                 return false;
             }
             this.initEventListeners();
+            if (this.options.onopen) {
+                this.options.onopen.call(this);
+            }
             // Load the slide at the given index:
             this.onslide(this.index);
+            // Manually trigger the slideend event for the initial slide:
+            this.ontransitionend();
             // Start the automatic slideshow if applicable:
             if (this.options.startSlideshow) {
                 this.play();
@@ -815,42 +826,53 @@
         },
 
         imageFactory: function (obj, callback) {
-            var img = this.imagePrototype.cloneNode(false),
-                element,
+            var that = this,
+                img = this.imagePrototype.cloneNode(false),
                 url = obj,
+                contain = this.options.stretchImages &&
+                    this.support.backgroundSize &&
+                    this.support.backgroundSize.contain,
+                called,
+                element,
+                callbackWrapper = function (event) {
+                    if (!called) {
+                        event = {
+                            type: event.type,
+                            target: element
+                        };
+                        if (!element.parentNode) {
+                            // Fix for IE7 firing the load event for
+                            // cached images before the element could
+                            // be added to the DOM:
+                            return that.setTimeout(callbackWrapper, [event]);
+                        }
+                        called = true;
+                        $(img).off('load error', callbackWrapper);
+                        if (contain) {
+                            if (event.type === 'load') {
+                                element.style.background = 'url("' + url +
+                                    '") center no-repeat';
+                                element.style.backgroundSize = 'contain';
+                            }
+                        }
+                        callback(event);
+                    }
+                },
                 title;
             if (typeof url !== 'string') {
                 url = this.getItemProperty(obj, this.options.urlProperty);
                 title = this.getItemProperty(obj, this.options.titleProperty);
             }
-            if (this.options.stretchImages && this.support.backgroundSize &&
-                    this.support.backgroundSize.contain) {
+            if (contain) {
                 element = this.elementPrototype.cloneNode(false);
-                $(img)
-                    .on('load', function () {
-                        element.style.background = 'url("' + url +
-                            '") center no-repeat';
-                        element.style.backgroundSize = 'contain';
-                        callback({
-                            type: 'load',
-                            target: element
-                        });
-                    })
-                    .on('error', function () {
-                        callback({
-                            type: 'error',
-                            target: element
-                        });
-                    });
             } else {
                 element = img;
                 img.draggable = false;
-                $(img)
-                    .on('load error', callback);
             }
             if (title) {
                 element.title = title;
             }
+            $(img).on('load error', callbackWrapper);
             img.src = url;
             return element;
         },
@@ -1134,6 +1156,9 @@
             }
             if (!this.support.transition) {
                 this.options.emulateTouchEvents = false;
+            }
+            if (this.options.event) {
+                this.preventDefault(this.options.event);
             }
         }
 

@@ -23,6 +23,7 @@
         - [HTML5 data-attributes](#html5-data-attributes)
         - [Container ids and link grouping](#container-ids-and-link-grouping)
         - [Gallery object](#gallery-object)
+        - [Event callbacks](#event-callbacks)
 - [Requirements](#requirements)
 - [Browsers](#browsers)
     - [Desktop browsers](#desktop-browsers)
@@ -91,11 +92,9 @@ document.getElementById('links').onclick = function (event) {
     event = event || window.event;
     var target = event.target || event.srcElement,
         link = target.src ? target.parentNode : target,
-        options = {index: link},
+        options = {index: link, event: event},
         links = this.getElementsByTagName('a');
-    if (blueimp.Gallery(links, options)) {
-        return false;
-    }
+    blueimp.Gallery(links, options);
 };
 </script>
 ```
@@ -249,6 +248,12 @@ var options = {
     // The transition speed for automatic slide changes, set to an integer
     // greater 0 to override the default transition speed:
     slideshowTransitionSpeed: undefined,
+    // The event object for which the default action will be canceled
+    // on Gallery initialization (e.g. the click event to open the Gallery):
+    event: undefined,
+    // Callback function executed when the Gallery is initialized.
+    // Is called with the gallery instance as "this" object:
+    onopen: undefined,
     // Callback function executed on slide change.
     // Is called with the gallery instance as "this" object and the
     // current index and slide as arguments:
@@ -644,6 +649,28 @@ var gallery = $('#blueimp-gallery').data('gallery');
 ```
 
 This gallery object provides all methods outlined in the API methods section.
+
+#### Event callbacks
+The jQuery plugin triggers Gallery events on the widget container, with event names equivalent to the callback options:
+
+```js
+$('#blueimp-gallery')
+    .on('open', function () {
+        // Gallery open event handler
+    })
+    .on('slide', function (index, slide) {
+        // Gallery slide event handler
+    })
+    .on('slideend', function (index, slide) {
+        // Gallery slideend event handler
+    })
+    .on('slidecomplete', function (index, slide) {
+        // Gallery slidecomplete event handler
+    })
+    .on('close', function () {
+        // Gallery close event handler
+    });
+```
 
 ## Requirements
 blueimp Gallery doesn't require any other libraries and can be used standalone without any dependencies.
