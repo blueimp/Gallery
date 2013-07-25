@@ -655,19 +655,19 @@ The jQuery plugin triggers Gallery events on the widget container, with event na
 
 ```js
 $('#blueimp-gallery')
-    .on('open', function () {
+    .on('open', function (event) {
         // Gallery open event handler
     })
-    .on('slide', function (index, slide) {
+    .on('slide', function (event, index, slide) {
         // Gallery slide event handler
     })
-    .on('slideend', function (index, slide) {
+    .on('slideend', function (event, index, slide) {
         // Gallery slideend event handler
     })
-    .on('slidecomplete', function (index, slide) {
+    .on('slidecomplete', function (event, index, slide) {
         // Gallery slidecomplete event handler
     })
-    .on('close', function () {
+    .on('close', function (event) {
         // Gallery close event handler
     });
 ```
