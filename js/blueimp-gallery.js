@@ -1,5 +1,5 @@
 /*
- * blueimp Gallery JS 2.7.0
+ * blueimp Gallery JS 2.7.1
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -459,7 +459,10 @@
         onmousedown: function (event) {
             // Trigger on clicks of the left mouse button only:
             if (event.which && event.which === 1) {
-                event.touches = [{
+                // Preventing the default mousedown action is required
+                // to make touch emulation work with Firefox:
+                event.preventDefault();
+                (event.originalEvent || event).touches = [{
                     pageX: event.pageX,
                     pageY: event.pageY
                 }];
@@ -469,7 +472,7 @@
 
         onmousemove: function (event) {
             if (this.touchStart) {
-                event.touches = [{
+                (event.originalEvent || event).touches = [{
                     pageX: event.pageX,
                     pageY: event.pageY
                 }];
@@ -496,7 +499,9 @@
         },
 
         ontouchstart: function (event) {
-            var touches = event.touches[0];
+            // jQuery doesn't copy touch event properties by default,
+            // so we have to access the originalEvent object:
+            var touches = (event.originalEvent || event).touches[0];
             this.touchStart = {
                 // Remember the initial touch coordinates:
                 x: touches.pageX,
@@ -511,17 +516,20 @@
         },
 
         ontouchmove: function (event) {
+            // jQuery doesn't copy touch event properties by default,
+            // so we have to access the originalEvent object:
+            var touches = (event.originalEvent || event).touches[0],
+                scale = (event.originalEvent || event).scale,
+                index = this.index,
+                touchDeltaX,
+                indices;
             // Ensure this is a one touch swipe and not, e.g. a pinch:
-            if (event.touches.length > 1 || (event.scale && event.scale !== 1)) {
+            if (touches.length > 1 || (scale && scale !== 1)) {
                 return;
             }
             if (this.options.disableScroll) {
                 event.preventDefault();
             }
-            var touches = event.touches[0],
-                index = this.index,
-                touchDeltaX,
-                indices;
             // Measure change in x and y coordinates:
             this.touchDelta = {
                 x: touches.pageX - this.touchStart.x,
