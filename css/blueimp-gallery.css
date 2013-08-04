@@ -1,6 +1,6 @@
 @charset 'UTF-8';
 /*
- * blueimp Gallery CSS 2.5.0
+ * blueimp Gallery CSS 2.5.1
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -35,6 +35,7 @@
   opacity: 0;
   visibility: hidden;
   display: none;
+  direction: ltr;
   -ms-touch-action: none;
 }
 .blueimp-gallery-carousel {
