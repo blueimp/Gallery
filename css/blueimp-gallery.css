@@ -1,6 +1,6 @@
 @charset 'UTF-8';
 /*
- * blueimp Gallery CSS 2.5.1
+ * blueimp Gallery CSS 2.5.2
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -106,6 +106,9 @@
   text-align: center;
   background: #222;
   background: rgba(0, 0, 0, 0.5);
+  -webkit-box-sizing: content-box;
+     -moz-box-sizing: content-box;
+          box-sizing: content-box;
   border: 3px solid #fff;
   -webkit-border-radius: 23px;
      -moz-border-radius: 23px;

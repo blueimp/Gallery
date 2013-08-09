@@ -1,6 +1,6 @@
 @charset 'UTF-8';
 /*
- * blueimp Gallery Indicator CSS 1.0.0
+ * blueimp Gallery Indicator CSS 1.0.1
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -28,6 +28,9 @@
   width: 9px;
   height: 9px;
   margin: 6px 3px 0 3px;
+  -webkit-box-sizing: content-box;
+     -moz-box-sizing: content-box;
+          box-sizing: content-box;
   border: 1px solid transparent;
   background: #ccc;
   background: rgba(255, 255, 255, 0.25) center no-repeat;
