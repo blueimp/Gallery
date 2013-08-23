@@ -7,6 +7,7 @@
     - [Carousel setup](#carousel-setup)
 - [Keyboard shortcuts](#keyboard-shortcuts)
 - [Options](#options)
+    - [Event callbacks](#event-callbacks)
     - [Carousel options](#carousel-options)
     - [Indicator options](#indicator-options)
     - [Fullscreen options](#fullscreen-options)
@@ -17,13 +18,14 @@
     - [API methods](#api-methods)
     - [Videos](#videos)
         - [Multiple video sources](#multiple-video-sources)
+    - [Additional Gallery elements](#additional-gallery-elements)
     - [Additional content types](#additional-content-types)
         - [Example HTML text factory implementation](#example-html-text-factory-implementation)
     - [jQuery plugin](#jquery-plugin)
         - [HTML5 data-attributes](#html5-data-attributes)
         - [Container ids and link grouping](#container-ids-and-link-grouping)
         - [Gallery object](#gallery-object)
-        - [Event callbacks](#event-callbacks)
+        - [jQuery events](#jquery-events)
 - [Requirements](#requirements)
 - [Browsers](#browsers)
     - [Desktop browsers](#desktop-browsers)
@@ -272,6 +274,33 @@ var options = {
 };
 ```
 
+### Event callbacks
+
+Event callbacks can be set as function properties of the options object passed on Gallery initialization:
+
+```js
+var gallery = blueimp.Gallery(
+    linkList,
+    {
+        onopen: function () {
+            // Callback function executed when the Gallery is initialized.
+        },
+        onslide: function (index, slide) {
+            // Callback function executed on slide change.
+        },
+        onslideend: function (index, slide) {
+            // Callback function executed after the slide change transition.
+        },
+        onslidecomplete: function (index, slide) {
+            // Callback function executed on slide content load.
+        },
+        onclose: function () {
+            // Callback function executed when the Gallery is closed.
+        }
+    }
+);
+```
+
 ### Carousel options
 
 If the **carousel** option is **true**, the following options are set to different default values:
@@ -296,7 +325,7 @@ The options object passed to the Gallery function extends the default options an
 The following are the additional default options set for the slide position indicator:
 
 ```js
-var options = {
+var indicatorOptions = {
     // The tag name, Id, element or querySelector of the indicator container:
     indicatorContainer: 'ol',
     // The class for the active indicator:
@@ -313,7 +342,7 @@ var options = {
 The following are the additional default options set for the fullscreen mode:
 
 ```js
-var options = {
+var fullscreenOptions = {
     // Defines if the gallery should open in fullscreen mode:
     fullScreen: false
 };
@@ -323,7 +352,7 @@ var options = {
 The following are the additional default options set for the video factory:
 
 ```js
-var options = {
+var videoFactoryOptions = {
     // The class for video content elements:
     videoContentClass: 'video-content',
     // The class for video when it is loading:
@@ -505,6 +534,67 @@ It is also possible to define the video sources as data-attribute on a link elem
 </div>
 ```
 
+### Additional Gallery elements
+It is possible to add additional elements to the Gallery widget, e.g. a description label.
+
+First, add the desired HTML element to the Gallery widget:
+
+```html
+<div id="blueimp-gallery" class="blueimp-gallery">
+    <div class="slides"></div>
+    <h3 class="title"></h3>
+    <!-- The placeholder for the description label: -->
+    <p class="description"></p>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <a class="close">×</a>
+    <a class="play-pause"></a>
+    <ol class="indicator"></ol>
+</div>
+```
+
+Next, add the desired element styles to your CSS file:
+
+```css
+.blueimp-gallery > .description {
+  position: absolute;
+  top: 30px;
+  left: 15px;
+  color: #fff;
+  display: none;
+}
+.blueimp-gallery-controls > .description {
+  display: block;
+}
+```
+
+Then, add the additional element information to each of your links:
+
+```html
+<div id="links">
+    <a href="images/banana.jpg" title="Banana" data-description="This is a banana.">Banana</a>
+    <a href="images/apple.jpg" title="Apple" data-description="This is an apple.">Apple</a>
+</div>
+```
+
+Finally, initialize the Gallery with an onslide callback option, to set the element content based on the information from the current link:
+
+```js
+blueimp.Gallery(
+    document.getElementById('links'),
+    {
+        onslide: function (index, slide) {
+            var text = this.list[index].getAttribute('data-description'),
+                node = this.container.find('.description');
+            node.empty();
+            if (text) {
+                node[0].appendChild(document.createTextNode(text));
+            }
+        }
+    }
+);
+```
+
 ### Additional content types
 By extending the Gallery prototype with new factory methods, additional content types can be displayed.  By default, blueimp Gallery provides the **imageFactory** and **videoFactory** methods for **image** and **video** content types respectively.  
 
@@ -650,7 +740,7 @@ var gallery = $('#blueimp-gallery').data('gallery');
 
 This gallery object provides all methods outlined in the API methods section.
 
-#### Event callbacks
+#### jQuery events
 The jQuery plugin triggers Gallery events on the widget container, with event names equivalent to the callback options:
 
 ```js
