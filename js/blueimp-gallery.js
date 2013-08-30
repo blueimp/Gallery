@@ -1,5 +1,5 @@
 /*
- * blueimp Gallery JS 2.7.1
+ * blueimp Gallery JS 2.7.4
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -199,7 +199,32 @@
                 },
                 prop,
                 transition,
-                translateZ;
+                translateZ,
+                elementTests = function () {
+                    document.body.appendChild(element);
+                    if (transition) {
+                        prop = transition.name.slice(0, -9) + 'ransform';
+                        if (element.style[prop] !== undefined) {
+                            element.style[prop] = 'translateZ(0)';
+                            translateZ = window.getComputedStyle(element)
+                                .getPropertyValue(transition.prefix + 'transform');
+                            support.transform = {
+                                prefix: transition.prefix,
+                                name: prop,
+                                translate: true,
+                                translateZ: !!translateZ && translateZ !== 'none'
+                            };
+                        }
+                    }
+                    if (element.style.backgroundSize !== undefined) {
+                        element.style.backgroundSize = 'contain';
+                        support.backgroundSize = {
+                            contain: window.getComputedStyle(element)
+                                .getPropertyValue('background-size') === 'contain'
+                        };
+                    }
+                    document.body.removeChild(element);
+                };
             for (prop in transitions) {
                 if (transitions.hasOwnProperty(prop) &&
                         element.style[prop] !== undefined) {
@@ -209,32 +234,14 @@
                     break;
                 }
             }
-            document.body.appendChild(element);
-            if (transition) {
-                prop = transition.name.slice(0, -9) + 'ransform';
-                if (element.style[prop] !== undefined) {
-                    element.style[prop] = 'translateZ(0)';
-                    translateZ = window.getComputedStyle(element)
-                        .getPropertyValue(transition.prefix + 'transform');
-                    support.transform = {
-                        prefix: transition.prefix,
-                        name: prop,
-                        translate: true,
-                        translateZ: translateZ && translateZ !== 'none'
-                    };
-                }
+            if (document.body) {
+                elementTests();
+            } else {
+                $(document).on('DOMContentLoaded', elementTests);
             }
-            if (element.style.backgroundSize !== undefined) {
-                element.style.backgroundSize = 'contain';
-                support.backgroundSize = {
-                    contain: window.getComputedStyle(element)
-                        .getPropertyValue('background-size') === 'contain'
-                };
-            }
-            document.body.removeChild(element);
             return support;
             // Test element, has to be standard HTML and must not be hidden
-            // for the CSS3 transform translateZ test to be applicable:
+            // for the CSS3 tests using window.getComputedStyle to be applicable:
         }(document.createElement('div'))),
 
         initialize: function () {
