@@ -1,6 +1,6 @@
 {
     "name": "blueimp-gallery",
-    "version": "2.7.4",
+    "version": "2.8.0",
     "title": "blueimp Gallery",
     "description": "blueimp Gallery is a touch-enabled, responsive and customizable image and video gallery, carousel and lightbox, optimized for both mobile and desktop web browsers. It features swipe, mouse and keyboard navigation, transition effects, slideshow functionality, fullscreen support and on-demand content loading and can be extended to display additional content types.",
     "keywords": [
@@ -45,7 +45,7 @@
         }
     ],
     "devDependencies": {
-        "uglify-js": "2.3.6",
-        "less": "1.4.1"
+        "uglify-js": "2.4.0",
+        "less": "1.4.2"
     }
 }

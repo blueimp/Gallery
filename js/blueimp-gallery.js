@@ -1,5 +1,5 @@
 /*
- * blueimp Gallery JS 2.7.4
+ * blueimp Gallery JS 2.8.0
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -244,6 +244,10 @@
             // for the CSS3 tests using window.getComputedStyle to be applicable:
         }(document.createElement('div'))),
 
+        requestAnimationFrame: window.requestAnimationFrame ||
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame,
+
         initialize: function () {
             this.initStartIndex();
             if (this.initWidget() === false) {
@@ -339,11 +343,19 @@
         },
 
         play: function (time) {
+            var that = this;
             window.clearTimeout(this.timeout);
             this.interval = time || this.options.slideshowInterval;
             if (this.elements[this.index] > 1) {
                 this.timeout = this.setTimeout(
-                    this.slide,
+                    (!this.requestAnimationFrame && this.slide) || function (to, speed) {
+                        that.animationFrameId = that.requestAnimationFrame.call(
+                            window,
+                            function () {
+                                that.slide(to, speed);
+                            }
+                        );
+                    },
                     [this.index + 1, this.options.slideshowTransitionSpeed],
                     this.interval
                 );
