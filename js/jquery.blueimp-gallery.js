@@ -1,5 +1,5 @@
 /*
- * blueimp Gallery jQuery plugin 1.1.1
+ * blueimp Gallery jQuery plugin 1.2.0
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -46,7 +46,10 @@
                     onopen: function () {
                         container
                             .data('gallery', this)
-                            .trigger('open', arguments);
+                            .trigger('open');
+                    },
+                    onopened: function () {
+                        container.trigger('opened');
                     },
                     onslide: function () {
                         container.trigger('slide', arguments);
@@ -58,8 +61,11 @@
                         container.trigger('slidecomplete', arguments);
                     },
                     onclose: function () {
+                        container.trigger('close');
+                    },
+                    onclosed: function () {
                         container
-                            .trigger('close')
+                            .trigger('closed')
                             .removeData('gallery');
                     }
                 }

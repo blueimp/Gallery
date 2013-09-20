@@ -3,10 +3,12 @@
 - [Demo](#demo)
 - [Description](#description)
 - [Setup](#setup)
+    - [Lightbox setup](#lightbox-setup)
     - [Controls](#controls)
     - [Carousel setup](#carousel-setup)
 - [Keyboard shortcuts](#keyboard-shortcuts)
 - [Options](#options)
+    - [Default options](#default-options)
     - [Event callbacks](#event-callbacks)
     - [Carousel options](#carousel-options)
     - [Indicator options](#indicator-options)
@@ -15,6 +17,7 @@
     - [Container and element options](#container-and-element-options)
     - [Property options](#property-options)
 - [API](#api)
+    - [Initialization](#initialization)
     - [API methods](#api-methods)
     - [Videos](#videos)
         - [Multiple video sources](#multiple-video-sources)
@@ -22,6 +25,7 @@
     - [Additional content types](#additional-content-types)
         - [Example HTML text factory implementation](#example-html-text-factory-implementation)
     - [jQuery plugin](#jquery-plugin)
+        - [jQuery plugin setup](#jquery-plugin-setup)
         - [HTML5 data-attributes](#html5-data-attributes)
         - [Container ids and link grouping](#container-ids-and-link-grouping)
         - [Gallery object](#gallery-object)
@@ -41,6 +45,8 @@ blueimp Gallery is a touch-enabled, responsive and customizable image and video 
 It features swipe, mouse and keyboard navigation, transition effects, slideshow functionality, fullscreen support and on-demand content loading and can be extended to display additional content types.
 
 ## Setup
+
+### Lightbox setup
 Copy the **css**, **img** and **js** directories to your website.
 
 Include the Gallery stylesheet in the head section of your webpage:
@@ -117,7 +123,7 @@ To initialize the Gallery with visible controls, add the CSS class **blueimp-gal
 ```
 
 ### Carousel setup
-To display the images in an inline carousel instead of a lightbox, add the CSS class **blueimp-gallery-carousel** to the Gallery widget and remove the child element with the **close** class, or add a new Gallery widget with a different **id** to your webpage:
+To display the images in an inline carousel instead of a lightbox, follow the [lightbox setup](#lightbox-setup) and add the CSS class **blueimp-gallery-carousel** to the Gallery widget and remove the child element with the **close** class, or add a new Gallery widget with a different **id** to your webpage:
 
 ```html
 <!-- The Gallery as inline carousel, can be positioned anywhere on the page -->
@@ -157,7 +163,9 @@ The Gallery can be controlled with the following keyboard shortcuts:
 Please note that setting the **carousel** option to **true** disables the keyboard shortcuts by default.
 
 ## Options
-The following are the default options set by the Gallery:
+
+### Default options
+The following are the default options set by the core Gallery library:
 
 ```js
 var options = {
@@ -203,6 +211,9 @@ var options = {
     titleProperty: 'title',
     // The list object property (or data attribute) with the object URL:
     urlProperty: 'href',
+    // The gallery listens for transitionend events before triggering the
+    // opened and closed events, unless the following option is set to false:
+    displayTransition: true,
     // Defines if the gallery slides are cleared from the gallery modal,
     // or reused for the next gallery initialization:
     clearSlides: true,
@@ -256,6 +267,10 @@ var options = {
     // Callback function executed when the Gallery is initialized.
     // Is called with the gallery instance as "this" object:
     onopen: undefined,
+    // Callback function executed when the Gallery has been initialized
+    // and the initialization transition has been completed.
+    // Is called with the gallery instance as "this" object:
+    onopened: undefined,
     // Callback function executed on slide change.
     // Is called with the gallery instance as "this" object and the
     // current index and slide as arguments:
@@ -268,15 +283,18 @@ var options = {
     // Is called with the gallery instance as "this" object and the
     // slide index and slide element as arguments:
     onslidecomplete: undefined,
-    // Callback function executed when the Gallery is closed.
+    // Callback function executed when the Gallery is about to be closed.
     // Is called with the gallery instance as "this" object:
-    onclose: undefined
+    onclose: undefined,
+    // Callback function executed when the Gallery has been closed
+    // and the closing transition has been completed.
+    // Is called with the gallery instance as "this" object:
+    onclosed: undefined
 };
 ```
 
 ### Event callbacks
-
-Event callbacks can be set as function properties of the options object passed on Gallery initialization:
+Event callbacks can be set as function properties of the options object passed to the Gallery initialization function:
 
 ```js
 var gallery = blueimp.Gallery(
@@ -284,6 +302,10 @@ var gallery = blueimp.Gallery(
     {
         onopen: function () {
             // Callback function executed when the Gallery is initialized.
+        },
+        onopened: function () {
+            // Callback function executed when the Gallery has been initialized
+            // and the initialization transition has been completed.
         },
         onslide: function (index, slide) {
             // Callback function executed on slide change.
@@ -295,14 +317,17 @@ var gallery = blueimp.Gallery(
             // Callback function executed on slide content load.
         },
         onclose: function () {
-            // Callback function executed when the Gallery is closed.
+            // Callback function executed when the Gallery is about to be closed.
+        },
+        onclosed: function () {
+            // Callback function executed when the Gallery has been closed
+            // and the closing transition has been completed.
         }
     }
 );
 ```
 
 ### Carousel options
-
 If the **carousel** option is **true**, the following options are set to different default values:
 
 ```js
@@ -425,20 +450,47 @@ blueimp.Gallery(
 ```
 
 ## API
+
+### Initialization
 The blueimp Gallery can be initialized by simply calling it as a function with an array of links as first argument and an optional options object as second argument:
 
 ```js
 var gallery = blueimp.Gallery(links, options);
 ```
 
-The links array can be a list of URL strings or a list of objects with URL properties.  
+The links array can be a list of URL strings or a list of objects with URL properties:
+
+```js
+var gallery = blueimp.Gallery([
+    'http://example.org/images/banana.jpg',
+    'http://example.org/images/apple.jpg',
+    'http://example.org/images/orange.jpg'
+]);
+```
+
+```js
+var gallery = blueimp.Gallery([
+    {
+        title: 'Banana',
+        href: 'http://example.org/images/banana.jpg',
+        type: 'image/jpeg',
+        thumbnail: 'http://example.org/thumbnails/banana.jpg'
+    },
+    {
+        title: 'Apple',
+        href: 'http://example.org/images/apple.jpg',
+        type: 'image/jpeg',
+        thumbnail: 'http://example.org/thumbnails/apple.jpg'
+    }
+]);
+```
+
 The URL property name defined by each list object can be configured via the **urlProperty** option. By default, it is set to **href**, which allows to pass a list of HTML link elements as first argument.
 
-The object returned by executing the Gallery function (the **gallery** variable in the example code above) is a new instance of the Gallery and allows to access the public API methods provided by the Gallery.  
+The object returned by executing the Gallery function (the **gallery** variable in the example code above) is a new instance of the Gallery and allows to access the public [API methods](#api-methods) provided by the Gallery.  
 The Gallery initialization function returns **false** if the given list was empty, the Gallery widget is missing, or the browser doesn't pass the functionality test.
 
 ### API methods
-
 The Gallery object returned by executing the Gallery function provides the following public API methods:
 
 ```js
@@ -659,9 +711,11 @@ blueimp.Gallery([
 ```
 
 ### jQuery plugin
+
+#### jQuery plugin setup
 The blueimp Gallery jQuery plugin registers a global click handler to open links with **data-gallery** attribute in the Gallery lightbox.
 
-To use it, follow the Setup guide, but replace the minified Gallery script with the jQuery plugin version and include it after including [jQuery](http://jquery.com/):
+To use it, follow the [lightbox setup](#lightbox-setup) guide, but replace the minified Gallery script with the jQuery plugin version and include it after including [jQuery](http://jquery.com/):
 
 ```html
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -684,7 +738,7 @@ Next, add the attribute **data-gallery** to your Gallery links:
 </div>
 ```
 
-The onclick handler from the Setup guide is not required and can be removed.
+The onclick handler from the [lightbox setup](#lightbox-setup) guide is not required and can be removed.
 
 #### HTML5 data-attributes
 Options for the Gallery lightbox opened via the jQuery plugin can be defined as [HTML5 data-attributes](http://api.jquery.com/data/#data-html5) on the Gallery widget container.
@@ -741,12 +795,15 @@ var gallery = $('#blueimp-gallery').data('gallery');
 This gallery object provides all methods outlined in the API methods section.
 
 #### jQuery events
-The jQuery plugin triggers Gallery events on the widget container, with event names equivalent to the callback options:
+The jQuery plugin triggers Gallery events on the widget container, with event names equivalent to the gallery [event callbacks](#event-callbacks):
 
 ```js
 $('#blueimp-gallery')
     .on('open', function (event) {
         // Gallery open event handler
+    })
+    .on('opened', function (event) {
+        // Gallery opened event handler
     })
     .on('slide', function (event, index, slide) {
         // Gallery slide event handler
@@ -759,6 +816,9 @@ $('#blueimp-gallery')
     })
     .on('close', function (event) {
         // Gallery close event handler
+    })
+    .on('closed', function (event) {
+        // Gallery closed event handler
     });
 ```
 
@@ -782,7 +842,7 @@ You can also use the individual source files instead of the standalone minified 
 The helper script can be replaced by [jQuery](http://jquery.com/) v. 1.7+.  
 The fullscreen, indicator and video source files are optional if their functionality is not required.
 
-The jQuery plugin requires [jQuery](http://jquery.com/) v. 1.7+ and the basic Gallery script, while the fullscreen, indicator and video source files are also optional:
+The [jQuery plugin](#jquery-plugin) requires [jQuery](http://jquery.com/) v. 1.7+ and the basic Gallery script, while the fullscreen, indicator and video source files are also optional:
 
 ```html
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>

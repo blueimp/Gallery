@@ -1,6 +1,6 @@
 @charset 'UTF-8';
 /*
- * blueimp Gallery CSS 2.5.2
+ * blueimp Gallery CSS 2.9.0
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -33,7 +33,6 @@
   background: #000;
   background: rgba(0, 0, 0, 0.9);
   opacity: 0;
-  visibility: hidden;
   display: none;
   direction: ltr;
   -ms-touch-action: none;
@@ -48,7 +47,6 @@
 }
 .blueimp-gallery-display {
   display: block;
-  visibility: visible;
   opacity: 1;
 }
 .blueimp-gallery > .slides {

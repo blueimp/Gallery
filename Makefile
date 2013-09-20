@@ -19,7 +19,7 @@ MINIFY_JS_JQUERY+= js/jquery.blueimp-gallery.js
 default: css js
 
 css:
-	cat ${MINIFY_CSS} | node_modules/.bin/lessc --yui-compress - > css/blueimp-gallery.min.css
+	cat ${MINIFY_CSS} | node_modules/.bin/lessc --clean-css - css/blueimp-gallery.min.css
 
 js:
 	node_modules/.bin/uglifyjs ${MINIFY_JS} -c -m -o js/blueimp-gallery.min.js

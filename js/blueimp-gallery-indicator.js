@@ -1,5 +1,5 @@
 /*
- * blueimp Gallery Indicator JS 1.0.0
+ * blueimp Gallery Indicator JS 1.1.0
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -46,7 +46,7 @@
         resetSlides = Gallery.prototype.resetSlides,
         handleClick = Gallery.prototype.handleClick,
         handleSlide = Gallery.prototype.handleSlide,
-        close = Gallery.prototype.close;
+        handleClose = Gallery.prototype.handleClose;
 
     $.extend(Gallery.prototype, {
 
@@ -139,12 +139,12 @@
             this.setActiveIndicator(index);
         },
 
-        close: function () {
+        handleClose: function () {
             if (this.activeIndicator) {
                 this.activeIndicator
                     .removeClass(this.options.activeIndicatorClass);
             }
-            close.call(this);
+            handleClose.call(this);
         }
 
     });

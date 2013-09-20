@@ -1,5 +1,5 @@
 /*
- * blueimp Gallery JS 2.8.0
+ * blueimp Gallery JS 2.9.0
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -91,6 +91,9 @@
             titleProperty: 'title',
             // The list object property (or data attribute) with the object URL:
             urlProperty: 'href',
+            // The gallery listens for transitionend events before triggering the
+            // opened and closed events, unless the following option is set to false:
+            displayTransition: true,
             // Defines if the gallery slides are cleared from the gallery modal,
             // or reused for the next gallery initialization:
             clearSlides: true,
@@ -144,6 +147,10 @@
             // Callback function executed when the Gallery is initialized.
             // Is called with the gallery instance as "this" object:
             onopen: undefined,
+            // Callback function executed when the Gallery has been initialized
+            // and the initialization transition has been completed.
+            // Is called with the gallery instance as "this" object:
+            onopened: undefined,
             // Callback function executed on slide change.
             // Is called with the gallery instance as "this" object and the
             // current index and slide as arguments:
@@ -156,9 +163,13 @@
             // Is called with the gallery instance as "this" object and the
             // slide index and slide element as arguments:
             onslidecomplete: undefined,
-            // Callback function executed when the Gallery is closed.
+            // Callback function executed when the Gallery is about to be closed.
             // Is called with the gallery instance as "this" object:
-            onclose: undefined
+            onclose: undefined,
+            // Callback function executed when the Gallery has been closed
+            // and the closing transition has been completed.
+            // Is called with the gallery instance as "this" object:
+            onclosed: undefined
         },
 
         carouselOptions: {
@@ -254,9 +265,6 @@
                 return false;
             }
             this.initEventListeners();
-            if (this.options.onopen) {
-                this.options.onopen.call(this);
-            }
             // Load the slide at the given index:
             this.onslide(this.index);
             // Manually trigger the slideend event for the initial slide:
@@ -393,7 +401,7 @@
             this.slides = [];
         },
 
-        close: function () {
+        handleClose: function () {
             var options = this.options;
             this.destroyEventListeners();
             // Cancel the slideshow:
@@ -410,8 +418,33 @@
             if (this.options.clearSlides) {
                 this.resetSlides();
             }
+            if (this.options.onclosed) {
+                this.options.onclosed.call(this);
+            }
+        },
+
+        close: function () {
+            var that = this,
+                closeHandler = function (event) {
+                    if (event.target === that.container[0]) {
+                        that.container.off(
+                            that.support.transition.end,
+                            closeHandler
+                        );
+                        that.handleClose();
+                    }
+                };
             if (this.options.onclose) {
                 this.options.onclose.call(this);
+            }
+            if (this.support.transition && this.options.displayTransition) {
+                this.container.on(
+                    this.support.transition.end,
+                    closeHandler
+                );
+                this.container.removeClass(this.options.displayClass);
+            } else {
+                this.handleClose();
             }
         },
 
@@ -1139,7 +1172,23 @@
             }
         },
 
+        handleOpen: function () {
+            if (this.options.onopened) {
+                this.options.onopened.call(this);
+            }
+        },
+
         initWidget: function () {
+            var that = this,
+                openHandler = function (event) {
+                    if (event.target === that.container[0]) {
+                        that.container.off(
+                            that.support.transition.end,
+                            openHandler
+                        );
+                        that.handleOpen();
+                    }
+                };
             this.container = $(this.options.container);
             if (!this.container.length) {
                 return false;
@@ -1153,13 +1202,24 @@
             this.titleElement = this.container.find(
                 this.options.titleElement
             );
+            if (this.num === 1) {
+                this.container.addClass(this.options.singleClass);
+            }
+            if (this.options.onopen) {
+                this.options.onopen.call(this);
+            }
+            if (this.support.transition && this.options.displayTransition) {
+                this.container.on(
+                    this.support.transition.end,
+                    openHandler
+                );
+            } else {
+                this.handleOpen();
+            }
             if (this.options.hidePageScrollbars) {
                 // Hide the page scrollbars:
                 this.bodyOverflowStyle = document.body.style.overflow;
                 document.body.style.overflow = 'hidden';
-            }
-            if (this.num === 1) {
-                this.container.addClass(this.options.singleClass);
             }
             this.container[0].style.display = 'block';
             this.initSlides();
