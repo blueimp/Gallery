@@ -13,14 +13,20 @@
     - [Carousel options](#carousel-options)
     - [Indicator options](#indicator-options)
     - [Fullscreen options](#fullscreen-options)
-    - [Video factory options](#video-factory-options)
+    - [Video options](#video-options)
+        - [Video factory options](#video-factory-options)
+        - [YouTube options](#youtube-options)
+        - [Vimeo options](#vimeo-options)
     - [Container and element options](#container-and-element-options)
     - [Property options](#property-options)
 - [API](#api)
     - [Initialization](#initialization)
     - [API methods](#api-methods)
     - [Videos](#videos)
+        - [HTML5 video player](#html5-video-player)
         - [Multiple video sources](#multiple-video-sources)
+        - [YouTube](#youtube)
+        - [Vimeo](#vimeo)
     - [Additional Gallery elements](#additional-gallery-elements)
     - [Additional content types](#additional-content-types)
         - [Example HTML text factory implementation](#example-html-text-factory-implementation)
@@ -373,7 +379,9 @@ var fullscreenOptions = {
 };
 ```
 
-### Video factory options
+### Video options
+
+#### Video factory options
 The following are the additional default options set for the video factory:
 
 ```js
@@ -388,6 +396,33 @@ var videoFactoryOptions = {
     videoPosterProperty: 'poster',
     // The list object property (or data attribute) for the video sources array:
     videoSourcesProperty: 'sources'
+};
+```
+#### YouTube options
+Options for [YouTube](https://www.youtube.com/) videos:
+
+```js
+var youTubeOptions = {
+    // The list object property (or data attribute) with the YouTube video id:
+    youTubeVideoIdProperty: 'youtube',
+    // Optional object with parameters passed to the YouTube video player:
+    // https://developers.google.com/youtube/player_parameters
+    youTubePlayerVars: undefined
+};
+```
+
+#### Vimeo options
+Options for [Vimeo](https://vimeo.com/) videos:
+
+```js
+var youTubeOptions = {
+    // The list object property (or data attribute) with the Vimeo video id:
+    vimeoVideoIdProperty: 'vimeo',
+    // The URL for the Vimeo video player, can be extended with custom parameters:
+    // https://developer.vimeo.com/player/embedding
+    vimeoPlayerUrl: '//player.vimeo.com/video/VIDEO_ID?api=1&player_id=PLAYER_ID',
+    // The prefix for the Vimeo video player ID:
+    vimeoPlayerIdPrefix: 'vimeo-player-'
 };
 ```
 
@@ -487,6 +522,8 @@ var gallery = blueimp.Gallery([
 
 The URL property name defined by each list object can be configured via the **urlProperty** option. By default, it is set to **href**, which allows to pass a list of HTML link elements as first argument.
 
+For images, the **thumbnail** property defines the URL of the image thumbnail, which is used for the indicator navigation displayed at the bottom of the Gallery, if the controls are visible.
+
 The object returned by executing the Gallery function (the **gallery** variable in the example code above) is a new instance of the Gallery and allows to access the public [API methods](#api-methods) provided by the Gallery.  
 The Gallery initialization function returns **false** if the given list was empty, the Gallery widget is missing, or the browser doesn't pass the functionality test.
 
@@ -523,6 +560,9 @@ gallery.close();
 ```
 
 ### Videos
+
+#### HTML5 video player
+
 The Gallery can be initialized with a list of videos instead of images, or a combination of both:
 
 ```js
@@ -543,9 +583,8 @@ blueimp.Gallery([
 ```
 
 The Gallery uses the **type** property to determine the content type of the object to display.  
-If the type property is empty or doesn't exist, the default type **image** is assumed.
-
-For images, the **thumbnail** property defines the URL of the image thumbnail, which is used for the indicator navigation displayed at the bottom of the Gallery, if the controls are visible.
+If the type property is empty or doesn't exist, the default type **image** is assumed.  
+Objects with a video type will be displayed in a [HTML5 video element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video) if the browser supports the video content type.
 
 For videos, the **poster** property defines the URL of the poster image to display, before the video is started.
 
@@ -585,6 +624,52 @@ It is also possible to define the video sources as data-attribute on a link elem
     >Fruits</a>
 </div>
 ```
+
+#### YouTube
+The Gallery can display [YouTube](https://www.youtube.com/) videos for Gallery items with a **type** of **text/html** and a **youtube** property (configurable via [YouTube options](#youtube-options)) with the YouTube video-ID:
+
+```js
+blueimp.Gallery([
+    {
+        title: 'A YouYube video',
+        href: 'https://www.youtube.com/watch?v=VIDEO_ID',
+        type: 'text/html',
+        youtube: 'VIDEO_ID',
+        poster: 'https://img.youtube.com/vi/VIDEO_ID/0.jpg'
+    },
+    {
+        title: 'Banana',
+        href: 'http://example.org/images/banana.jpg',
+        type: 'image/jpeg',
+        thumbnail: 'http://example.org/thumbnails/banana.jpg'
+    }
+]);
+```
+
+Please note that the Gallery YouTube integration requires a browser with [postMessage](https://developer.mozilla.org/en-US/docs/Web/API/window.postMessage) support, which excludes IE7.
+
+#### Vimeo
+The Gallery can display [Vimeo](https://vimeo.com/) videos for Gallery items with a **type** of **text/html** and a **vimeo** property (configurable via [Vimeo options](#vimeo-options)) with the Vimeo video-ID:
+
+```js
+blueimp.Gallery([
+    {
+        title: 'A Vimeo video',
+        href: 'https://vimeo.com/VIDEO_ID',
+        type: 'text/html',
+        vimeo: 'VIDEO_ID',
+        poster: 'https://secure-b.vimeocdn.com/ts/POSTER_ID.jpg'
+    },
+    {
+        title: 'Banana',
+        href: 'http://example.org/images/banana.jpg',
+        type: 'image/jpeg',
+        thumbnail: 'http://example.org/thumbnails/banana.jpg'
+    }
+]);
+```
+
+Please note that the Gallery Vimeo integration requires a browser with [postMessage](https://developer.mozilla.org/en-US/docs/Web/API/window.postMessage) support, which excludes IE7.
 
 ### Additional Gallery elements
 It is possible to add additional elements to the Gallery widget, e.g. a description label.
@@ -654,7 +739,9 @@ The Gallery uses the **type** property of each content object to determine which
 The main type (the string in front of the slash, **text** in the example above) is concatenated with the string **Factory** to create the factory method name, e.g. **textFactory**.
 
 #### Example HTML text factory implementation
-Please note that although blueimp Gallery doesn't require [jQuery](http://jquery.com/), the following example uses it for convenience.
+Please note that the textFactory script has to be included after the core Gallery script, but before including the [YouTube](#youtube) and [Vimeo](#vimeo) integration plugins, which extend the textFactory implementation to handle YouTube and Vimeo video links.
+
+Please also note that although blueimp Gallery doesn't require [jQuery](http://jquery.com/), the following example uses it for convenience.
 
 Extend the Gallery prototype with the **textFactory** method:
 
@@ -681,7 +768,7 @@ blueimp.Gallery.prototype.textFactory = function (obj, callback) {
 };
 ```
 
-Add the **text-content** class to the Gallery CSS:
+Next, add the **text-content** class to the Gallery CSS:
 
 ```css
 .blueimp-gallery > .slides > .slide > .text-content {
@@ -837,12 +924,14 @@ You can also use the individual source files instead of the standalone minified 
 <script src="js/blueimp-gallery-fullscreen.js"></script>
 <script src="js/blueimp-gallery-indicator.js"></script>
 <script src="js/blueimp-gallery-video.js"></script>
+<script src="js/blueimp-gallery-youtube.js"></script>
+<script src="js/blueimp-gallery-vimeo.js"></script>
 ```
 
 The helper script can be replaced by [jQuery](http://jquery.com/) v. 1.7+.  
-The fullscreen, indicator and video source files are optional if their functionality is not required.
+The fullscreen, indicator, video, youtube and vimeo source files are optional if their functionality is not required.
 
-The [jQuery plugin](#jquery-plugin) requires [jQuery](http://jquery.com/) v. 1.7+ and the basic Gallery script, while the fullscreen, indicator and video source files are also optional:
+The [jQuery plugin](#jquery-plugin) requires [jQuery](http://jquery.com/) v. 1.7+ and the basic Gallery script, while the fullscreen, indicator, video, youtube and vimeo source files are also optional:
 
 ```html
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -850,6 +939,8 @@ The [jQuery plugin](#jquery-plugin) requires [jQuery](http://jquery.com/) v. 1.7
 <script src="js/blueimp-gallery-fullscreen.js"></script>
 <script src="js/blueimp-gallery-indicator.js"></script>
 <script src="js/blueimp-gallery-video.js"></script>
+<script src="js/blueimp-gallery-youtube.js"></script>
+<script src="js/blueimp-gallery-vimeo.js"></script>
 <script src="js/jquery.blueimp-gallery.js"></script>
 ```
 

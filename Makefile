@@ -9,11 +9,15 @@ MINIFY_JS+= js/blueimp-gallery.js
 MINIFY_JS+= js/blueimp-gallery-fullscreen.js
 MINIFY_JS+= js/blueimp-gallery-indicator.js
 MINIFY_JS+= js/blueimp-gallery-video.js
+MINIFY_JS+= js/blueimp-gallery-vimeo.js
+MINIFY_JS+= js/blueimp-gallery-youtube.js
 
 MINIFY_JS_JQUERY=js/blueimp-gallery.js
 MINIFY_JS_JQUERY+= js/blueimp-gallery-fullscreen.js
 MINIFY_JS_JQUERY+= js/blueimp-gallery-indicator.js
 MINIFY_JS_JQUERY+= js/blueimp-gallery-video.js
+MINIFY_JS_JQUERY+= js/blueimp-gallery-vimeo.js
+MINIFY_JS_JQUERY+= js/blueimp-gallery-youtube.js
 MINIFY_JS_JQUERY+= js/jquery.blueimp-gallery.js
 
 default: css js

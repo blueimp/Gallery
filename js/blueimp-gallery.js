@@ -1,5 +1,5 @@
 /*
- * blueimp Gallery JS 2.9.0
+ * blueimp Gallery JS 2.10.0
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -1096,10 +1096,31 @@
             return obj;
         },
 
+        getDataProperty: function (obj, property) {
+            if (obj.getAttribute) {
+                var prop = obj.getAttribute('data-' +
+                        property.replace(/([A-Z])/g, '-$1').toLowerCase());
+                if (typeof prop === 'string') {
+                    if (/^(true|false|null|-?\d+(\.\d+)?|\{[\s\S]*\}|\[[\s\S]*\])$/
+                            .test(prop)) {
+                        try {
+                            return $.parseJSON(prop);
+                        } catch (ignore) {}
+                    }
+                    return prop;
+                }
+            }
+        },
+
         getItemProperty: function (obj, property) {
-            return obj[property] || (obj.getAttribute &&
-                obj.getAttribute('data-' + property)) ||
-                this.getNestedProperty(obj, property);
+            var prop = obj[property];
+            if (prop === undefined) {
+                prop = this.getDataProperty(obj, property);
+                if (prop === undefined) {
+                    prop = this.getNestedProperty(obj, property);
+                }
+            }
+            return prop;
         },
 
         initStartIndex: function () {

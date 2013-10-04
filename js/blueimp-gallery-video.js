@@ -1,5 +1,5 @@
 /*
- * blueimp Gallery Video Factory JS 1.0.0
+ * blueimp Gallery Video Factory JS 1.1.0
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -42,7 +42,7 @@
         videoSourcesProperty: 'sources'
     });
 
-    Gallery.prototype.videoFactory = function (obj, callback) {
+    Gallery.prototype.videoFactory = function (obj, callback, videoInterface) {
         var that = this,
             options = this.options,
             videoContainerNode = this.elementPrototype.cloneNode(false),
@@ -51,7 +51,7 @@
                 type: 'error',
                 target: videoContainerNode
             }],
-            video = document.createElement('video'),
+            video = videoInterface || document.createElement('video'),
             url = this.getItemProperty(obj, options.urlProperty),
             type = this.getItemProperty(obj, options.typeProperty),
             title = this.getItemProperty(obj, options.titleProperty),
@@ -72,10 +72,7 @@
         if (video.canPlayType) {
             if (url && type && video.canPlayType(type)) {
                 video.src = url;
-            } else if (sources) {
-                if (typeof sources === 'string') {
-                    sources = $.parseJSON(sources);
-                }
+            } else {
                 while (sources && sources.length) {
                     source = sources.shift();
                     url = this.getItemProperty(source, options.urlProperty);
@@ -88,7 +85,7 @@
             }
         }
         if (posterUrl) {
-            video.setAttribute('poster', posterUrl);
+            video.poster = posterUrl;
             posterImage = this.imagePrototype.cloneNode(false);
             $(posterImage).addClass(options.toggleClass);
             posterImage.src = posterUrl;
@@ -97,11 +94,13 @@
         }
         playMediaControl = document.createElement('a');
         playMediaControl.setAttribute('target', '_blank');
-        playMediaControl.setAttribute('download', title);
+        if (!videoInterface) {
+            playMediaControl.setAttribute('download', title);
+        }
         playMediaControl.href = url;
         if (video.src) {
             video.controls = true;
-            $(video)
+            (videoInterface || $(video))
                 .on('error', function () {
                     that.setTimeout(callback, errorArgs);
                 })
@@ -135,14 +134,16 @@
                     videoContainer.addClass(that.options.videoLoadingClass);
                 });
             $(playMediaControl).on('click', function (event) {
-                event.preventDefault();
+                that.preventDefault(event);
                 if (isLoading) {
                     video.pause();
                 } else {
                     video.play();
                 }
             });
-            videoContainerNode.appendChild(video);
+            videoContainerNode.appendChild(
+                (videoInterface && videoInterface.element) || video
+            );
         }
         videoContainerNode.appendChild(playMediaControl);
         this.setTimeout(callback, [{

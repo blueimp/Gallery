@@ -1,5 +1,5 @@
 /*
- * blueimp Gallery Demo JS 2.4.0
+ * blueimp Gallery Demo JS 2.10.0
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -17,9 +17,9 @@ $(function () {
 
     // Load demo images from flickr:
     $.ajax({
-        url: window.location.protocol === 'https:' ?
-                'https://secure.flickr.com/services/rest/' :
-                'http://api.flickr.com/services/rest/',
+        url: (window.location.protocol === 'https:' ?
+                'https://secure' : 'http://api') +
+                '.flickr.com/services/rest/',
         data: {
             format: 'json',
             method: 'flickr.interestingness.getList',
@@ -78,6 +78,20 @@ $(function () {
             type: 'video/webm',
             poster: 'http://upload.wikimedia.org/wikipedia/commons/thumb/9/90/' +
                 'Elephants_Dream_s1_proog.jpg/800px-Elephants_Dream_s1_proog.jpg'
+        },
+        {
+            title: 'LES TWINS - An Industry Ahead',
+            href: 'http://www.youtube.com/watch?v=zi4CIXpx7Bg',
+            type: 'text/html',
+            youtube: 'zi4CIXpx7Bg',
+            poster: 'http://img.youtube.com/vi/zi4CIXpx7Bg/0.jpg'
+        },
+        {
+            title: 'KN1GHT - Last Moon',
+            href: 'http://vimeo.com/73686146',
+            type: 'text/html',
+            vimeo: '73686146',
+            poster: 'http://b.vimeocdn.com/ts/448/835/448835699_960.jpg'
         }
     ], {
         container: '#blueimp-video-carousel',
