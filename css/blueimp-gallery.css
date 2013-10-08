@@ -1,6 +1,6 @@
 @charset 'UTF-8';
 /*
- * blueimp Gallery CSS 2.9.0
+ * blueimp Gallery CSS 2.9.1
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -22,6 +22,8 @@
 }
 .blueimp-gallery > .slides > .slide > .slide-content {
   margin: auto;
+  width: auto;
+  height: auto;
   max-width: 100%;
   max-height: 100%;
   opacity: 1;
