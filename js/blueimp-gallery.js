@@ -1,5 +1,5 @@
 /*
- * blueimp Gallery JS 2.10.0
+ * blueimp Gallery JS 2.10.1
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -509,11 +509,12 @@
         },
 
         onmousedown: function (event) {
-            // Trigger on clicks of the left mouse button only:
-            if (event.which && event.which === 1) {
+            // Trigger on clicks of the left mouse button only
+            // and exclude video elements:
+            if (event.which && event.which === 1 &&
+                    event.target.nodeName !== 'VIDEO') {
                 // Preventing the default mousedown action is required
                 // to make touch emulation work with Firefox:
-                event.preventDefault();
                 (event.originalEvent || event).touches = [{
                     pageX: event.pageX,
                     pageY: event.pageY
