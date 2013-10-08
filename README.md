@@ -407,7 +407,9 @@ var youTubeOptions = {
     youTubeVideoIdProperty: 'youtube',
     // Optional object with parameters passed to the YouTube video player:
     // https://developers.google.com/youtube/player_parameters
-    youTubePlayerVars: undefined
+    youTubePlayerVars: undefined,
+    // Require a click on the native YouTube player for the initial playback:
+    youTubeClickToPlay: true
 };
 ```
 
@@ -422,7 +424,9 @@ var youTubeOptions = {
     // https://developer.vimeo.com/player/embedding
     vimeoPlayerUrl: '//player.vimeo.com/video/VIDEO_ID?api=1&player_id=PLAYER_ID',
     // The prefix for the Vimeo video player ID:
-    vimeoPlayerIdPrefix: 'vimeo-player-'
+    vimeoPlayerIdPrefix: 'vimeo-player-',
+    // Require a click on the native Vimeo player for the initial playback:
+    vimeoClickToPlay: true
 };
 ```
 

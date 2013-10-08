@@ -1,5 +1,5 @@
 /*
- * blueimp Gallery YouTube Video Factory JS 1.0.0
+ * blueimp Gallery YouTube Video Factory JS 1.1.0
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -39,13 +39,16 @@
         youTubeVideoIdProperty: 'youtube',
         // Optional object with parameters passed to the YouTube video player:
         // https://developers.google.com/youtube/player_parameters
-        youTubePlayerVars: undefined
+        youTubePlayerVars: undefined,
+        // Require a click on the native YouTube player for the initial playback:
+        youTubeClickToPlay: true
     });
 
     var textFactory = Gallery.prototype.textFactory || Gallery.prototype.imageFactory,
-        YouTubePlayer = function (videoId, playerVars) {
+        YouTubePlayer = function (videoId, playerVars, clickToPlay) {
             this.videoId = videoId;
             this.playerVars = playerVars;
+            this.clickToPlay = clickToPlay;
             this.element = document.createElement('div');
             this.listeners = {};
         };
@@ -130,11 +133,12 @@
                 this.playStatus = 1;
             }
             if (this.ready) {
-                if (!this.hasPlayed && window.navigator &&
-                        /iP(hone|od|ad)/.test(window.navigator.platform)) {
-                    // Manually trigger the playing callback to workaround
-                    // a limitation in iOS, which requires synchronous
-                    // user interaction to start the video playback:
+                if (!this.hasPlayed && (this.clickToPlay || (window.navigator &&
+                        /iP(hone|od|ad)/.test(window.navigator.platform)))) {
+                    // Manually trigger the playing callback if clickToPlay
+                    // is enabled and to workaround a limitation in iOS,
+                    // which requires synchronous user interaction to start
+                    // the video playback:
                     this.onPlaying();
                 } else {
                     this.player.playVideo();
@@ -187,7 +191,8 @@
                     callback,
                     new YouTubePlayer(
                         videoId,
-                        this.options.youTubePlayerVars
+                        this.options.youTubePlayerVars,
+                        this.options.youTubeClickToPlay
                     )
                 );
             }

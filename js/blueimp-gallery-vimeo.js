@@ -1,5 +1,5 @@
 /*
- * blueimp Gallery Vimeo Video Factory JS 1.0.0
+ * blueimp Gallery Vimeo Video Factory JS 1.1.0
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -41,14 +41,17 @@
         // https://developer.vimeo.com/player/embedding
         vimeoPlayerUrl: '//player.vimeo.com/video/VIDEO_ID?api=1&player_id=PLAYER_ID',
         // The prefix for the Vimeo video player ID:
-        vimeoPlayerIdPrefix: 'vimeo-player-'
+        vimeoPlayerIdPrefix: 'vimeo-player-',
+        // Require a click on the native Vimeo player for the initial playback:
+        vimeoClickToPlay: true
     });
 
     var textFactory = Gallery.prototype.textFactory || Gallery.prototype.imageFactory,
-        VimeoPlayer = function (url, videoId, playerId) {
+        VimeoPlayer = function (url, videoId, playerId, clickToPlay) {
             this.url = url;
             this.videoId = videoId;
             this.playerId = playerId;
+            this.clickToPlay = clickToPlay;
             this.element = document.createElement('div');
             this.listeners = {};
         },
@@ -145,11 +148,12 @@
                 this.playStatus = 1;
             }
             if (this.ready) {
-                if (!this.hasPlayed && window.navigator &&
-                        /iP(hone|od|ad)/.test(window.navigator.platform)) {
-                    // Manually trigger the playing callback to workaround
-                    // a limitation in iOS, which requires synchronous
-                    // user interaction to start the video playback:
+                if (!this.hasPlayed && (this.clickToPlay || (window.navigator &&
+                        /iP(hone|od|ad)/.test(window.navigator.platform)))) {
+                    // Manually trigger the playing callback if clickToPlay
+                    // is enabled and to workaround a limitation in iOS,
+                    // which requires synchronous user interaction to start
+                    // the video playback:
                     this.onPlaying();
                 } else {
                     this.player.api('play');
@@ -194,7 +198,8 @@
                     new VimeoPlayer(
                         this.options.vimeoPlayerUrl,
                         videoId,
-                        this.options.vimeoPlayerIdPrefix + counter
+                        this.options.vimeoPlayerIdPrefix + counter,
+                        this.options.vimeoClickToPlay
                     )
                 );
             }
