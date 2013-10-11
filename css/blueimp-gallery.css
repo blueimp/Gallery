@@ -1,6 +1,6 @@
 @charset 'UTF-8';
 /*
- * blueimp Gallery CSS 2.9.1
+ * blueimp Gallery CSS 2.10.0
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -42,9 +42,9 @@
 .blueimp-gallery-carousel {
   position: relative;
   z-index: auto;
-  height: 432px;
-  max-width: 768px;
   margin: 1em auto;
+  /* Set the carousel width/height ratio to 16/9: */
+  padding-bottom: 56.25%;
   box-shadow: 0 0 10px #000;
 }
 .blueimp-gallery-display {
@@ -55,6 +55,9 @@
   position: relative;
   height: 100%;
   overflow: hidden;
+}
+.blueimp-gallery-carousel > .slides {
+  position: absolute;
 }
 .blueimp-gallery > .slides > .slide {
   position: relative;
@@ -201,13 +204,6 @@ body:last-child .blueimp-gallery > .play-pause {
 }
 body:last-child .blueimp-gallery-playing > .play-pause {
   background-position: -20px 0;
-}
-
-@media (max-width: 767px) {
-  .blueimp-gallery-carousel {
-    height: 270px;
-    max-width: 480px;
-  }
 }
 
 /* IE7 fixes */
