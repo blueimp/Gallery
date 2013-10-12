@@ -1,5 +1,5 @@
 /*
- * blueimp helper JS 1.1.0
+ * blueimp helper JS 1.2.0
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -172,6 +172,10 @@
                 }
             }
             return this;
+        },
+
+        first: function () {
+            return new Helper(this[0]);
         }
 
     });

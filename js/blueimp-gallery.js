@@ -1,5 +1,5 @@
 /*
- * blueimp Gallery JS 2.10.1
+ * blueimp Gallery JS 2.10.2
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -1217,13 +1217,13 @@
             }
             this.slidesContainer = this.container.find(
                 this.options.slidesContainer
-            );
+            ).first();
             if (!this.slidesContainer.length) {
                 return false;
             }
             this.titleElement = this.container.find(
                 this.options.titleElement
-            );
+            ).first();
             if (this.num === 1) {
                 this.container.addClass(this.options.singleClass);
             }
