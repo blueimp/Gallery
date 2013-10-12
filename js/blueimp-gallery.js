@@ -1,5 +1,5 @@
 /*
- * blueimp Gallery JS 2.10.2
+ * blueimp Gallery JS 2.11.0
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -99,7 +99,9 @@
             clearSlides: true,
             // Defines if images should be stretched to fill the available space,
             // while maintaining their aspect ratio (will only be enabled for browsers
-            // supporting background-size="contain", which excludes IE < 9):
+            // supporting background-size="contain", which excludes IE < 9).
+            // Set to "cover", to make images cover all available space (requires
+            // support for background-size="cover", which excludes IE < 9):
             stretchImages: false,
             // Toggle the controls on pressing the Return key:
             toggleControlsOnReturn: true,
@@ -228,11 +230,15 @@
                         }
                     }
                     if (element.style.backgroundSize !== undefined) {
+                        support.backgroundSize = {};
                         element.style.backgroundSize = 'contain';
-                        support.backgroundSize = {
-                            contain: window.getComputedStyle(element)
-                                .getPropertyValue('background-size') === 'contain'
-                        };
+                        support.backgroundSize.contain = window
+                                .getComputedStyle(element)
+                                .getPropertyValue('background-size') === 'contain';
+                        element.style.backgroundSize = 'cover';
+                        support.backgroundSize.cover = window
+                                .getComputedStyle(element)
+                                .getPropertyValue('background-size') === 'cover';
                     }
                     document.body.removeChild(element);
                 };
@@ -890,9 +896,7 @@
             var that = this,
                 img = this.imagePrototype.cloneNode(false),
                 url = obj,
-                contain = this.options.stretchImages &&
-                    this.support.backgroundSize &&
-                    this.support.backgroundSize.contain,
+                backgroundSize = this.options.stretchImages,
                 called,
                 element,
                 callbackWrapper = function (event) {
@@ -909,11 +913,11 @@
                         }
                         called = true;
                         $(img).off('load error', callbackWrapper);
-                        if (contain) {
+                        if (backgroundSize) {
                             if (event.type === 'load') {
                                 element.style.background = 'url("' + url +
                                     '") center no-repeat';
-                                element.style.backgroundSize = 'contain';
+                                element.style.backgroundSize = backgroundSize;
                             }
                         }
                         callback(event);
@@ -924,7 +928,12 @@
                 url = this.getItemProperty(obj, this.options.urlProperty);
                 title = this.getItemProperty(obj, this.options.titleProperty);
             }
-            if (contain) {
+            if (backgroundSize === true) {
+                backgroundSize = 'contain';
+            }
+            backgroundSize = this.support.backgroundSize &&
+                this.support.backgroundSize[backgroundSize] && backgroundSize;
+            if (backgroundSize) {
                 element = this.elementPrototype.cloneNode(false);
             } else {
                 element = img;
