@@ -31,6 +31,7 @@ $(function () {
         var carouselLinks = [],
             linksContainer = $('#links'),
             baseUrl;
+            $('div.Desc').append(result.description);
         // Add the demo images as links with thumbnails to the page:
         $.each(result.photos.photo, function (index, photo) {
             baseUrl = 'http://farm' + photo.farm + '.static.flickr.com/' +
