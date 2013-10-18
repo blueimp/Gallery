@@ -1,6 +1,6 @@
 @charset 'UTF-8';
 /*
- * blueimp Gallery Indicator CSS 1.0.1
+ * blueimp Gallery Indicator CSS 1.1.0
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -39,10 +39,11 @@
   opacity: 0.5;
   cursor: pointer;
 }
+.blueimp-gallery > .indicator > li:hover,
 .blueimp-gallery > .indicator > .active {
   background-color: #fff;
   border-color: #fff;
-  opacity: 0.8;
+  opacity: 1;
 }
 .blueimp-gallery-controls > .indicator {
   display: block;

@@ -1,6 +1,6 @@
 @charset 'UTF-8';
 /*
- * blueimp Gallery Video Factory CSS 1.1.1
+ * blueimp Gallery Video Factory CSS 1.2.0
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -48,6 +48,9 @@
   background: url(../img/video-play.png) center no-repeat;
   opacity: 0.8;
   cursor: pointer;
+}
+.blueimp-gallery > .slides > .slide > .video-content > a:hover {
+  opacity: 1;
 }
 .blueimp-gallery > .slides > .slide > .video-playing > a,
 .blueimp-gallery > .slides > .slide > .video-playing > img {

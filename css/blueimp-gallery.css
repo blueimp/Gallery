@@ -1,6 +1,6 @@
 @charset 'UTF-8';
 /*
- * blueimp Gallery CSS 2.10.0
+ * blueimp Gallery CSS 2.11.0
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -30,7 +30,7 @@
 }
 .blueimp-gallery {
   position: fixed;
-  z-index: 9999;
+  z-index: 999999;
   overflow: hidden;
   background: #000;
   background: rgba(0, 0, 0, 0.9);
@@ -159,6 +159,14 @@
 }
 .blueimp-gallery-playing > .play-pause {
   background-position: -15px 0;
+}
+.blueimp-gallery > .prev:hover,
+.blueimp-gallery > .next:hover,
+.blueimp-gallery > .close:hover,
+.blueimp-gallery > .title:hover,
+.blueimp-gallery > .play-pause:hover {
+  color: #fff;
+  opacity: 1;
 }
 .blueimp-gallery-controls > .prev,
 .blueimp-gallery-controls > .next,
