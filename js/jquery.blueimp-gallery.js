@@ -1,5 +1,5 @@
 /*
- * blueimp Gallery jQuery plugin 1.2.0
+ * blueimp Gallery jQuery plugin 1.2.1
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -16,7 +16,7 @@
     if (typeof define === 'function' && define.amd) {
         define([
             'jquery',
-            './blueimp-gallery.js'
+            './blueimp-gallery'
         ], factory);
     } else {
         factory(
