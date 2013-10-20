@@ -121,6 +121,8 @@
             hidePageScrollbars: true,
             // Stops any touches on the container from scrolling the page:
             disableScroll: true,
+            //disables control toggle
+            disableControlsToggle: false,
             // Carousel mode (shortcut for carousel specific options):
             carousel: false,
             // Allow continuous navigation, moving from last to first
@@ -1070,6 +1072,8 @@
         },
 
         toggleControls: function () {
+            if (this.options.disableControlsToggle)
+                    return;
             var controlsClass = this.options.controlsClass;
             if (this.container.hasClass(controlsClass)) {
                 this.container.removeClass(controlsClass);
