@@ -105,9 +105,15 @@
         },
 
         onPause: function () {
-            this.listeners.pause();
-            delete this.playStatus;
+			this.setTimeout(this.checkSeek, null, 2000);
         },
+		
+		checkSeek: function() {
+			if(this.stateChange === YT.PlayerState.PAUSED || this.stateChange === YT.PlayerState.ENDED ) { // check if current state change is actually paused
+				this.listeners.pause();
+				delete this.playStatus;
+			}
+		},
 
         onStateChange: function (event) {
             switch (event.data) {
@@ -120,6 +126,9 @@
                 this.onPause();
                 break;
             }
+			
+			// Save most recent state change to this.stateChange
+			this.stateChange = event.data;
         },
 
         onError: function (event) {
@@ -175,7 +184,15 @@
                 this.listeners.pause();
                 delete this.playStatus;
             }
-        }
+        },
+		
+        setTimeout: function (func, args, wait) {
+            var that = this;
+            return func && window.setTimeout(function () {
+                func.apply(that, args || []);
+            }, wait || 0);
+        },
+		
 
     });
 
