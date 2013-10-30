@@ -1,5 +1,5 @@
 /*
- * blueimp Gallery YouTube Video Factory JS 1.1.0
+ * blueimp Gallery YouTube Video Factory JS 1.1.1
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -105,15 +105,22 @@
         },
 
         onPause: function () {
-			this.setTimeout(this.checkSeek, null, 2000);
+            Gallery.prototype.setTimeout.call(
+                this,
+                this.checkSeek,
+                null,
+                2000
+            );
         },
-		
-		checkSeek: function() {
-			if(this.stateChange === YT.PlayerState.PAUSED || this.stateChange === YT.PlayerState.ENDED ) { // check if current state change is actually paused
-				this.listeners.pause();
-				delete this.playStatus;
-			}
-		},
+
+        checkSeek: function () {
+            if (this.stateChange === YT.PlayerState.PAUSED ||
+                    this.stateChange === YT.PlayerState.ENDED) {
+                // check if current state change is actually paused
+                this.listeners.pause();
+                delete this.playStatus;
+            }
+        },
 
         onStateChange: function (event) {
             switch (event.data) {
@@ -126,9 +133,8 @@
                 this.onPause();
                 break;
             }
-			
-			// Save most recent state change to this.stateChange
-			this.stateChange = event.data;
+            // Save most recent state change to this.stateChange
+            this.stateChange = event.data;
         },
 
         onError: function (event) {
@@ -184,15 +190,7 @@
                 this.listeners.pause();
                 delete this.playStatus;
             }
-        },
-		
-        setTimeout: function (func, args, wait) {
-            var that = this;
-            return func && window.setTimeout(function () {
-                func.apply(that, args || []);
-            }, wait || 0);
-        },
-		
+        }
 
     });
 
