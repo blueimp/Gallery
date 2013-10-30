@@ -1,5 +1,5 @@
 /*
- * blueimp Gallery JS 2.11.0
+ * blueimp Gallery JS 2.11.3
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -210,10 +210,10 @@
                         prefix: ''
                     }
                 },
-                prop,
-                transition,
-                translateZ,
                 elementTests = function () {
+                    var transition = support.transition,
+                        prop,
+                        translateZ;
                     document.body.appendChild(element);
                     if (transition) {
                         prop = transition.name.slice(0, -9) + 'ransform';
@@ -242,15 +242,17 @@
                     }
                     document.body.removeChild(element);
                 };
-            for (prop in transitions) {
-                if (transitions.hasOwnProperty(prop) &&
-                        element.style[prop] !== undefined) {
-                    transition = transitions[prop];
-                    transition.name = prop;
-                    support.transition = transition;
-                    break;
+            (function (support, transitions) {
+                var prop;
+                for (prop in transitions) {
+                    if (transitions.hasOwnProperty(prop) &&
+                            element.style[prop] !== undefined) {
+                        support.transition = transitions[prop];
+                        support.transition.name = prop;
+                        break;
+                    }
                 }
-            }
+            }(support, transitions));
             if (document.body) {
                 elementTests();
             } else {
@@ -645,8 +647,8 @@
                 isValidSlide = (isShortDuration && Math.abs(this.touchDelta.x) > 20) ||
                     Math.abs(this.touchDelta.x) > slideWidth / 2,
                 // Determine if slide attempt is past start or end:
-                isPastBounds = (!index && this.touchDelta.x > 0)
-                        || (index === this.num - 1 && this.touchDelta.x < 0),
+                isPastBounds = (!index && this.touchDelta.x > 0) ||
+                        (index === this.num - 1 && this.touchDelta.x < 0),
                 isValidClose = !isValidSlide && this.options.closeOnSwipeUpOrDown &&
                     ((isShortDuration && Math.abs(this.touchDelta.y) > 20) ||
                         Math.abs(this.touchDelta.y) > this.slideHeight / 2),
