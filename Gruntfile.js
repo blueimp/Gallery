@@ -44,7 +44,6 @@ module.exports = function (grunt) {
             },
             jqueryPlugin: {
                 src: [
-                    'js/blueimp-helper.js',
                     'js/blueimp-gallery.js',
                     'js/blueimp-gallery-fullscreen.js',
                     'js/blueimp-gallery-indicator.js',
