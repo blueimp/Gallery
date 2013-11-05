@@ -1,5 +1,5 @@
 /*
- * blueimp Gallery JS 2.11.3
+ * blueimp Gallery JS 2.11.5
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -387,6 +387,14 @@
 
         add: function (list) {
             var i;
+            if (!list.concat) {
+                // Make a real array out of the list to add:
+                list = Array.prototype.slice.call(list);
+            }
+            if (!this.list.concat) {
+                // Make a real array out of the Gallery list:
+                this.list = Array.prototype.slice.call(this.list);
+            }
             this.list = this.list.concat(list);
             this.num = this.list.length;
             if (this.num > 2 && this.options.continuous === null) {
