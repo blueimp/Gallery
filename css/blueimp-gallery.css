@@ -1,4 +1,4 @@
-@charset 'UTF-8';
+@charset "UTF-8";
 /*
  * blueimp Gallery CSS 2.11.0
  * https://github.com/blueimp/Gallery
@@ -99,7 +99,7 @@
   width: 40px;
   height: 40px;
   margin-top: -23px;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 60px;
   font-weight: 100;
   line-height: 30px;
