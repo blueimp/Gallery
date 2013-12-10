@@ -1,5 +1,5 @@
 /*
- * blueimp Gallery JS 2.11.6
+ * blueimp Gallery JS 2.11.7
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -807,20 +807,7 @@
                     return $(target).hasClass(className) ||
                         $(parent).hasClass(className);
                 };
-            if (parent === this.slidesContainer[0]) {
-                // Click on slide background
-                this.preventDefault(event);
-                if (options.closeOnSlideClick) {
-                    this.close();
-                } else {
-                    this.toggleControls();
-                }
-            } else if (parent.parentNode &&
-                    parent.parentNode === this.slidesContainer[0]) {
-                // Click on displayed element
-                this.preventDefault(event);
-                this.toggleControls();
-            } else if (isTarget(options.toggleClass)) {
+            if (isTarget(options.toggleClass)) {
                 // Click on "toggle" control
                 this.preventDefault(event);
                 this.toggleControls();
@@ -840,6 +827,19 @@
                 // Click on "play-pause" control
                 this.preventDefault(event);
                 this.toggleSlideshow();
+            } else if (parent === this.slidesContainer[0]) {
+                // Click on slide background
+                this.preventDefault(event);
+                if (options.closeOnSlideClick) {
+                    this.close();
+                } else {
+                    this.toggleControls();
+                }
+            } else if (parent.parentNode &&
+                    parent.parentNode === this.slidesContainer[0]) {
+                // Click on displayed element
+                this.preventDefault(event);
+                this.toggleControls();
             }
         },
 
