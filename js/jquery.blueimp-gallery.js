@@ -1,5 +1,5 @@
 /*
- * blueimp Gallery jQuery plugin 1.2.1
+ * blueimp Gallery jQuery plugin 1.2.2
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -9,7 +9,7 @@
  * http://www.opensource.org/licenses/MIT
  */
 
-/*global define, window, document */
+/* global define, window, document */
 
 (function (factory) {
     'use strict';
@@ -35,6 +35,33 @@
             widget = $(id),
             container = (widget.length && widget) ||
                 $(Gallery.prototype.options.container),
+            callbacks = {
+                onopen: function () {
+                    container
+                        .data('gallery', this)
+                        .trigger('open');
+                },
+                onopened: function () {
+                    container.trigger('opened');
+                },
+                onslide: function () {
+                    container.trigger('slide', arguments);
+                },
+                onslideend: function () {
+                    container.trigger('slideend', arguments);
+                },
+                onslidecomplete: function () {
+                    container.trigger('slidecomplete', arguments);
+                },
+                onclose: function () {
+                    container.trigger('close');
+                },
+                onclosed: function () {
+                    container
+                        .trigger('closed')
+                        .removeData('gallery');
+                }
+            },
             options = $.extend(
                 // Retrieve custom options from data-attributes
                 // on the Gallery widget:
@@ -42,33 +69,9 @@
                 {
                     container: container[0],
                     index: this,
-                    event: event,
-                    onopen: function () {
-                        container
-                            .data('gallery', this)
-                            .trigger('open');
-                    },
-                    onopened: function () {
-                        container.trigger('opened');
-                    },
-                    onslide: function () {
-                        container.trigger('slide', arguments);
-                    },
-                    onslideend: function () {
-                        container.trigger('slideend', arguments);
-                    },
-                    onslidecomplete: function () {
-                        container.trigger('slidecomplete', arguments);
-                    },
-                    onclose: function () {
-                        container.trigger('close');
-                    },
-                    onclosed: function () {
-                        container
-                            .trigger('closed')
-                            .removeData('gallery');
-                    }
-                }
+                    event: event
+                },
+                callbacks
             ),
             // Select all links with the same data-gallery attribute:
             links = $('[data-gallery="' + id + '"]');

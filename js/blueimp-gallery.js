@@ -1,5 +1,5 @@
 /*
- * blueimp Gallery JS 2.11.5
+ * blueimp Gallery JS 2.11.6
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -12,8 +12,7 @@
  * http://www.opensource.org/licenses/MIT
  */
 
-/*jslint regexp: true */
-/*global define, window, document, DocumentTouch */
+/* global define, window, document, DocumentTouch */
 
 (function (factory) {
     'use strict';
@@ -33,7 +32,7 @@
     function Gallery(list, options) {
         if (!list || !list.length || document.body.style.maxHeight === undefined) {
             // document.body.style.maxHeight is undefined on IE6 and lower
-            return false;
+            return null;
         }
         if (!this || this.options !== Gallery.prototype.options) {
             // Called as function instead of as constructor,
@@ -287,7 +286,7 @@
             window.clearTimeout(this.timeout);
             var index = this.index,
                 direction,
-                natural_direction,
+                naturalDirection,
                 diff;
             if (index === to || this.num === 1) {
                 return;
@@ -303,11 +302,11 @@
                 direction = Math.abs(index - to) / (index - to);
                 // Get the actual position of the slide:
                 if (this.options.continuous) {
-                    natural_direction = direction;
+                    naturalDirection = direction;
                     direction = -this.positions[this.circle(to)] / this.slideWidth;
                     // If going forward but to < index, use to = slides.length + to
                     // If going backward but to > index, use to = -slides.length + to
-                    if (direction !== natural_direction) {
+                    if (direction !== naturalDirection) {
                         to = -direction * this.num + to;
                     }
                 }

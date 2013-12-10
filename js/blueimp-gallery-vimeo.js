@@ -9,8 +9,7 @@
  * http://www.opensource.org/licenses/MIT
  */
 
-/*jslint regexp: true */
-/*global define, window, document, location, $f */
+/* global define, window, document, location, $f */
 
 (function (factory) {
     'use strict';

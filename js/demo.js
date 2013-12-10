@@ -9,8 +9,7 @@
  * http://www.opensource.org/licenses/MIT
  */
 
-/*jslint unparam: true */
-/*global window, document, blueimp, $ */
+/* global window, blueimp, $ */
 
 $(function () {
     'use strict';
@@ -23,7 +22,7 @@ $(function () {
         data: {
             format: 'json',
             method: 'flickr.interestingness.getList',
-            api_key: '7617adae70159d09ba78cfec73c13be3'
+            api_key: '7617adae70159d09ba78cfec73c13be3' // jshint ignore:line
         },
         dataType: 'jsonp',
         jsonp: 'jsoncallback'
