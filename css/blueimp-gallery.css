@@ -1,6 +1,6 @@
 @charset "UTF-8";
 /*
- * blueimp Gallery CSS 2.11.0
+ * blueimp Gallery CSS 2.11.1
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -38,6 +38,7 @@
   display: none;
   direction: ltr;
   -ms-touch-action: none;
+  touch-action: none;
 }
 .blueimp-gallery-carousel {
   position: relative;
@@ -46,6 +47,8 @@
   /* Set the carousel width/height ratio to 16/9: */
   padding-bottom: 56.25%;
   box-shadow: 0 0 10px #000;
+  -ms-touch-action: pan-y;
+  touch-action: pan-y;
 }
 .blueimp-gallery-display {
   display: block;
