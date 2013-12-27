@@ -1,5 +1,5 @@
 /*
- * blueimp Gallery YouTube Video Factory JS 1.1.1
+ * blueimp Gallery YouTube Video Factory JS 1.1.2
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -38,7 +38,9 @@
         youTubeVideoIdProperty: 'youtube',
         // Optional object with parameters passed to the YouTube video player:
         // https://developers.google.com/youtube/player_parameters
-        youTubePlayerVars: undefined,
+        youTubePlayerVars: {
+            wmode: 'transparent'
+        },
         // Require a click on the native YouTube player for the initial playback:
         youTubeClickToPlay: true
     });
