@@ -114,6 +114,8 @@
             closeOnSlideClick: true,
             // Close the gallery by swiping up or down:
             closeOnSwipeUpOrDown: true,
+            //slide to next image on clicking the slide
+            nextOnSlideClick: false,
             // Emulate touch events on mouse-pointer devices such as desktop browsers:
             emulateTouchEvents: true,
             // Hide the page scrollbars: 
@@ -839,7 +841,13 @@
                     parent.parentNode === this.slidesContainer[0]) {
                 // Click on displayed element
                 this.preventDefault(event);
-                this.toggleControls();
+                
+                if (options.nextOnSlideClick) {
+                	this.next();
+                }
+                else {
+                	this.toggleControls();
+                }
             }
         },
 
