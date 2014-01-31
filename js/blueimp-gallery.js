@@ -1,5 +1,5 @@
 /*
- * blueimp Gallery JS 2.11.7
+ * blueimp Gallery JS 2.13.0
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -116,6 +116,8 @@
             closeOnSwipeUpOrDown: true,
             // Emulate touch events on mouse-pointer devices such as desktop browsers:
             emulateTouchEvents: true,
+            // Stop touch events from bubbling up to ancestor elements of the Gallery:
+            stopTouchEventsPropagation: false,
             // Hide the page scrollbars: 
             hidePageScrollbars: true,
             // Stops any touches on the container from scrolling the page:
@@ -519,6 +521,14 @@
             }
         },
 
+        stopPropagation: function (event) {
+            if (event.stopPropagation) {
+                event.stopPropagation();
+            } else {
+                event.cancelBubble = true;
+            }
+        },
+
         onresize: function () {
             this.initSlides(true);
         },
@@ -530,6 +540,7 @@
                     event.target.nodeName !== 'VIDEO') {
                 // Preventing the default mousedown action is required
                 // to make touch emulation work with Firefox:
+                event.preventDefault();
                 (event.originalEvent || event).touches = [{
                     pageX: event.pageX,
                     pageY: event.pageY
@@ -567,6 +578,9 @@
         },
 
         ontouchstart: function (event) {
+            if (this.options.stopTouchEventsPropagation) {
+                this.stopPropagation(event);
+            }
             // jQuery doesn't copy touch event properties by default,
             // so we have to access the originalEvent object:
             var touches = (event.originalEvent || event).touches[0];
@@ -584,6 +598,9 @@
         },
 
         ontouchmove: function (event) {
+            if (this.options.stopTouchEventsPropagation) {
+                this.stopPropagation(event);
+            }
             // jQuery doesn't copy touch event properties by default,
             // so we have to access the originalEvent object:
             var touches = (event.originalEvent || event).touches[0],
@@ -645,7 +662,10 @@
             }
         },
 
-        ontouchend: function () {
+        ontouchend: function (event) {
+            if (this.options.stopTouchEventsPropagation) {
+                this.stopPropagation(event);
+            }
             var index = this.index,
                 speed = this.options.transitionSpeed,
                 slideWidth = this.slideWidth,
@@ -713,6 +733,13 @@
                     // Move back into position
                     this.translateY(index, 0, speed);
                 }
+            }
+        },
+
+        ontouchcancel: function (event) {
+            if (this.touchStart) {
+                this.ontouchend(event);
+                delete this.touchStart;
             }
         },
 
@@ -1175,7 +1202,7 @@
             this.container.on('click', proxyListener);
             if (this.support.touch) {
                 slidesContainer
-                    .on('touchstart touchmove touchend', proxyListener);
+                    .on('touchstart touchmove touchend touchcancel', proxyListener);
             } else if (this.options.emulateTouchEvents &&
                     this.support.transition) {
                 slidesContainer
@@ -1198,7 +1225,7 @@
             this.container.off('click', proxyListener);
             if (this.support.touch) {
                 slidesContainer
-                    .off('touchstart touchmove touchend', proxyListener);
+                    .off('touchstart touchmove touchend touchcancel', proxyListener);
             } else if (this.options.emulateTouchEvents &&
                     this.support.transition) {
                 slidesContainer

@@ -243,6 +243,8 @@ var options = {
     closeOnSwipeUpOrDown: true,
     // Emulate touch events on mouse-pointer devices such as desktop browsers:
     emulateTouchEvents: true,
+    // Stop touch events from bubbling up to ancestor elements of the Gallery:
+    stopTouchEventsPropagation: false,
     // Hide the page scrollbars: 
     hidePageScrollbars: true,
     // Stops any touches on the container from scrolling the page:
