@@ -1,5 +1,5 @@
 /*
- * blueimp Gallery Fullscreen JS 1.1.1
+ * blueimp Gallery Fullscreen JS 1.2.0
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -35,7 +35,7 @@
     });
 
     var initialize = Gallery.prototype.initialize,
-        handleClose = Gallery.prototype.handleClose;
+        close = Gallery.prototype.close;
 
     $.extend(Gallery.prototype, {
 
@@ -77,11 +77,11 @@
             }
         },
 
-        handleClose: function () {
+        close: function () {
             if (this.getFullScreenElement() === this.container[0]) {
                 this.exitFullScreen();
             }
-            handleClose.call(this);
+            close.call(this);
         }
 
     });
