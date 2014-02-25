@@ -1,5 +1,5 @@
 /*
- * blueimp Gallery JS 2.13.0
+ * blueimp Gallery JS 2.14.0
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -30,7 +30,7 @@
     'use strict';
 
     function Gallery(list, options) {
-        if (!list || !list.length || document.body.style.maxHeight === undefined) {
+        if (document.body.style.maxHeight === undefined) {
             // document.body.style.maxHeight is undefined on IE6 and lower
             return null;
         }
@@ -38,6 +38,13 @@
             // Called as function instead of as constructor,
             // so we simply return a new instance:
             return new Gallery(list, options);
+        }
+        if (!list || !list.length) {
+            this.console.log(
+                'blueimp Gallery: No or empty list provided as first argument.',
+                list
+            );
+            return;
         }
         this.list = list;
         this.num = list.length;
@@ -186,6 +193,10 @@
             disableScroll: false,
             startSlideshow: true
         },
+
+        console: window.console && typeof window.console.log === 'function' ?
+            window.console :
+            {log: function () {}},
 
         // Detect touch, transition, transform and background-size support:
         support: (function (element) {
@@ -1258,12 +1269,20 @@
                 };
             this.container = $(this.options.container);
             if (!this.container.length) {
+                this.console.log(
+                    'blueimp Gallery: Widget container not found.',
+                    this.options.container
+                );
                 return false;
             }
             this.slidesContainer = this.container.find(
                 this.options.slidesContainer
             ).first();
             if (!this.slidesContainer.length) {
+                this.console.log(
+                    'blueimp Gallery: Slides container not found.',
+                    this.options.slidesContainer
+                );
                 return false;
             }
             this.titleElement = this.container.find(
