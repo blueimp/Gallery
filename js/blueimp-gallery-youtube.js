@@ -1,5 +1,5 @@
 /*
- * blueimp Gallery YouTube Video Factory JS 1.1.2
+ * blueimp Gallery YouTube Video Factory JS 1.2.0
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -200,15 +200,23 @@
         YouTubePlayer: YouTubePlayer,
 
         textFactory: function (obj, callback) {
-            var videoId = this.getItemProperty(obj, this.options.youTubeVideoIdProperty);
+            var options = this.options,
+                videoId = this.getItemProperty(obj, options.youTubeVideoIdProperty);
             if (videoId) {
+                if (this.getItemProperty(obj, options.urlProperty) === undefined) {
+                    obj[options.urlProperty] = '//www.youtube.com/watch?v=' + videoId;
+                }
+                if (this.getItemProperty(obj, options.videoPosterProperty) === undefined) {
+                    obj[options.videoPosterProperty] = '//img.youtube.com/vi/' + videoId +
+                        '/maxresdefault.jpg';
+                }
                 return this.videoFactory(
                     obj,
                     callback,
                     new YouTubePlayer(
                         videoId,
-                        this.options.youTubePlayerVars,
-                        this.options.youTubeClickToPlay
+                        options.youTubePlayerVars,
+                        options.youTubeClickToPlay
                     )
                 );
             }

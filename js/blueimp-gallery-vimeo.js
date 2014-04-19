@@ -1,5 +1,5 @@
 /*
- * blueimp Gallery Vimeo Video Factory JS 1.1.0
+ * blueimp Gallery Vimeo Video Factory JS 1.2.0
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -188,17 +188,21 @@
         VimeoPlayer: VimeoPlayer,
 
         textFactory: function (obj, callback) {
-            var videoId = this.getItemProperty(obj, this.options.vimeoVideoIdProperty);
+            var options = this.options,
+                videoId = this.getItemProperty(obj, options.vimeoVideoIdProperty);
             if (videoId) {
+                if (this.getItemProperty(obj, options.urlProperty) === undefined) {
+                    obj[options.urlProperty] = '//vimeo.com/' + videoId;
+                }
                 counter += 1;
                 return this.videoFactory(
                     obj,
                     callback,
                     new VimeoPlayer(
-                        this.options.vimeoPlayerUrl,
+                        options.vimeoPlayerUrl,
                         videoId,
-                        this.options.vimeoPlayerIdPrefix + counter,
-                        this.options.vimeoClickToPlay
+                        options.vimeoPlayerIdPrefix + counter,
+                        options.vimeoClickToPlay
                     )
                 );
             }
