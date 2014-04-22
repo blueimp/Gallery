@@ -26,50 +26,116 @@
 <link rel="stylesheet" href="css/demo.css">
 </head>
 <body>
-<h1>blueimp Gallery</h1>
-<p><a href="https://github.com/blueimp/Gallery">blueimp Gallery</a> is a touch-enabled, responsive and customizable image &amp; video gallery, carousel and lightbox, optimized for both mobile and desktop web browsers.<br>
-It features swipe, mouse and keyboard navigation, transition effects, slideshow functionality, fullscreen support and on-demand content loading and can be extended to display additional content types.</p>
-<ul class="navigation">
-    <li><a href="https://github.com/blueimp/Gallery/tags">Download</a></li>
-    <li><a href="https://github.com/blueimp/Gallery">Source Code</a></li>
-    <li><a href="https://github.com/blueimp/Gallery/blob/master/README.md">Documentation</a></li>
-    <li><a href="https://blueimp.net">&copy; Sebastian Tschan</a></li>
-</ul>
-<p><a href="https://github.com/blueimp/Gallery">blueimp Gallery</a> is based on <a href="http://swipejs.com/">Swipe</a>.</p>
-<br>
-<h2>Carousel image gallery</h2>
-<!-- The Gallery as inline carousel, can be positioned anywhere on the page -->
-<div id="blueimp-image-carousel" class="blueimp-gallery blueimp-gallery-carousel">
-    <div class="slides"></div>
-    <h3 class="title"></h3>
-    <a class="prev">‹</a>
-    <a class="next">›</a>
-    <a class="play-pause"></a>
-</div>
-<br>
-<h2>Carousel video gallery</h2>
-<!-- The Gallery as inline carousel, can be positioned anywhere on the page -->
-<div id="blueimp-video-carousel" class="blueimp-gallery blueimp-gallery-controls blueimp-gallery-carousel">
-    <div class="slides"></div>
-    <h3 class="title"></h3>
-    <a class="prev">‹</a>
-    <a class="next">›</a>
-    <a class="play-pause"></a>
-</div>
-<br>
-<h2>Lightbox image gallery</h2>
-<!-- The container for the list of example images -->
-<div id="links" class="links"></div>
-<!-- The Gallery as lightbox dialog, should be a child element of the document body -->
-<div id="blueimp-gallery" class="blueimp-gallery">
-    <div class="slides"></div>
-    <h3 class="title"></h3>
-    <a class="prev">‹</a>
-    <a class="next">›</a>
-    <a class="close">×</a>
-    <a class="play-pause"></a>
-    <ol class="indicator"></ol>
-</div>
+<div class="container">
+ <header class="row"> 
+         <h1>Meena (logo img?)</h1> 
+     </header>
+     
+     <nav>
+         <ul>
+           <li class=" col-xs-4"><a href="index.html" title="Home Page">Home</a></li>
+           <li class=" col-xs-4"><a href="resume.html" title="About Me">About Me</a></li>
+           <li class=" col-xs-4"><a href="portfolio.html" title="See my portfolio">Portfolio</a></li>
+           <li class=" col-xs-4"><a href="contact.html" title="Contact me">Contact</a></li>
+         </ul>
+     </nav>
+
+  <article>
+           <div class="row">
+             <header>
+                 <h2>My Work</h2>
+             </header>
+             <section>
+                 <p>Here are some of my selected works. </p>
+             </section>
+           </div>
+           
+           <div class="row"> <!--blueimp image gallery test-->
+           <!-- The Gallery as lightbox dialog, should be a child element of the document body -->
+		<div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
+		    <div class="slides"></div>
+		    <h3 class="title"></h3>
+		    <a class="prev">‹</a>
+		    <a class="next">›</a>
+		    <a class="close">×</a>
+		    <a class="play-pause"></a>
+		    <ol class="indicator"></ol>
+		</div>
+		
+		<div id="links">
+		
+		    <a href="https://drive.google.com/uc?id=0B8hLx0OAAlcSQ05hUXlreGctd2M" title="Type Poster">
+		        <img src="https://drive.google.com/uc?id=0B8hLx0OAAlcSQ05hUXlreGctd2M" alt="palatino type poster">
+		    </a>
+		    <a href="images/apple.jpg" title="Cheers!">
+		        <img src="https://drive.google.com/uc?id=0B8hLx0OAAlcSTGFJYldsMVdiYW8" alt="new years card">
+		    </a>
+		    <a href="https://drive.google.com/uc?id=0B8hLx0OAAlcSamFMcTZRUWNXMVU" title="Happy Holidays!">
+		        <img src="https://drive.google.com/uc?id=0B8hLx0OAAlcSamFMcTZRUWNXMVU" alt="seasons greetings card">
+		    </a>
+		</div>
+           	
+           </div> <!--end row>
+           <div class="row">
+           
+           <!--sample image urls
+           <img src="https://drive.google.com/uc?id=0B8hLx0OAAlcSZzF0OXhnUzB0NlU" alt="photomontage" class="img-responsive">
+    	   <img src="https://drive.google.com/uc?id=0B8hLx0OAAlcSOXZtaTA0Y2haM1k" alt="sequential images" class="img-responsive">
+           -->
+           
+             <section class="col-md-8">
+             	<h2>Graphic Art</h2>
+             	  <h3>Typography</h3>
+             	  	<img src="https://drive.google.com/uc?id=0B8hLx0OAAlcSQ05hUXlreGctd2M" alt="palatino type poster" class="img-responsive">
+             	  	<img src="https://drive.google.com/uc?id=0B8hLx0OAAlcSTGFJYldsMVdiYW8" alt="new years card" class="img-responsive">
+             	  	<img src="https://drive.google.com/uc?id=0B8hLx0OAAlcSamFMcTZRUWNXMVU" alt="seasons greetings card" class="img-responsive">
+             	  <h3>Logos</h3>
+             </section>
+             <section class="col-md-4">
+             	<h2>Digital Art</h2>
+             	       <img src="https://drive.google.com/uc?id=0B8hLx0OAAlcSSlRId0dMT3dkTnM" alt="personal space montage" class="img-responsive">
+             	       <img src="https://drive.google.com/uc?id=0B8hLx0OAAlcSYzVQTngwaDJjeWs" alt="guitar and birds" class="img-responsive">
+             </section>
+            </div>
+            <div class="row">
+             <section>
+             	<h2>Fine Arts</h2>
+             	  <h3>Black and White</h3>
+             	  	<img src="https://drive.google.com/uc?id=0B8hLx0OAAlcSOFh6ZUE0TldXMzA" alt="big heads classical still life" class="img-responsive">
+             	  <h3>Colored Pencils</h3>
+             	  	<img src="https://drive.google.com/uc?id=0B8hLx0OAAlcSMGRBWnVEREtmems" alt="prismacolor birds" class="img-responsive">
+             	 	<img src="https://drive.google.com/uc?id=0B8hLx0OAAlcSSUpyd1dzR215SE0" alt="shells" class="img-responsive">
+             	  <h3>Paintings</h3>
+             	  	<img src="https://drive.google.com/uc?id=0B8hLx0OAAlcSTjRsWTJaM0IzaHM" alt="peacock" class="img-responsive">
+             		<img src="https://drive.google.com/uc?id=0B8hLx0OAAlcSYVdWVVEwaTNmblE" alt="o'keeffe cave" class="img-responsive">
+             		<img src="https://drive.google.com/uc?id=0B8hLx0OAAlcSR1Y0a0NsWWF0TFk" alt="watercolor projections" class="img-responsive">
+             </section>
+            </div>
+         </article>
+     </div>
+     
+     <footer id="page-footer" class="row"> 
+         <p>meena6336@gmail.com</p>        
+     </footer>
+</div> <!--end ocntainer-->
+  
+<script src="https://code.jquery.com/jquery.js"></script>
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+
+<script src="js/blueimp-gallery.min.js"></script>
+
+<script>
+document.getElementById('links').onclick = function (event) {
+    event = event || window.event;
+    var target = event.target || event.srcElement,
+        link = target.src ? target.parentNode : target,
+        options = {index: link, event: event},
+        links = this.getElementsByTagName('a');
+    blueimp.Gallery(links, options);
+};
+</script>
 <script src="js/blueimp-helper.js"></script>
 <script src="js/blueimp-gallery.js"></script>
 <script src="js/blueimp-gallery-fullscreen.js"></script>
