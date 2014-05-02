@@ -23,7 +23,7 @@
         // Browser globals:
         window.blueimp = window.blueimp || {};
         window.blueimp.Gallery = factory(
-            window.blueimp.helper || window.jQuery
+            window.blueimp.helper || window.Zepto || window.ender || window.jQuery
         );
     }
 }(function ($) {
