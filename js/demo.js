@@ -1,5 +1,5 @@
 /*
- * blueimp Gallery Demo JS 2.11.0
+ * blueimp Gallery Demo JS 2.11.1
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -9,16 +9,14 @@
  * http://www.opensource.org/licenses/MIT
  */
 
-/* global window, blueimp, $ */
+/* global blueimp, $ */
 
 $(function () {
     'use strict';
 
     // Load demo images from flickr:
     $.ajax({
-        url: (window.location.protocol === 'https:' ?
-                'https://secure' : 'http://api') +
-                '.flickr.com/services/rest/',
+        url: 'https://api.flickr.com/services/rest/',
         data: {
             format: 'json',
             method: 'flickr.interestingness.getList',
