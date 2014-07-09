@@ -31,8 +31,10 @@
     // in the Gallery lightbox:
     $(document).on('click', '[data-gallery]', function (event) {
         // Get the container id from the data-gallery attribute:
-        var id = $(this).data('gallery'),
+        var that = $(this);
+        var id = that.data('gallery'),
             widget = $(id),
+            scope = that.data('scope'),
             container = (widget.length && widget) ||
                 $(Gallery.prototype.options.container),
             callbacks = {
@@ -74,7 +76,10 @@
                 callbacks
             ),
             // Select all links with the same data-gallery attribute:
-            links = $('[data-gallery="' + id + '"]');
+            links = scope ? that.parents(scope).find('[data-gallery="' + id + '"]').filter('[data-scope="'+ scope +'"]') :
+                        $('[data-gallery="' + id + '"]').filter(function() {
+                            return $(this).attr('data-scope') === undefined;
+                        });
         if (options.filter) {
             links = links.filter(options.filter);
         }
