@@ -12,13 +12,16 @@
  * http://www.opensource.org/licenses/MIT
  */
 
-/* global define, window, document, DocumentTouch */
+/* global define, require, module, window, document, DocumentTouch */
 
 (function (factory) {
     'use strict';
     if (typeof define === 'function' && define.amd) {
         // Register as an anonymous AMD module:
         define(['./blueimp-helper'], factory);
+    } else if (typeof require === 'function' && typeof module !== 'undefined' &&
+               typeof module.exports !== 'undefined') {
+        module.exports = factory;
     } else {
         // Browser globals:
         window.blueimp = window.blueimp || {};
