@@ -21,6 +21,7 @@ module.exports = function (grunt) {
             },
             all: [
                 'Gruntfile.js',
+                'index.js',
                 'js/blueimp-helper.js',
                 'js/blueimp-gallery.js',
                 'js/blueimp-gallery-fullscreen.js',

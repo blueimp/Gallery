@@ -9,7 +9,7 @@
  * http://www.opensource.org/licenses/MIT
  */
 
-/* global define, window, document */
+/* global define, module, window, document */
 
 (function () {
     'use strict';
@@ -184,6 +184,9 @@
         define(function () {
             return Helper;
         });
+    } else if (typeof require === 'function' && typeof module !== 'undefined' &&
+               typeof module.exports !== 'undefined') {
+        module.exports = Helper;
     } else {
         window.blueimp = window.blueimp || {};
         window.blueimp.helper = Helper;
