@@ -30,7 +30,7 @@ $(function () {
             baseUrl;
         // Add the demo images as links with thumbnails to the page:
         $.each(result.photos.photo, function (index, photo) {
-            baseUrl = 'http://farm' + photo.farm + '.static.flickr.com/' +
+            baseUrl = '//farm' + photo.farm + '.static.flickr.com/' +
                 photo.server + '/' + photo.id + '_' + photo.secret;
             $('<a/>')
                 .append($('<img>').prop('src', baseUrl + '_s.jpg'))
