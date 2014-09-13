@@ -1,5 +1,5 @@
 /*
- * blueimp Gallery Demo JS 2.11.1
+ * blueimp Gallery Demo JS 2.12.0
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -16,6 +16,8 @@ $(function () {
 
     // Load demo images from flickr:
     $.ajax({
+        // Flickr API is SSL only:
+        // https://code.flickr.net/2014/04/30/flickr-api-going-ssl-only-on-june-27th-2014/
         url: 'https://api.flickr.com/services/rest/',
         data: {
             format: 'json',
@@ -30,7 +32,7 @@ $(function () {
             baseUrl;
         // Add the demo images as links with thumbnails to the page:
         $.each(result.photos.photo, function (index, photo) {
-            baseUrl = 'http://farm' + photo.farm + '.static.flickr.com/' +
+            baseUrl = 'https://farm' + photo.farm + '.static.flickr.com/' +
                 photo.server + '/' + photo.id + '_' + photo.secret;
             $('<a/>')
                 .append($('<img>').prop('src', baseUrl + '_s.jpg'))
@@ -54,26 +56,26 @@ $(function () {
     blueimp.Gallery([
         {
             title: 'Sintel',
-            href: 'http://media.w3.org/2010/05/sintel/trailer.mp4',
+            href: 'https://archive.org/download/Sintel/sintel-2048-surround_512kb.mp4',
             type: 'video/mp4',
-            poster: 'http://media.w3.org/2010/05/sintel/poster.png'
+            poster: 'https://i.imgur.com/zHpSixr.png'
         },
         {
             title: 'Big Buck Bunny',
-            href: 'http://upload.wikimedia.org/wikipedia/commons/7/75/' +
+            href: 'https://upload.wikimedia.org/wikipedia/commons/7/75/' +
                 'Big_Buck_Bunny_Trailer_400p.ogg',
             type: 'video/ogg',
-            poster: 'http://upload.wikimedia.org/wikipedia/commons/thumb/7/70/' +
+            poster: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/' +
                 'Big.Buck.Bunny.-.Opening.Screen.png/' +
                 '800px-Big.Buck.Bunny.-.Opening.Screen.png'
         },
         {
             title: 'Elephants Dream',
-            href: 'http://upload.wikimedia.org/wikipedia/commons/transcoded/8/83/' +
+            href: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/8/83/' +
                 'Elephants_Dream_%28high_quality%29.ogv/' +
                 'Elephants_Dream_%28high_quality%29.ogv.360p.webm',
             type: 'video/webm',
-            poster: 'http://upload.wikimedia.org/wikipedia/commons/thumb/9/90/' +
+            poster: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/' +
                 'Elephants_Dream_s1_proog.jpg/800px-Elephants_Dream_s1_proog.jpg'
         },
         {
@@ -85,7 +87,7 @@ $(function () {
             title: 'KN1GHT - Last Moon',
             type: 'text/html',
             vimeo: '73686146',
-            poster: 'http://b.vimeocdn.com/ts/448/835/448835699_960.jpg'
+            poster: 'https://secure-a.vimeocdn.com/ts/448/835/448835699_960.jpg'
         }
     ], {
         container: '#blueimp-video-carousel',

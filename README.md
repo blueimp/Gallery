@@ -44,7 +44,7 @@
 - [Credits](#credits)
 
 ## Demo
-[blueimp Gallery Demo](http://blueimp.github.io/Gallery/)
+[blueimp Gallery Demo](https://blueimp.github.io/Gallery/)
 
 ## Description
 blueimp Gallery is a touch-enabled, responsive and customizable image and video gallery, carousel and lightbox, optimized for both mobile and desktop web browsers.  
@@ -461,7 +461,7 @@ var options = {
 
 It is also possible to define the container and element options with a more complex [querySelector](https://developer.mozilla.org/en-US/docs/Web/API/document.querySelector), which is supported by IE8+ and all modern web browsers.
 
-If the helper script is replaced with [jQuery](http://jquery.com/), the container and element options can be any valid jQuery selector.
+If the helper script is replaced with [jQuery](https://jquery.com/), the container and element options can be any valid jQuery selector.
 
 ### Property options
 The options ending with "Property" define how the properties of each link element are accessed.  
@@ -480,10 +480,10 @@ If the links are passed as JavaScript array, it is also possible to define neste
 blueimp.Gallery(
     [
         {
-            data: {urls: ['http://example.org/images/banana.jpg']}
+            data: {urls: ['https://example.org/images/banana.jpg']}
         },
         {
-            data: {urls: ['http://example.org/images/apple.jpg']}
+            data: {urls: ['https://example.org/images/apple.jpg']}
         }
     ],
     {
@@ -505,9 +505,9 @@ The links array can be a list of URL strings or a list of objects with URL prope
 
 ```js
 var gallery = blueimp.Gallery([
-    'http://example.org/images/banana.jpg',
-    'http://example.org/images/apple.jpg',
-    'http://example.org/images/orange.jpg'
+    'https://example.org/images/banana.jpg',
+    'https://example.org/images/apple.jpg',
+    'https://example.org/images/orange.jpg'
 ]);
 ```
 
@@ -515,15 +515,15 @@ var gallery = blueimp.Gallery([
 var gallery = blueimp.Gallery([
     {
         title: 'Banana',
-        href: 'http://example.org/images/banana.jpg',
+        href: 'https://example.org/images/banana.jpg',
         type: 'image/jpeg',
-        thumbnail: 'http://example.org/thumbnails/banana.jpg'
+        thumbnail: 'https://example.org/thumbnails/banana.jpg'
     },
     {
         title: 'Apple',
-        href: 'http://example.org/images/apple.jpg',
+        href: 'https://example.org/images/apple.jpg',
         type: 'image/jpeg',
-        thumbnail: 'http://example.org/thumbnails/apple.jpg'
+        thumbnail: 'https://example.org/thumbnails/apple.jpg'
     }
 ]);
 ```
@@ -577,15 +577,15 @@ The Gallery can be initialized with a list of videos instead of images, or a com
 blueimp.Gallery([
     {
         title: 'Fruits',
-        href: 'http://example.org/videos/fruits.mp4',
+        href: 'https://example.org/videos/fruits.mp4',
         type: 'video/mp4',
-        poster: 'http://example.org/images/fruits.jpg'
+        poster: 'https://example.org/images/fruits.jpg'
     },
     {
         title: 'Banana',
-        href: 'http://example.org/images/banana.jpg',
+        href: 'https://example.org/images/banana.jpg',
         type: 'image/jpeg',
-        thumbnail: 'http://example.org/thumbnails/banana.jpg'
+        thumbnail: 'https://example.org/thumbnails/banana.jpg'
     }
 ]);
 ```
@@ -604,14 +604,14 @@ blueimp.Gallery([
     {
         title: 'Fruits',
         type: 'video/*',
-        poster: 'http://example.org/images/fruits.jpg',
+        poster: 'https://example.org/images/fruits.jpg',
         sources: [
             {
-                href: 'http://example.org/videos/fruits.mp4',
+                href: 'https://example.org/videos/fruits.mp4',
                 type: 'video/mp4'
             },
             {
-                href: 'http://example.org/videos/fruits.ogg',
+                href: 'https://example.org/videos/fruits.ogg',
                 type: 'video/ogg'
             }
         ]
@@ -624,11 +624,11 @@ It is also possible to define the video sources as data-attribute on a link elem
 ```html
 <div id="links">
     <a
-        href="http://example.org/videos/fruits.mp4"
+        href="https://example.org/videos/fruits.mp4"
         title="Fruits"
         type="video/mp4"
-        data-poster="http://example.org/images/fruits.jpg"
-        data-sources='[{"href": "http://example.org/videos/fruits.mp4", "type": "video/mp4"}, {"href": "http://example.org/videos/fruits.ogg", "type": "video/ogg"}]'
+        data-poster="https://example.org/images/fruits.jpg"
+        data-sources='[{"href": "https://example.org/videos/fruits.mp4", "type": "video/mp4"}, {"href": "https://example.org/videos/fruits.ogg", "type": "video/ogg"}]'
     >Fruits</a>
 </div>
 ```
@@ -647,9 +647,9 @@ blueimp.Gallery([
     },
     {
         title: 'Banana',
-        href: 'http://example.org/images/banana.jpg',
+        href: 'https://example.org/images/banana.jpg',
         type: 'image/jpeg',
-        thumbnail: 'http://example.org/thumbnails/banana.jpg'
+        thumbnail: 'https://example.org/thumbnails/banana.jpg'
     }
 ]);
 ```
@@ -672,9 +672,9 @@ blueimp.Gallery([
     },
     {
         title: 'Banana',
-        href: 'http://example.org/images/banana.jpg',
+        href: 'https://example.org/images/banana.jpg',
         type: 'image/jpeg',
-        thumbnail: 'http://example.org/thumbnails/banana.jpg'
+        thumbnail: 'https://example.org/thumbnails/banana.jpg'
     }
 ]);
 ```
@@ -747,13 +747,13 @@ blueimp.Gallery(
 ### Additional content types
 By extending the Gallery prototype with new factory methods, additional content types can be displayed.  By default, blueimp Gallery provides the **imageFactory** and **videoFactory** methods for **image** and **video** content types respectively.  
 
-The Gallery uses the **type** property of each content object to determine which factory method to use.  The **type** defines the [Internet media type](http://en.wikipedia.org/wiki/Internet_media_type) of the content object and is composed of two or more parts: A type, a subtype, and zero or more optional parameters, e.g. **text/html; charset=UTF-8** for an HTML document with UTF-8 encoding.  
+The Gallery uses the **type** property of each content object to determine which factory method to use.  The **type** defines the [Internet media type](https://en.wikipedia.org/wiki/Internet_media_type) of the content object and is composed of two or more parts: A type, a subtype, and zero or more optional parameters, e.g. **text/html; charset=UTF-8** for an HTML document with UTF-8 encoding.  
 The main type (the string in front of the slash, **text** in the example above) is concatenated with the string **Factory** to create the factory method name, e.g. **textFactory**.
 
 #### Example HTML text factory implementation
 Please note that the textFactory script has to be included after the core Gallery script, but before including the [YouTube](#youtube) and [Vimeo](#vimeo) integration plugins, which extend the textFactory implementation to handle YouTube and Vimeo video links.
 
-Please also note that although blueimp Gallery doesn't require [jQuery](http://jquery.com/), the following example uses it for convenience.
+Please also note that although blueimp Gallery doesn't require [jQuery](https://jquery.com/), the following example uses it for convenience.
 
 Extend the Gallery prototype with the **textFactory** method:
 
@@ -798,12 +798,12 @@ With the previous changes in place, the Gallery can now handle HTML content type
 blueimp.Gallery([
     {
         title: 'Noodle soup',
-        href: 'http://example.org/text/noodle-soup.html',
+        href: 'https://example.org/text/noodle-soup.html',
         type: 'text/html'
     },
     {
         title: 'Tomato salad',
-        href: 'http://example.org/text/tomato-salad.html',
+        href: 'https://example.org/text/tomato-salad.html',
         type: 'text/html'
     }
 ]);
@@ -814,7 +814,7 @@ blueimp.Gallery([
 #### jQuery plugin setup
 The blueimp Gallery jQuery plugin registers a global click handler to open links with **data-gallery** attribute in the Gallery lightbox.
 
-To use it, follow the [lightbox setup](#lightbox-setup) guide, but replace the minified Gallery script with the jQuery plugin version and include it after including [jQuery](http://jquery.com/):
+To use it, follow the [lightbox setup](#lightbox-setup) guide, but replace the minified Gallery script with the jQuery plugin version and include it after including [jQuery](https://jquery.com/):
 
 ```html
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -840,9 +840,9 @@ Next, add the attribute **data-gallery** to your Gallery links:
 The onclick handler from the [lightbox setup](#lightbox-setup) guide is not required and can be removed.
 
 #### HTML5 data-attributes
-Options for the Gallery lightbox opened via the jQuery plugin can be defined as [HTML5 data-attributes](http://api.jquery.com/data/#data-html5) on the Gallery widget container.
+Options for the Gallery lightbox opened via the jQuery plugin can be defined as [HTML5 data-attributes](https://api.jquery.com/data/#data-html5) on the Gallery widget container.
 
-The jQuery plugin also introduces the additional **filter** option, which is applied to the Gallery links via [jQuery's filter method](http://api.jquery.com/filter/) and allows to remove duplicates from the list:
+The jQuery plugin also introduces the additional **filter** option, which is applied to the Gallery links via [jQuery's filter method](https://api.jquery.com/filter/) and allows to remove duplicates from the list:
 
 ```html
 <div id="blueimp-gallery" class="blueimp-gallery" data-start-slideshow="true" data-filter=":even">
@@ -885,7 +885,7 @@ Setting **data-gallery** to a non-empty string also allows to group links into d
 This will open the links with the **data-gallery** attribute **#blueimp-gallery-fruits** in the Gallery widget with the id **blueimp-gallery-fruits**, and the links with the **data-gallery** attribute **#blueimp-gallery-vegetables**  in the Gallery widget with the id **blueimp-gallery-vegetables**.
 
 #### Gallery object
-The gallery object is stored via [jQuery data storage](http://api.jquery.com/category/miscellaneous/data-storage/) on the Gallery widget when the Gallery is opened and can be retrieved the following way:
+The gallery object is stored via [jQuery data storage](https://api.jquery.com/category/miscellaneous/data-storage/) on the Gallery widget when the Gallery is opened and can be retrieved the following way:
 
 ```js
 var gallery = $('#blueimp-gallery').data('gallery');
@@ -940,10 +940,10 @@ You can also use the individual source files instead of the standalone minified 
 <script src="js/blueimp-gallery-vimeo.js"></script>
 ```
 
-The helper script can be replaced by [jQuery](http://jquery.com/) v. 1.7+.  
+The helper script can be replaced by [jQuery](https://jquery.com/) v. 1.7+.  
 The fullscreen, indicator, video, youtube and vimeo source files are optional if their functionality is not required.
 
-The [jQuery plugin](#jquery-plugin) requires [jQuery](http://jquery.com/) v. 1.7+ and the basic Gallery script, while the fullscreen, indicator, video, youtube and vimeo source files are also optional:
+The [jQuery plugin](#jquery-plugin) requires [jQuery](https://jquery.com/) v. 1.7+ and the basic Gallery script, while the fullscreen, indicator, video, youtube and vimeo source files are also optional:
 
 ```html
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
