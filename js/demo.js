@@ -1,5 +1,5 @@
 /*
- * blueimp Gallery Demo JS 2.12.0
+ * blueimp Gallery Demo JS 2.12.1
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -58,7 +58,7 @@ $(function () {
             title: 'Sintel',
             href: 'https://archive.org/download/Sintel/sintel-2048-surround_512kb.mp4',
             type: 'video/mp4',
-            poster: 'https://i.imgur.com/zHpSixr.png'
+            poster: 'https://i.imgur.com/MUSw4Zu.jpg'
         },
         {
             title: 'Big Buck Bunny',
