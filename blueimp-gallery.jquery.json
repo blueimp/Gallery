@@ -44,5 +44,5 @@
     "jquery": ">=1.7"
   },
   "docs": "https://github.com/blueimp/Gallery/blob/master/README.md",
-  "demo": "http://blueimp.github.io/Gallery/"
+  "demo": "https://blueimp.github.io/Gallery/"
 }
