@@ -125,7 +125,7 @@
             emulateTouchEvents: true,
             // Stop touch events from bubbling up to ancestor elements of the Gallery:
             stopTouchEventsPropagation: false,
-            // Hide the page scrollbars: 
+            // Hide the page scrollbars:
             hidePageScrollbars: true,
             // Stops any touches on the container from scrolling the page:
             disableScroll: true,
@@ -490,6 +490,11 @@
             var style = this.slides[index].style,
                 transition = this.support.transition,
                 transform = this.support.transform;
+            if (typeof transition == 'undefined' || typeof transform == 'undefined') {
+                // don't freak out if transform is undefined
+                // this might happen if gallery is opened before (document).ready
+                return;
+            }
             style[transition.name + 'Duration'] = speed + 'ms';
             style[transform.name] = 'translate(' + x + 'px, ' + y + 'px)' +
                 (transform.translateZ ? ' translateZ(0)' : '');
