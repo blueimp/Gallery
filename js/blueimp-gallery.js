@@ -196,7 +196,7 @@
 
         console: window.console && typeof window.console.log === 'function' ?
             window.console :
-            {log: function () {}},
+        {log: function () {}},
 
         // Detect touch, transition, transform and background-size support:
         support: (function (element) {
@@ -245,12 +245,12 @@
                         support.backgroundSize = {};
                         element.style.backgroundSize = 'contain';
                         support.backgroundSize.contain = window
-                                .getComputedStyle(element)
-                                .getPropertyValue('background-size') === 'contain';
+                            .getComputedStyle(element)
+                            .getPropertyValue('background-size') === 'contain';
                         element.style.backgroundSize = 'cover';
                         support.backgroundSize.cover = window
-                                .getComputedStyle(element)
-                                .getPropertyValue('background-size') === 'cover';
+                            .getComputedStyle(element)
+                            .getPropertyValue('background-size') === 'cover';
                     }
                     document.body.removeChild(element);
                 };
@@ -258,7 +258,7 @@
                 var prop;
                 for (prop in transitions) {
                     if (transitions.hasOwnProperty(prop) &&
-                            element.style[prop] !== undefined) {
+                        element.style[prop] !== undefined) {
                         support.transition = transitions[prop];
                         support.transition.name = prop;
                         break;
@@ -307,7 +307,7 @@
             if (!speed) {
                 speed = this.options.transitionSpeed;
             }
-            if (this.support.transition) {
+            if (this.support.transition && this.support.transform) {
                 if (!this.options.continuous) {
                     to = this.circle(to);
                 }
@@ -490,11 +490,6 @@
             var style = this.slides[index].style,
                 transition = this.support.transition,
                 transform = this.support.transform;
-            if (typeof transition == 'undefined' || typeof transform == 'undefined') {
-                // don't freak out if transform is undefined
-                // this might happen if gallery is opened before (document).ready
-                return;
-            }
             style[transition.name + 'Duration'] = speed + 'ms';
             style[transform.name] = 'translate(' + x + 'px, ' + y + 'px)' +
                 (transform.translateZ ? ' translateZ(0)' : '');
@@ -525,7 +520,7 @@
                     }
                     that.slidesContainer[0].style.left = (((to - from) *
                         (Math.floor((timeElap / speed) * 100) / 100)) +
-                            from) + 'px';
+                        from) + 'px';
                 }, 4);
         },
 
@@ -553,7 +548,7 @@
             // Trigger on clicks of the left mouse button only
             // and exclude video elements:
             if (event.which && event.which === 1 &&
-                    event.target.nodeName !== 'VIDEO') {
+                event.target.nodeName !== 'VIDEO') {
                 // Preventing the default mousedown action is required
                 // to make touch emulation work with Firefox:
                 event.preventDefault();
@@ -587,7 +582,7 @@
                 var target = event.target,
                     related = event.relatedTarget;
                 if (!related || (related !== target &&
-                        !$.contains(target, related))) {
+                    !$.contains(target, related))) {
                     this.onmouseup(event);
                 }
             }
@@ -658,8 +653,8 @@
                     // or last slide and sliding right:
                     this.touchDelta.x = touchDeltaX =
                         touchDeltaX /
-                        (((!index && touchDeltaX > 0) ||
-                            (index === this.num - 1 && touchDeltaX < 0)) ?
+                            (((!index && touchDeltaX > 0) ||
+                                (index === this.num - 1 && touchDeltaX < 0)) ?
                                 (Math.abs(touchDeltaX) / this.slideWidth + 1) : 1);
                     indices = [index];
                     if (index) {
@@ -686,12 +681,12 @@
                 speed = this.options.transitionSpeed,
                 slideWidth = this.slideWidth,
                 isShortDuration = Number(Date.now() - this.touchStart.time) < 250,
-                // Determine if slide attempt triggers next/prev slide:
+            // Determine if slide attempt triggers next/prev slide:
                 isValidSlide = (isShortDuration && Math.abs(this.touchDelta.x) > 20) ||
                     Math.abs(this.touchDelta.x) > slideWidth / 2,
-                // Determine if slide attempt is past start or end:
+            // Determine if slide attempt is past start or end:
                 isPastBounds = (!index && this.touchDelta.x > 0) ||
-                        (index === this.num - 1 && this.touchDelta.x < 0),
+                    (index === this.num - 1 && this.touchDelta.x < 0),
                 isValidClose = !isValidSlide && this.options.closeOnSwipeUpOrDown &&
                     ((isShortDuration && Math.abs(this.touchDelta.y) > 20) ||
                         Math.abs(this.touchDelta.y) > this.slideHeight / 2),
@@ -715,7 +710,7 @@
                         this.move(this.circle(indexForward), distanceForward, 0);
                         this.move(this.circle(index - 2 * direction), distanceBackward, 0);
                     } else if (indexForward >= 0 &&
-                            indexForward < this.num) {
+                        indexForward < this.num) {
                         this.move(indexForward, distanceForward, 0);
                     }
                     this.move(index, this.positions[index] + distanceForward, speed);
@@ -810,35 +805,35 @@
 
         onkeydown: function (event) {
             switch (event.which || event.keyCode) {
-            case 13: // Return
-                if (this.options.toggleControlsOnReturn) {
-                    this.preventDefault(event);
-                    this.toggleControls();
-                }
-                break;
-            case 27: // Esc
-                if (this.options.closeOnEscape) {
-                    this.close();
-                }
-                break;
-            case 32: // Space
-                if (this.options.toggleSlideshowOnSpace) {
-                    this.preventDefault(event);
-                    this.toggleSlideshow();
-                }
-                break;
-            case 37: // Left
-                if (this.options.enableKeyboardNavigation) {
-                    this.preventDefault(event);
-                    this.prev();
-                }
-                break;
-            case 39: // Right
-                if (this.options.enableKeyboardNavigation) {
-                    this.preventDefault(event);
-                    this.next();
-                }
-                break;
+                case 13: // Return
+                    if (this.options.toggleControlsOnReturn) {
+                        this.preventDefault(event);
+                        this.toggleControls();
+                    }
+                    break;
+                case 27: // Esc
+                    if (this.options.closeOnEscape) {
+                        this.close();
+                    }
+                    break;
+                case 32: // Space
+                    if (this.options.toggleSlideshowOnSpace) {
+                        this.preventDefault(event);
+                        this.toggleSlideshow();
+                    }
+                    break;
+                case 37: // Left
+                    if (this.options.enableKeyboardNavigation) {
+                        this.preventDefault(event);
+                        this.prev();
+                    }
+                    break;
+                case 39: // Right
+                    if (this.options.enableKeyboardNavigation) {
+                        this.preventDefault(event);
+                        this.next();
+                    }
+                    break;
             }
         },
 
@@ -879,7 +874,7 @@
                     this.toggleControls();
                 }
             } else if (parent.parentNode &&
-                    parent.parentNode === this.slidesContainer[0]) {
+                parent.parentNode === this.slidesContainer[0]) {
                 // Click on displayed element
                 this.preventDefault(event);
                 this.toggleControls();
@@ -888,8 +883,8 @@
 
         onclick: function (event) {
             if (this.options.emulateTouchEvents &&
-                    this.touchDelta && (Math.abs(this.touchDelta.x) > 20 ||
-                        Math.abs(this.touchDelta.y) > 20)) {
+                this.touchDelta && (Math.abs(this.touchDelta.x) > 20 ||
+                Math.abs(this.touchDelta.y) > 20)) {
                 delete this.touchDelta;
                 return;
             }
@@ -1056,7 +1051,7 @@
                 if (this.elements.hasOwnProperty(i)) {
                     diff = Math.abs(index - i);
                     if (diff > this.options.preloadRange &&
-                            diff + this.options.preloadRange < this.num) {
+                        diff + this.options.preloadRange < this.num) {
                         slide = this.slides[i];
                         slide.removeChild(slide.firstChild);
                         delete this.elements[i];
@@ -1075,10 +1070,10 @@
         positionSlide: function (index) {
             var slide = this.slides[index];
             slide.style.width = this.slideWidth + 'px';
-            if (this.support.transition) {
+            if (this.support.transition && this.support.transform) {
                 slide.style.left = (index * -this.slideWidth) + 'px';
                 this.move(index, this.index > index ? -this.slideWidth :
-                        (this.index < index ? this.slideWidth : 0), 0);
+                    (this.index < index ? this.slideWidth : 0), 0);
             }
         },
 
@@ -1111,11 +1106,11 @@
                 this.positionSlide(i);
             }
             // Reposition the slides before and after the given index:
-            if (this.options.continuous && this.support.transition) {
+            if (this.options.continuous && this.support.transition && this.support.transform) {
                 this.move(this.circle(this.index - 1), -this.slideWidth, 0);
                 this.move(this.circle(this.index + 1), this.slideWidth, 0);
             }
-            if (!this.support.transition) {
+            if (!this.support.transition || !this.support.transform) {
                 this.slidesContainer[0].style.left =
                     (this.index * -this.slideWidth) + 'px';
             }
@@ -1149,7 +1144,7 @@
                 /\[(?:'([^']+)'|"([^"]+)"|(\d+))\]|(?:(?:^|\.)([^\.\[]+))/g,
                 function (str, singleQuoteProp, doubleQuoteProp, arrayIndex, dotProp) {
                     var prop = dotProp || singleQuoteProp || doubleQuoteProp ||
-                            (arrayIndex && parseInt(arrayIndex, 10));
+                        (arrayIndex && parseInt(arrayIndex, 10));
                     if (str && obj) {
                         obj = obj[prop];
                     }
@@ -1161,10 +1156,10 @@
         getDataProperty: function (obj, property) {
             if (obj.getAttribute) {
                 var prop = obj.getAttribute('data-' +
-                        property.replace(/([A-Z])/g, '-$1').toLowerCase());
+                    property.replace(/([A-Z])/g, '-$1').toLowerCase());
                 if (typeof prop === 'string') {
                     if (/^(true|false|null|-?\d+(\.\d+)?|\{[\s\S]*\}|\[[\s\S]*\])$/
-                            .test(prop)) {
+                        .test(prop)) {
                         try {
                             return $.parseJSON(prop);
                         } catch (ignore) {}
@@ -1193,8 +1188,8 @@
             if (index && typeof index !== 'number') {
                 for (i = 0; i < this.num; i += 1) {
                     if (this.list[i] === index ||
-                            this.getItemProperty(this.list[i], urlProperty) ===
-                                this.getItemProperty(index, urlProperty)) {
+                        this.getItemProperty(this.list[i], urlProperty) ===
+                            this.getItemProperty(index, urlProperty)) {
                         index  = i;
                         break;
                     }
@@ -1209,8 +1204,8 @@
                 slidesContainer = this.slidesContainer,
                 proxyListener = function (event) {
                     var type = that.support.transition &&
-                            that.support.transition.end === event.type ?
-                                    'transitionend' : event.type;
+                        that.support.transition.end === event.type ?
+                        'transitionend' : event.type;
                     that['on' + type](event);
                 };
             $(window).on('resize', proxyListener);
@@ -1220,7 +1215,7 @@
                 slidesContainer
                     .on('touchstart touchmove touchend touchcancel', proxyListener);
             } else if (this.options.emulateTouchEvents &&
-                    this.support.transition) {
+                this.support.transition) {
                 slidesContainer
                     .on('mousedown mousemove mouseup mouseout', proxyListener);
             }
@@ -1243,7 +1238,7 @@
                 slidesContainer
                     .off('touchstart touchmove touchend touchcancel', proxyListener);
             } else if (this.options.emulateTouchEvents &&
-                    this.support.transition) {
+                this.support.transition) {
                 slidesContainer
                     .off('mousedown mousemove mouseup mouseout', proxyListener);
             }
@@ -1322,7 +1317,7 @@
             this.options = $.extend({}, this.options);
             // Check if carousel mode is enabled:
             if ((options && options.carousel) ||
-                    (this.options.carousel && (!options || options.carousel !== false))) {
+                (this.options.carousel && (!options || options.carousel !== false))) {
                 $.extend(this.options, this.carouselOptions);
             }
             // Override any given options:
