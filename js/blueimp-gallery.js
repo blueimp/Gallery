@@ -1,5 +1,5 @@
 /*
- * blueimp Gallery JS 2.14.0
+ * blueimp Gallery JS 2.14.1
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -125,7 +125,7 @@
             emulateTouchEvents: true,
             // Stop touch events from bubbling up to ancestor elements of the Gallery:
             stopTouchEventsPropagation: false,
-            // Hide the page scrollbars: 
+            // Hide the page scrollbars:
             hidePageScrollbars: true,
             // Stops any touches on the container from scrolling the page:
             disableScroll: true,
@@ -307,7 +307,7 @@
             if (!speed) {
                 speed = this.options.transitionSpeed;
             }
-            if (this.support.transition) {
+            if (this.support.transform) {
                 if (!this.options.continuous) {
                     to = this.circle(to);
                 }
@@ -1070,7 +1070,7 @@
         positionSlide: function (index) {
             var slide = this.slides[index];
             slide.style.width = this.slideWidth + 'px';
-            if (this.support.transition) {
+            if (this.support.transform) {
                 slide.style.left = (index * -this.slideWidth) + 'px';
                 this.move(index, this.index > index ? -this.slideWidth :
                         (this.index < index ? this.slideWidth : 0), 0);
@@ -1106,11 +1106,11 @@
                 this.positionSlide(i);
             }
             // Reposition the slides before and after the given index:
-            if (this.options.continuous && this.support.transition) {
+            if (this.options.continuous && this.support.transform) {
                 this.move(this.circle(this.index - 1), -this.slideWidth, 0);
                 this.move(this.circle(this.index + 1), this.slideWidth, 0);
             }
-            if (!this.support.transition) {
+            if (!this.support.transform) {
                 this.slidesContainer[0].style.left =
                     (this.index * -this.slideWidth) + 'px';
             }
