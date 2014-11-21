@@ -1322,8 +1322,8 @@
             }
             // Override any given options:
             $.extend(this.options, options);
-            if (this.num < 3) {
-                // 1 or 2 slides cannot be displayed continuous,
+            if (this.num < 2) {
+                // 1 slide cannot be displayed continuous,
                 // remember the original option by setting to null instead of false:
                 this.options.continuous = this.options.continuous ? null : false;
             }
