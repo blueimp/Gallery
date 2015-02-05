@@ -421,7 +421,7 @@ var youTubeOptions = {
 Options for [Vimeo](https://vimeo.com/) videos:
 
 ```js
-var youTubeOptions = {
+var vimeoOptions = {
     // The list object property (or data attribute) with the Vimeo video id:
     vimeoVideoIdProperty: 'vimeo',
     // The URL for the Vimeo video player, can be extended with custom parameters:
