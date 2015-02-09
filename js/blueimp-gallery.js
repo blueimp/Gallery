@@ -814,6 +814,8 @@
             case 27: // Esc
                 if (this.options.closeOnEscape) {
                     this.close();
+                    // prevent Esc from closing other things
+                    event.stopImmediatePropagation(); 
                 }
                 break;
             case 32: // Space
