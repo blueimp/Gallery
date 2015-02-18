@@ -426,6 +426,7 @@
 
         resetSlides: function () {
             this.slidesContainer.empty();
+            this.unloadAllSlides();
             this.slides = [];
         },
 
@@ -1121,6 +1122,14 @@
             firstChild = slide.firstChild;
             if (firstChild !== null) {
                 slide.removeChild(firstChild);
+            }
+        },
+
+        unloadAllSlides: function () {
+            var i,
+                len;
+            for (i = 0, len = this.slides.length; i < len; i++) {
+                this.unloadSlide(i);
             }
         },
 
