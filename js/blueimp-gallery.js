@@ -1045,15 +1045,13 @@
 
         unloadElements: function (index) {
             var i,
-                slide,
                 diff;
             for (i in this.elements) {
                 if (this.elements.hasOwnProperty(i)) {
                     diff = Math.abs(index - i);
                     if (diff > this.options.preloadRange &&
                             diff + this.options.preloadRange < this.num) {
-                        slide = this.slides[i];
-                        slide.removeChild(slide.firstChild);
+                        this.unloadSlide(i);
                         delete this.elements[i];
                     }
                 }
@@ -1113,6 +1111,16 @@
             if (!this.support.transform) {
                 this.slidesContainer[0].style.left =
                     (this.index * -this.slideWidth) + 'px';
+            }
+        },
+
+        unloadSlide: function (index) {
+            var slide,
+                firstChild;
+            slide = this.slides[index];
+            firstChild = slide.firstChild;
+            if (firstChild !== null) {
+                slide.removeChild(firstChild);
             }
         },
 
