@@ -45,7 +45,7 @@
         addSlide = Gallery.prototype.addSlide,
         resetSlides = Gallery.prototype.resetSlides,
         handleClick = Gallery.prototype.handleClick,
-        handleSlide = Gallery.prototype.handleSlide,
+        updateContainer = Gallery.prototype.updateContainer,
         handleClose = Gallery.prototype.handleClose;
 
     $.extend(Gallery.prototype, {
@@ -134,8 +134,8 @@
             }
         },
 
-        handleSlide: function (index) {
-            handleSlide.call(this, index);
+        updateContainer: function (index) {
+            updateContainer.call(this, index);
             this.setActiveIndicator(index);
         },
 
