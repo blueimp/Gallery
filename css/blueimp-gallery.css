@@ -67,10 +67,10 @@
   float: left;
   height: 100%;
   text-align: center;
-  -webkit-transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1.000); 
-     -moz-transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1.000); 
-      -ms-transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1.000); 
-       -o-transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1.000); 
+  -webkit-transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1.000);
+     -moz-transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1.000);
+      -ms-transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1.000);
+       -o-transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1.000);
           transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1.000);
 }
 .blueimp-gallery,
@@ -163,11 +163,35 @@
 .blueimp-gallery-playing > .play-pause {
   background-position: -15px 0;
 }
+.blueimp-gallery > .fullscreen {
+  position: absolute;
+  right: 15px;
+  bottom: 15px;
+  width: 15px;
+  height: 15px;
+  background: url(../img/fullscreen.png) 0 0 no-repeat;
+  cursor: pointer;
+  opacity: 0.5;
+  display:none;
+}
+.blueimp-gallery > .download {
+  position: absolute;
+  right: 45px;
+  bottom: 15px;
+  width: 15px;
+  height: 15px;
+  background: url(../img/download.png) 0 0 no-repeat;
+  cursor: pointer;
+  opacity: 0.5;
+  display:none;
+}
 .blueimp-gallery > .prev:hover,
 .blueimp-gallery > .next:hover,
 .blueimp-gallery > .close:hover,
 .blueimp-gallery > .title:hover,
-.blueimp-gallery > .play-pause:hover {
+.blueimp-gallery > .play-pause:hover,
+.blueimp-gallery > .fullscreen:hover,
+.blueimp-gallery > .download:hover{
   color: #fff;
   opacity: 1;
 }
@@ -175,7 +199,9 @@
 .blueimp-gallery-controls > .next,
 .blueimp-gallery-controls > .close,
 .blueimp-gallery-controls > .title,
-.blueimp-gallery-controls > .play-pause {
+.blueimp-gallery-controls > .play-pause,
+.blueimp-gallery-controls > .fullscreen,
+.blueimp-gallery-controls > .download{
   display: block;
   /* Fix z-index issues (controls behind slide element) on Android: */
   -webkit-transform: translateZ(0);
@@ -195,7 +221,9 @@
 .blueimp-gallery > .prev,
 .blueimp-gallery > .next,
 .blueimp-gallery > .close,
-.blueimp-gallery > .play-pause {
+.blueimp-gallery > .play-pause,
+.blueimp-gallery > .fullscreen,
+.blueimp-gallery > .download{
   -webkit-user-select: none;
    -khtml-user-select: none;
      -moz-user-select: none;
