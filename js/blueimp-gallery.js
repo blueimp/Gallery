@@ -1189,10 +1189,10 @@
         },
 
         getItemProperty: function (obj, property) {
-            var prop = obj[property];
-            if (prop === undefined) {
+            var prop = obj.getAttribute(property);
+            if (prop === undefined || prop === "") {
                 prop = this.getDataProperty(obj, property);
-                if (prop === undefined) {
+                if (prop === undefined || prop === "") {
                     prop = this.getNestedProperty(obj, property);
                 }
             }
