@@ -91,6 +91,10 @@
             closeClass: 'close',
             // The class for the "play-pause" toggle control:
             playPauseClass: 'play-pause',
+            // The class fullscreen button control
+            fullscreenClass:'fullscreen',
+            // The class download button control
+            downloadClass:'download',
             // The list object property (or data attribute) with the object type:
             typeProperty: 'type',
             // The list object property (or data attribute) with the object title:
@@ -113,10 +117,14 @@
             toggleControlsOnReturn: true,
             // Toggle the automatic slideshow interval on pressing the Space key:
             toggleSlideshowOnSpace: true,
+            // Toggle fullscreen mode when slideshow is running
+            toggleFullscreenOnSlideShow: false,
             // Navigate the gallery by pressing left and right on the keyboard:
             enableKeyboardNavigation: true,
             // Close the gallery on pressing the Esc key:
             closeOnEscape: true,
+            //Hide controls when the slideshow is playing
+            hideControlsOnSlideshow:false,
             // Close the gallery when clicking on an empty slide area:
             closeOnSlideClick: true,
             // Close the gallery by swiping up or down:
@@ -372,6 +380,7 @@
 
         play: function (time) {
             var that = this;
+            if (this.options.hideControlsOnSlideshow) this.container.removeClass(this.options.controlsClass);
             window.clearTimeout(this.timeout);
             this.interval = time || this.options.slideshowInterval;
             if (this.elements[this.index] > 1) {
@@ -868,7 +877,25 @@
                 // Click on "play-pause" control
                 this.preventDefault(event);
                 this.toggleSlideshow();
-            } else if (parent === this.slidesContainer[0]) {
+            }else if (isTarget(options.fullscreenClass)) {
+                // Click on "fullscreen" control
+                this.preventDefault(event);
+                this.toggleFullscreen();
+            }
+            else if (isTarget(options.downloadClass)) {
+                // Click on "download" control
+                if (this.list[this.getIndex()] && typeof this.list[this.getIndex()].download_href != 'undefined')
+                {
+                	event.target.href = this.list[this.getIndex()].download_href;
+                }
+                else
+                {
+                	event.target.href = this.list[this.getIndex()].href;
+                }
+            
+                if (typeof event.target.download != 'undefined') event.target.download = this.list[this.getIndex()].title;
+            }
+            else if (parent === this.slidesContainer[0]) {
                 // Click on slide background
                 this.preventDefault(event);
                 if (options.closeOnSlideClick) {
@@ -1147,9 +1174,22 @@
         toggleSlideshow: function () {
             if (!this.interval) {
                 this.play();
+                if (this.options.toggleFullscreenOnSlideShow) this.requestFullScreen(this.container[0]);
             } else {
                 this.pause();
             }
+        },
+
+        toggleFullscreen: function ()
+        {
+            if (!this.getFullScreenElement())
+        	{
+        		this.requestFullScreen(this.container[0]);
+        	}
+        	else
+        	{
+        		this.exitFullScreen();
+        	}
         },
 
         getNodeIndex: function (element) {
