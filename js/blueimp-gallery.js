@@ -911,9 +911,13 @@
                 this.updateEdgeClasses(index);
             }
             this.loadElements(index);
+            this.updateContainer(index);
             if (this.options.unloadElements) {
                 this.unloadElements(index);
             }
+        },
+
+        updateContainer: function (index) {
             this.setTitle(index);
         },
 
