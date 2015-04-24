@@ -38,7 +38,11 @@
         // used as alternative to a thumbnail child element:
         thumbnailProperty: 'thumbnail',
         // Defines if the gallery indicators should display a thumbnail:
-        thumbnailIndicators: true
+        thumbnailIndicators: true,
+        // The tag name of thumbnails indicators
+        thumbnailsTagIndicators: 'li',
+        //thumbnail with image tag
+        thumbnailWithImgTag: false
     });
 
     var initSlides = Gallery.prototype.initSlides,
@@ -51,7 +55,7 @@
     $.extend(Gallery.prototype, {
 
         createIndicator: function (obj) {
-            var indicator = this.indicatorPrototype.cloneNode(false),
+            var indicator = this.indicatorPrototype.cloneNode(this.options.thumbnailWithImgTag),
                 title = this.getItemProperty(obj, this.options.titleProperty),
                 thumbnailProperty = this.options.thumbnailProperty,
                 thumbnailUrl,
@@ -64,7 +68,18 @@
                     thumbnailUrl = this.getItemProperty(obj, thumbnailProperty);
                 }
                 if (thumbnailUrl) {
-                    indicator.style.backgroundImage = 'url("' + thumbnailUrl + '")';
+                    if (this.options.thumbnailsTagIndicators == 'img')
+                    {
+                    	indicator.src = thumbnailUrl;
+                    }
+                    else if (this.options.thumbnailWithImgTag)
+                    {
+                    	indicator.children[0].src = thumbnailUrl;
+                    }
+                    else
+                    {
+                    	indicator.style.backgroundImage = 'url("' + thumbnailUrl + '")';
+                    }
                 }
             }
             if (title) {
@@ -100,8 +115,8 @@
                     this.options.indicatorContainer
                 );
                 if (this.indicatorContainer.length) {
-                    this.indicatorPrototype = document.createElement('li');
-                    this.indicators = this.indicatorContainer[0].children;
+                    this.indicatorPrototype = document.createElement(this.options.thumbnailsTagIndicators);
+                    if (this.options.thumbnailWithImgTag) this.indicatorPrototype.appendChild(document.createElement('img'));
                 }
             }
             initSlides.call(this, reload);
