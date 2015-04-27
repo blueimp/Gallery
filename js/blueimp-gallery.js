@@ -868,7 +868,7 @@
                 // Click on "play-pause" control
                 this.preventDefault(event);
                 this.toggleSlideshow();
-            } else if (parent === this.slidesContainer[0]) {
+            } else if (parent[0] === this.slidesContainer[0]) {
                 // Click on slide background
                 this.preventDefault(event);
                 if (options.closeOnSlideClick) {
