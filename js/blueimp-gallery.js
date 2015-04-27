@@ -843,7 +843,7 @@
         handleClick: function (event) {
             var options = this.options,
                 target = event.target || event.srcElement,
-                parent = target.parentNode,
+                parent = (target.tagName === 'A') ? target.parentNode :  $(target).closest('.slides'),
                 isTarget = function (className) {
                     return $(target).hasClass(className) ||
                         $(parent).hasClass(className);
@@ -868,7 +868,7 @@
                 // Click on "play-pause" control
                 this.preventDefault(event);
                 this.toggleSlideshow();
-            } else if (parent === this.slidesContainer[0]) {
+            } else if (parent[0] === this.slidesContainer[0]) {
                 // Click on slide background
                 this.preventDefault(event);
                 if (options.closeOnSlideClick) {
