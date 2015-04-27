@@ -843,7 +843,7 @@
         handleClick: function (event) {
             var options = this.options,
                 target = event.target || event.srcElement,
-                parent = $(target).closest('.slides'),
+                parent = (target.tagName === 'A') ? target.parentNode :  $(target).closest('.slides'),
                 isTarget = function (className) {
                     return $(target).hasClass(className) ||
                         $(parent).hasClass(className);
