@@ -9,7 +9,7 @@
  * http://www.opensource.org/licenses/MIT
  */
 
-/* global define, window, document */
+/* global require, module, define, window, document */
 
 (function (factory) {
     'use strict';
@@ -19,6 +19,11 @@
             './blueimp-helper',
             './blueimp-gallery'
         ], factory);
+    } else if(typeof require === 'function' && module){
+        module.exports = factory(
+            require('./blueimp-helper'),
+            require('./blueimp-gallery')
+        );
     } else {
         // Browser globals:
         factory(
