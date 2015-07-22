@@ -58,10 +58,10 @@
                 thumbnail;
             if (this.options.thumbnailIndicators) {
                 thumbnail = obj.getElementsByTagName && $(obj).find('img')[0];
-                if (thumbnail) {
-                    thumbnailUrl = thumbnail.src;
-                } else if (thumbnailProperty) {
+                if (thumbnailProperty) {
                     thumbnailUrl = this.getItemProperty(obj, thumbnailProperty);
+                } else if (thumbnail) {
+                    thumbnailUrl = thumbnail.src;
                 }
                 if (thumbnailUrl) {
                     indicator.style.backgroundImage = 'url("' + thumbnailUrl + '")';
