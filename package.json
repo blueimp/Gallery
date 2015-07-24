@@ -1,6 +1,6 @@
 {
   "name": "blueimp-gallery",
-  "version": "2.15.3",
+  "version": "2.15.4",
   "title": "blueimp Gallery",
   "description": "blueimp Gallery is a touch-enabled, responsive and customizable image and video gallery, carousel and lightbox, optimized for both mobile and desktop web browsers. It features swipe, mouse and keyboard navigation, transition effects, slideshow functionality, fullscreen support and on-demand content loading and can be extended to display additional content types.",
   "keywords": [
@@ -38,12 +38,7 @@
     "url": "git://github.com/blueimp/Gallery.git"
   },
   "bugs": "https://github.com/blueimp/Gallery/issues",
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "http://www.opensource.org/licenses/MIT"
-    }
-  ],
+  "license": "MIT",
   "devDependencies": {
     "grunt": "~0.4.5",
     "grunt-contrib-less": "~0.11.3",
