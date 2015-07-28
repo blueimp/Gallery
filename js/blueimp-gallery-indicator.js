@@ -1,5 +1,5 @@
 /*
- * blueimp Gallery Indicator JS 1.1.0
+ * blueimp Gallery Indicator JS 1.2.0
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -57,11 +57,14 @@
                 thumbnailUrl,
                 thumbnail;
             if (this.options.thumbnailIndicators) {
-                thumbnail = obj.getElementsByTagName && $(obj).find('img')[0];
                 if (thumbnailProperty) {
                     thumbnailUrl = this.getItemProperty(obj, thumbnailProperty);
-                } else if (thumbnail) {
-                    thumbnailUrl = thumbnail.src;
+                }
+                if (thumbnailUrl === undefined) {
+                    thumbnail = obj.getElementsByTagName && $(obj).find('img')[0];
+                    if (thumbnail) {
+                        thumbnailUrl = thumbnail.src;
+                    }
                 }
                 if (thumbnailUrl) {
                     indicator.style.backgroundImage = 'url("' + thumbnailUrl + '")';
