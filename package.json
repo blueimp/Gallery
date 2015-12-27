@@ -27,23 +27,43 @@
     "name": "Sebastian Tschan",
     "url": "https://blueimp.net"
   },
-  "maintainers": [
-    {
-      "name": "Sebastian Tschan",
-      "url": "https://blueimp.net"
-    }
-  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/blueimp/Gallery.git"
   },
-  "bugs": "https://github.com/blueimp/Gallery/issues",
   "license": "MIT",
   "devDependencies": {
-    "grunt": "~0.4.5",
-    "grunt-contrib-less": "~0.11.3",
-    "grunt-contrib-uglify": "~0.5.0",
-    "grunt-contrib-jshint": "~0.10.0",
-    "grunt-bump-build-git": "~1.1.1"
+    "jshint": "2.8.0",
+    "less": "2.5.3",
+    "less-plugin-clean-css": "1.5.1",
+    "uglify-js": "2.6.1"
+  },
+  "scripts": {
+    "test": "jshint js",
+    "build:js": "cd js && uglifyjs blueimp-helper.js blueimp-gallery.js blueimp-gallery-fullscreen.js blueimp-gallery-indicator.js blueimp-gallery-video.js blueimp-gallery-vimeo.js blueimp-gallery-youtube.js -c -m -o blueimp-gallery.min.js --source-map blueimp-gallery.min.js.map",
+    "build:jquery": "cd js && uglifyjs blueimp-gallery.js blueimp-gallery-fullscreen.js blueimp-gallery-indicator.js blueimp-gallery-video.js blueimp-gallery-vimeo.js blueimp-gallery-youtube.js jquery.blueimp-gallery.js -c -m -o jquery.blueimp-gallery.min.js --source-map jquery.blueimp-gallery.min.js.map",
+    "build:less": "cd css && lessc --clean-css --source-map blueimp-gallery.less blueimp-gallery.min.css",
+    "build": "npm run build:js && npm run build:jquery && npm run build:less",
+    "preversion": "npm test",
+    "version": "npm run build && git add -A js",
+    "postversion": "git push --tags origin master master:gh-pages && npm publish"
+  },
+  "jshintConfig": {
+    "bitwise": true,
+    "curly": true,
+    "eqeqeq": true,
+    "forin": true,
+    "freeze": true,
+    "immed": true,
+    "latedef": true,
+    "newcap": true,
+    "noarg": true,
+    "noempty": true,
+    "nonbsp": true,
+    "nonew": true,
+    "quotmark": true,
+    "undef": true,
+    "unused": true,
+    "strict": true
   }
 }
