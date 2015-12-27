@@ -47,8 +47,12 @@
 [blueimp Gallery Demo](https://blueimp.github.io/Gallery/)
 
 ## Description
-blueimp Gallery is a touch-enabled, responsive and customizable image and video gallery, carousel and lightbox, optimized for both mobile and desktop web browsers.  
-It features swipe, mouse and keyboard navigation, transition effects, slideshow functionality, fullscreen support and on-demand content loading and can be extended to display additional content types.
+blueimp Gallery is a touch-enabled, responsive and customizable image and video
+gallery, carousel and lightbox, optimized for both mobile and desktop web
+browsers.  
+It features swipe, mouse and keyboard navigation, transition effects, slideshow
+functionality, fullscreen support and on-demand content loading and can be
+extended to display additional content types.
 
 ## Setup
 
@@ -61,7 +65,8 @@ Include the Gallery stylesheet in the head section of your webpage:
 <link rel="stylesheet" href="css/blueimp-gallery.min.css">
 ```
 
-Add the following HTML snippet with the Gallery widget to the body of your webpage:
+Add the following HTML snippet with the Gallery widget to the body of your
+webpage:
 
 ```html
 <!-- The Gallery as lightbox dialog, should be a child element of the document body -->
@@ -82,7 +87,8 @@ Include the Gallery script at the bottom of the body of your webpage:
 <script src="js/blueimp-gallery.min.js"></script>
 ```
 
-Create a list of links to image files, optionally with enclosed thumbnails and add them to the body of your webpage, before including the Gallery script:
+Create a list of links to image files, optionally with enclosed thumbnails and
+add them to the body of your webpage, before including the Gallery script:
 
 ```html
 <div id="links">
@@ -98,7 +104,8 @@ Create a list of links to image files, optionally with enclosed thumbnails and a
 </div>
 ```
 
-Add the following JavaScript code after including the Gallery script, to display the images in the Gallery lightbox on click of the links:
+Add the following JavaScript code after including the Gallery script, to display
+the images in the Gallery lightbox on click of the links:
 
 ```html
 <script>
@@ -114,7 +121,8 @@ document.getElementById('links').onclick = function (event) {
 ```
 
 ### Controls
-To initialize the Gallery with visible controls, add the CSS class **blueimp-gallery-controls** to the Gallery widget:
+To initialize the Gallery with visible controls, add the CSS class
+**blueimp-gallery-controls** to the Gallery widget:
 
 ```html
 <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
@@ -129,7 +137,11 @@ To initialize the Gallery with visible controls, add the CSS class **blueimp-gal
 ```
 
 ### Carousel setup
-To display the images in an inline carousel instead of a lightbox, follow the [lightbox setup](#lightbox-setup) and add the CSS class **blueimp-gallery-carousel** to the Gallery widget and remove the child element with the **close** class, or add a new Gallery widget with a different **id** to your webpage:
+To display the images in an inline carousel instead of a lightbox, follow the
+[lightbox setup](#lightbox-setup) and add the CSS class
+**blueimp-gallery-carousel** to the Gallery widget and remove the child element
+with the **close** class, or add a new Gallery widget with a different **id**
+to your webpage:
 
 ```html
 <!-- The Gallery as inline carousel, can be positioned anywhere on the page -->
@@ -143,7 +155,8 @@ To display the images in an inline carousel instead of a lightbox, follow the [l
 </div>
 ```
 
-Add the following JavaScript code after including the Gallery script to initialize the carousel:
+Add the following JavaScript code after including the Gallery script to
+initialize the carousel:
 
 ```html
 <script>
@@ -166,7 +179,8 @@ The Gallery can be controlled with the following keyboard shortcuts:
 * **Left**: Move to the previous slide.
 * **Right**: Move to the next slide.
 
-Please note that setting the **carousel** option to **true** disables the keyboard shortcuts by default.
+Please note that setting the **carousel** option to **true** disables the
+keyboard shortcuts by default.
 
 ## Options
 
@@ -245,7 +259,7 @@ var options = {
     emulateTouchEvents: true,
     // Stop touch events from bubbling up to ancestor elements of the Gallery:
     stopTouchEventsPropagation: false,
-    // Hide the page scrollbars: 
+    // Hide the page scrollbars:
     hidePageScrollbars: true,
     // Stops any touches on the container from scrolling the page:
     disableScroll: true,
@@ -304,7 +318,8 @@ var options = {
 ```
 
 ### Event callbacks
-Event callbacks can be set as function properties of the options object passed to the Gallery initialization function:
+Event callbacks can be set as function properties of the options object passed
+to the Gallery initialization function:
 
 ```js
 var gallery = blueimp.Gallery(
@@ -338,7 +353,8 @@ var gallery = blueimp.Gallery(
 ```
 
 ### Carousel options
-If the **carousel** option is **true**, the following options are set to different default values:
+If the **carousel** option is **true**, the following options are set to
+different default values:
 
 ```js
 var carouselOptions = {
@@ -354,10 +370,12 @@ var carouselOptions = {
 };
 ```
 
-The options object passed to the Gallery function extends the default options and also those options set via **carousel** mode.
+The options object passed to the Gallery function extends the default options
+and also those options set via **carousel** mode.
 
 ### Indicator options
-The following are the additional default options set for the slide position indicator:
+The following are the additional default options set for the slide position
+indicator:
 
 ```js
 var indicatorOptions = {
@@ -435,7 +453,8 @@ var vimeoOptions = {
 ```
 
 ### Container and element options
-The widget **container** option can be set as id string (with "#" as prefix) or element node, so the following are equivalent:
+The widget **container** option can be set as id string (with "#" as prefix) or
+element node, so the following are equivalent:
 
 ```js
 var options = {
@@ -449,7 +468,9 @@ var options = {
 };
 ```
 
-The **slidesContainer**, **titleElement** and **indicatorContainer** options can also be defined using a tag name, which selects the first tag of this kind found inside of the widget container:
+The **slidesContainer**, **titleElement** and **indicatorContainer** options can
+also be defined using a tag name, which selects the first tag of this kind found
+inside of the widget container:
 
 ```js
 var options = {
@@ -459,13 +480,19 @@ var options = {
 };
 ```
 
-It is also possible to define the container and element options with a more complex [querySelector](https://developer.mozilla.org/en-US/docs/Web/API/document.querySelector), which is supported by IE8+ and all modern web browsers.
+It is also possible to define the container and element options with a more
+complex
+[querySelector](https://developer.mozilla.org/en-US/docs/Web/API/document.querySelector),
+which is supported by IE8+ and all modern web browsers.
 
-If the helper script is replaced with [jQuery](https://jquery.com/), the container and element options can be any valid jQuery selector.
+If the helper script is replaced with [jQuery](https://jquery.com/),
+the container and element options can be any valid jQuery selector.
 
 ### Property options
-The options ending with "Property" define how the properties of each link element are accessed.  
-For example, the **urlProperty** is by default set to **href**. This allows to define link elements with **href** or **data-href** attributes:
+The options ending with "Property" define how the properties of each link
+element are accessed.  
+For example, the **urlProperty** is by default set to **href**. This allows to
+define link elements with **href** or **data-href** attributes:
 
 ```html
 <div id="links">
@@ -474,7 +501,9 @@ For example, the **urlProperty** is by default set to **href**. This allows to d
 </div>
 ```
 
-If the links are passed as JavaScript array, it is also possible to define nested property names, by using the native JavaScript accessor syntax for the property string:
+If the links are passed as JavaScript array, it is also possible to define
+nested property names, by using the native JavaScript accessor syntax for the
+property string:
 
 ```js
 blueimp.Gallery(
@@ -495,13 +524,16 @@ blueimp.Gallery(
 ## API
 
 ### Initialization
-The blueimp Gallery can be initialized by simply calling it as a function with an array of links as first argument and an optional options object as second argument:
+The blueimp Gallery can be initialized by simply calling it as a function with
+an array of links as first argument and an optional options object as second
+argument:
 
 ```js
 var gallery = blueimp.Gallery(links, options);
 ```
 
-The links array can be a list of URL strings or a list of objects with URL properties:
+The links array can be a list of URL strings or a list of objects with URL
+properties:
 
 ```js
 var gallery = blueimp.Gallery([
@@ -528,15 +560,24 @@ var gallery = blueimp.Gallery([
 ]);
 ```
 
-The URL property name defined by each list object can be configured via the **urlProperty** option. By default, it is set to **href**, which allows to pass a list of HTML link elements as first argument.
+The URL property name defined by each list object can be configured via the
+**urlProperty** option. By default, it is set to **href**, which allows to pass
+a list of HTML link elements as first argument.
 
-For images, the **thumbnail** property defines the URL of the image thumbnail, which is used for the indicator navigation displayed at the bottom of the Gallery, if the controls are visible.
+For images, the **thumbnail** property defines the URL of the image thumbnail,
+which is used for the indicator navigation displayed at the bottom of the
+Gallery, if the controls are visible.
 
-The object returned by executing the Gallery function (the **gallery** variable in the example code above) is a new instance of the Gallery and allows to access the public [API methods](#api-methods) provided by the Gallery.  
-The Gallery initialization function returns **false** if the given list was empty, the Gallery widget is missing, or the browser doesn't pass the functionality test.
+The object returned by executing the Gallery function (the **gallery** variable
+in the example code above) is a new instance of the Gallery and allows to access
+the public [API methods](#api-methods) provided by the Gallery.  
+The Gallery initialization function returns **false** if the given list was
+empty, the Gallery widget is missing, or the browser doesn't pass the
+functionality test.
 
 ### API methods
-The Gallery object returned by executing the Gallery function provides the following public API methods:
+The Gallery object returned by executing the Gallery function provides the
+following public API methods:
 
 ```js
 // Return the current slide index position:
@@ -571,7 +612,8 @@ gallery.close();
 
 #### HTML5 video player
 
-The Gallery can be initialized with a list of videos instead of images, or a combination of both:
+The Gallery can be initialized with a list of videos instead of images, or a
+combination of both:
 
 ```js
 blueimp.Gallery([
@@ -590,14 +632,22 @@ blueimp.Gallery([
 ]);
 ```
 
-The Gallery uses the **type** property to determine the content type of the object to display.  
-If the type property is empty or doesn't exist, the default type **image** is assumed.  
-Objects with a video type will be displayed in a [HTML5 video element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video) if the browser supports the video content type.
+The Gallery uses the **type** property to determine the content type of the
+object to display.  
+If the type property is empty or doesn't exist, the default type **image** is
+assumed.  
+Objects with a video type will be displayed in a
+[HTML5 video element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video)
+if the browser supports the video content type.
 
-For videos, the **poster** property defines the URL of the poster image to display, before the video is started.
+For videos, the **poster** property defines the URL of the poster image to
+display, before the video is started.
 
 #### Multiple video sources
-To provide multiple video formats, the **sources** property of a list object can be set to an array of objects with **href** and **type** properties for each video source. The first video format in the list that the browser can play will be displayed:
+To provide multiple video formats, the **sources** property of a list object can
+be set to an array of objects with **href** and **type** properties for each
+video source. The first video format in the list that the browser can play will
+be displayed:
 
 ```js
 blueimp.Gallery([
@@ -619,7 +669,8 @@ blueimp.Gallery([
 ]);
 ```
 
-It is also possible to define the video sources as data-attribute on a link element in [JSON](https://developer.mozilla.org/en-US/docs/JSON) array format:
+It is also possible to define the video sources as data-attribute on a link
+element in [JSON](https://developer.mozilla.org/en-US/docs/JSON) array format:
 
 ```html
 <div id="links">
@@ -634,7 +685,10 @@ It is also possible to define the video sources as data-attribute on a link elem
 ```
 
 #### YouTube
-The Gallery can display [YouTube](https://www.youtube.com/) videos for Gallery items with a **type** of **text/html** and a **youtube** property (configurable via [YouTube options](#youtube-options)) with the YouTube video-ID:
+The Gallery can display [YouTube](https://www.youtube.com/) videos for Gallery
+items with a **type** of **text/html** and a **youtube** property
+(configurable via [YouTube options](#youtube-options)) with the YouTube
+video-ID:
 
 ```js
 blueimp.Gallery([
@@ -654,12 +708,17 @@ blueimp.Gallery([
 ]);
 ```
 
-If the `href` and `poster` properties are undefined, they are set automatically based on the video ID.
+If the `href` and `poster` properties are undefined, they are set automatically
+based on the video ID.
 
-Please note that the Gallery YouTube integration requires a browser with [postMessage](https://developer.mozilla.org/en-US/docs/Web/API/window.postMessage) support, which excludes IE7.
+Please note that the Gallery YouTube integration requires a browser with
+[postMessage](https://developer.mozilla.org/en-US/docs/Web/API/window.postMessage)
+support, which excludes IE7.
 
 #### Vimeo
-The Gallery can display [Vimeo](https://vimeo.com/) videos for Gallery items with a **type** of **text/html** and a **vimeo** property (configurable via [Vimeo options](#vimeo-options)) with the Vimeo video-ID:
+The Gallery can display [Vimeo](https://vimeo.com/) videos for Gallery items
+with a **type** of **text/html** and a **vimeo** property
+(configurable via [Vimeo options](#vimeo-options)) with the Vimeo video-ID:
 
 ```js
 blueimp.Gallery([
@@ -679,12 +738,16 @@ blueimp.Gallery([
 ]);
 ```
 
-If the `href` property is undefined, it is set automatically based on the video ID.
+If the `href` property is undefined, it is set automatically based on the
+video ID.
 
-Please note that the Gallery Vimeo integration requires a browser with [postMessage](https://developer.mozilla.org/en-US/docs/Web/API/window.postMessage) support, which excludes IE7.
+Please note that the Gallery Vimeo integration requires a browser with
+[postMessage](https://developer.mozilla.org/en-US/docs/Web/API/window.postMessage)
+support, which excludes IE7.
 
 ### Additional Gallery elements
-It is possible to add additional elements to the Gallery widget, e.g. a description label.
+It is possible to add additional elements to the Gallery widget, e.g. a
+description label.
 
 First, add the desired HTML element to the Gallery widget:
 
@@ -726,7 +789,8 @@ Then, add the additional element information to each of your links:
 </div>
 ```
 
-Finally, initialize the Gallery with an onslide callback option, to set the element content based on the information from the current link:
+Finally, initialize the Gallery with an onslide callback option, to set the
+element content based on the information from the current link:
 
 ```js
 blueimp.Gallery(
@@ -745,15 +809,29 @@ blueimp.Gallery(
 ```
 
 ### Additional content types
-By extending the Gallery prototype with new factory methods, additional content types can be displayed.  By default, blueimp Gallery provides the **imageFactory** and **videoFactory** methods for **image** and **video** content types respectively.  
+By extending the Gallery prototype with new factory methods, additional content
+types can be displayed.  By default, blueimp Gallery provides the
+**imageFactory** and **videoFactory** methods for **image** and **video**
+content types respectively.  
 
-The Gallery uses the **type** property of each content object to determine which factory method to use.  The **type** defines the [Internet media type](https://en.wikipedia.org/wiki/Internet_media_type) of the content object and is composed of two or more parts: A type, a subtype, and zero or more optional parameters, e.g. **text/html; charset=UTF-8** for an HTML document with UTF-8 encoding.  
-The main type (the string in front of the slash, **text** in the example above) is concatenated with the string **Factory** to create the factory method name, e.g. **textFactory**.
+The Gallery uses the **type** property of each content object to determine which
+factory method to use.  The **type** defines the
+[Internet media type](https://en.wikipedia.org/wiki/Internet_media_type) of the
+content object and is composed of two or more parts: A type, a subtype, and zero
+or more optional parameters, e.g. **text/html; charset=UTF-8** for an HTML
+document with UTF-8 encoding.  
+The main type (the string in front of the slash, **text** in the example above)
+is concatenated with the string **Factory** to create the factory method name,
+e.g. **textFactory**.
 
 #### Example HTML text factory implementation
-Please note that the textFactory script has to be included after the core Gallery script, but before including the [YouTube](#youtube) and [Vimeo](#vimeo) integration plugins, which extend the textFactory implementation to handle YouTube and Vimeo video links.
+Please note that the textFactory script has to be included after the core
+Gallery script, but before including the [YouTube](#youtube) and [Vimeo](#vimeo)
+integration plugins, which extend the textFactory implementation to handle
+YouTube and Vimeo video links.
 
-Please also note that although blueimp Gallery doesn't require [jQuery](https://jquery.com/), the following example uses it for convenience.
+Please also note that although blueimp Gallery doesn't require
+[jQuery](https://jquery.com/), the following example uses it for convenience.
 
 Extend the Gallery prototype with the **textFactory** method:
 
@@ -792,7 +870,8 @@ Next, add the **text-content** class to the Gallery CSS:
 }
 ```
 
-With the previous changes in place, the Gallery can now handle HTML content types:
+With the previous changes in place, the Gallery can now handle HTML content
+types:
 
 ```js
 blueimp.Gallery([
@@ -812,9 +891,12 @@ blueimp.Gallery([
 ### jQuery plugin
 
 #### jQuery plugin setup
-The blueimp Gallery jQuery plugin registers a global click handler to open links with **data-gallery** attribute in the Gallery lightbox.
+The blueimp Gallery jQuery plugin registers a global click handler to open links
+with **data-gallery** attribute in the Gallery lightbox.
 
-To use it, follow the [lightbox setup](#lightbox-setup) guide, but replace the minified Gallery script with the jQuery plugin version and include it after including [jQuery](https://jquery.com/):
+To use it, follow the [lightbox setup](#lightbox-setup) guide, but replace the
+minified Gallery script with the jQuery plugin version and include it after
+including [jQuery](https://jquery.com/):
 
 ```html
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -837,12 +919,18 @@ Next, add the attribute **data-gallery** to your Gallery links:
 </div>
 ```
 
-The onclick handler from the [lightbox setup](#lightbox-setup) guide is not required and can be removed.
+The onclick handler from the [lightbox setup](#lightbox-setup) guide is not
+required and can be removed.
 
 #### HTML5 data-attributes
-Options for the Gallery lightbox opened via the jQuery plugin can be defined as [HTML5 data-attributes](https://api.jquery.com/data/#data-html5) on the Gallery widget container.
+Options for the Gallery lightbox opened via the jQuery plugin can be defined as
+[HTML5 data-attributes](https://api.jquery.com/data/#data-html5) on the Gallery
+widget container.
 
-The jQuery plugin also introduces the additional **filter** option, which is applied to the Gallery links via [jQuery's filter method](https://api.jquery.com/filter/) and allows to remove duplicates from the list:
+The jQuery plugin also introduces the additional **filter** option, which is
+applied to the Gallery links via
+[jQuery's filter method](https://api.jquery.com/filter/) and allows to remove
+duplicates from the list:
 
 ```html
 <div id="blueimp-gallery" class="blueimp-gallery" data-start-slideshow="true" data-filter=":even">
@@ -856,12 +944,16 @@ The jQuery plugin also introduces the additional **filter** option, which is app
 </div>
 ```
 
-This will initialize the Gallery with the option **startSlideshow** set to **true**.  
-It will also filter the Gallery links so that only links with an even index number will be included.
+This will initialize the Gallery with the option **startSlideshow** set to
+**true**.  
+It will also filter the Gallery links so that only links with an even index
+number will be included.
 
 #### Container ids and link grouping
-If the **data-gallery** attribute value is a valid id string (e.g. "#blueimp-gallery"), it is used as container option.  
-Setting **data-gallery** to a non-empty string also allows to group links into different sets of Gallery images:
+If the **data-gallery** attribute value is a valid id string
+(e.g. "#blueimp-gallery"), it is used as container option.  
+Setting **data-gallery** to a non-empty string also allows to group links into
+different sets of Gallery images:
 
 ```html
 <div id="fruits">
@@ -882,10 +974,17 @@ Setting **data-gallery** to a non-empty string also allows to group links into d
 </div>
 ```
 
-This will open the links with the **data-gallery** attribute **#blueimp-gallery-fruits** in the Gallery widget with the id **blueimp-gallery-fruits**, and the links with the **data-gallery** attribute **#blueimp-gallery-vegetables**  in the Gallery widget with the id **blueimp-gallery-vegetables**.
+This will open the links with the **data-gallery** attribute
+**#blueimp-gallery-fruits** in the Gallery widget with the id
+**blueimp-gallery-fruits**, and the links with the **data-gallery** attribute
+**#blueimp-gallery-vegetables**  in the Gallery widget with the id
+**blueimp-gallery-vegetables**.
 
 #### Gallery object
-The gallery object is stored via [jQuery data storage](https://api.jquery.com/category/miscellaneous/data-storage/) on the Gallery widget when the Gallery is opened and can be retrieved the following way:
+The gallery object is stored via
+[jQuery data storage](https://api.jquery.com/category/miscellaneous/data-storage/)
+on the Gallery widget when the Gallery is opened and can be retrieved the
+following way:
 
 ```js
 var gallery = $('#blueimp-gallery').data('gallery');
@@ -894,7 +993,8 @@ var gallery = $('#blueimp-gallery').data('gallery');
 This gallery object provides all methods outlined in the API methods section.
 
 #### jQuery events
-The jQuery plugin triggers Gallery events on the widget container, with event names equivalent to the gallery [event callbacks](#event-callbacks):
+The jQuery plugin triggers Gallery events on the widget container, with event
+names equivalent to the gallery [event callbacks](#event-callbacks):
 
 ```js
 $('#blueimp-gallery')
@@ -922,9 +1022,11 @@ $('#blueimp-gallery')
 ```
 
 ## Requirements
-blueimp Gallery doesn't require any other libraries and can be used standalone without any dependencies.
+blueimp Gallery doesn't require any other libraries and can be used standalone
+without any dependencies.
 
-You can also use the individual source files instead of the standalone minified version:
+You can also use the individual source files instead of the standalone minified
+version:
 
 ```html
 <link rel="stylesheet" href="css/blueimp-gallery.css">
@@ -941,9 +1043,12 @@ You can also use the individual source files instead of the standalone minified 
 ```
 
 The helper script can be replaced by [jQuery](https://jquery.com/) v. 1.7+.  
-The fullscreen, indicator, video, youtube and vimeo source files are optional if their functionality is not required.
+The fullscreen, indicator, video, youtube and vimeo source files are optional if
+their functionality is not required.
 
-The [jQuery plugin](#jquery-plugin) requires [jQuery](https://jquery.com/) v. 1.7+ and the basic Gallery script, while the fullscreen, indicator, video, youtube and vimeo source files are also optional:
+The [jQuery plugin](#jquery-plugin) requires
+[jQuery](https://jquery.com/) v. 1.7+ and the basic Gallery script, while the
+fullscreen, indicator, video, youtube and vimeo source files are also optional:
 
 ```html
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -956,7 +1061,8 @@ The [jQuery plugin](#jquery-plugin) requires [jQuery](https://jquery.com/) v. 1.
 <script src="js/jquery.blueimp-gallery.js"></script>
 ```
 
-Please note that the jQuery plugin is an optional extension and not required for the Gallery functionality.
+Please note that the jQuery plugin is an optional extension and not required for
+the Gallery functionality.
 
 ## Browsers
 blueimp Gallery has been tested with and supports the following browsers:
@@ -981,4 +1087,5 @@ blueimp Gallery has been tested with and supports the following browsers:
 Released under the [MIT license](http://www.opensource.org/licenses/MIT).
 
 ## Credits
-The swipe implementation is based on code from the [Swipe](http://swipejs.com/) library.
+The swipe implementation is based on code from the
+[Swipe](http://swipejs.com/) library.
