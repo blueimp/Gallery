@@ -1,5 +1,5 @@
 /*
- * blueimp Gallery Fullscreen JS 1.2.0
+ * blueimp Gallery Fullscreen JS
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan

@@ -1,5 +1,5 @@
 /*
- * blueimp helper JS 1.2.0
+ * blueimp helper JS
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan

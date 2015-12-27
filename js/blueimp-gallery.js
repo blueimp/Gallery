@@ -1,5 +1,5 @@
 /*
- * blueimp Gallery JS 2.14.1
+ * blueimp Gallery JS
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -816,7 +816,7 @@
                 if (this.options.closeOnEscape) {
                     this.close();
                     // prevent Esc from closing other things
-                    event.stopImmediatePropagation(); 
+                    event.stopImmediatePropagation();
                 }
                 break;
             case 32: // Space

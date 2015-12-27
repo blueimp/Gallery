@@ -1,5 +1,5 @@
 /*
- * blueimp Gallery jQuery plugin 1.2.2
+ * blueimp Gallery jQuery plugin
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan

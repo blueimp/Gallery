@@ -1,6 +1,6 @@
 @charset "UTF-8";
 /*
- * blueimp Gallery CSS 2.11.1
+ * blueimp Gallery CSS
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
@@ -67,10 +67,10 @@
   float: left;
   height: 100%;
   text-align: center;
-  -webkit-transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1.000); 
-     -moz-transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1.000); 
-      -ms-transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1.000); 
-       -o-transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1.000); 
+  -webkit-transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1.000);
+     -moz-transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1.000);
+      -ms-transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1.000);
+       -o-transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1.000);
           transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1.000);
 }
 .blueimp-gallery,

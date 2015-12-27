@@ -1,5 +1,5 @@
 /*
- * blueimp Gallery Demo JS 2.12.1
+ * blueimp Gallery Demo JS
  * https://github.com/blueimp/Gallery
  *
  * Copyright 2013, Sebastian Tschan
