@@ -225,6 +225,8 @@ var options = {
     closeClass: 'close',
     // The class for the "play-pause" toggle control:
     playPauseClass: 'play-pause',
+    // The customized class-actions to do more things:
+    customActions: {},
     // The list object property (or data attribute) with the object type:
     typeProperty: 'type',
     // The list object property (or data attribute) with the object title:
@@ -389,6 +391,45 @@ var indicatorOptions = {
     // Defines if the gallery indicators should display a thumbnail:
     thumbnailIndicators: true
 };
+```
+
+### Custom actions
+The following shows how to add custom button and the related action, you can find this example in the demo as well.
+
+First, add a link with 'custom' class and your class to the handler list:
+
+```html
+<div id="blueimp-image-carousel" class="blueimp-gallery blueimp-gallery-carousel">
+    <div class="slides"></div>
+    <h3 class="title"></h3>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <a class="custom url">Show URL(Custom button)</a>
+    <a class="play-pause"></a>
+</div>
+```
+
+Next, add the css definition to your class:
+
+```css
+.blueimp-gallery > .url {
+  top: auto;
+  bottom: 0;
+  left: 0;
+}
+```
+
+At last, define your action:
+
+```js
+blueimp.Gallery(carouselLinks, {
+    // other options...
+    customActions: {
+        "url" : function (index, slide) {
+            alert(carouselLinks[index].href);
+        }
+    }
+});
 ```
 
 ### Fullscreen options

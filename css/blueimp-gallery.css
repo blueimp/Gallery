@@ -128,6 +128,7 @@
   right: 15px;
 }
 .blueimp-gallery > .close,
+.blueimp-gallery > .custom,
 .blueimp-gallery > .title {
   position: absolute;
   top: 15px;
@@ -139,6 +140,12 @@
   text-shadow: 0 0 2px #000;
   opacity: 0.8;
   display: none;
+}
+.blueimp-gallery > .custom {
+  padding: 15px;
+  font-size: 24px;
+  text-decoration: none;
+  cursor: pointer;
 }
 .blueimp-gallery > .close {
   padding: 15px;
@@ -166,6 +173,7 @@
 .blueimp-gallery > .prev:hover,
 .blueimp-gallery > .next:hover,
 .blueimp-gallery > .close:hover,
+.blueimp-gallery > .custom:hover,
 .blueimp-gallery > .title:hover,
 .blueimp-gallery > .play-pause:hover {
   color: #fff;
@@ -174,6 +182,7 @@
 .blueimp-gallery-controls > .prev,
 .blueimp-gallery-controls > .next,
 .blueimp-gallery-controls > .close,
+.blueimp-gallery-controls > .custom,
 .blueimp-gallery-controls > .title,
 .blueimp-gallery-controls > .play-pause {
   display: block;
@@ -195,6 +204,7 @@
 .blueimp-gallery > .prev,
 .blueimp-gallery > .next,
 .blueimp-gallery > .close,
+.blueimp-gallery > .custom,
 .blueimp-gallery > .play-pause {
   -webkit-user-select: none;
    -khtml-user-select: none;

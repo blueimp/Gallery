@@ -48,7 +48,12 @@ $(function () {
         // Initialize the Gallery as image carousel:
         blueimp.Gallery(carouselLinks, {
             container: '#blueimp-image-carousel',
-            carousel: true
+            carousel: true,
+            customActions: {
+                "url" : function (index, slide) {
+                    alert(carouselLinks[index].href);
+                }
+            }
         });
     });
 

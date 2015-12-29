@@ -91,6 +91,8 @@
             closeClass: 'close',
             // The class for the "play-pause" toggle control:
             playPauseClass: 'play-pause',
+            // The customized class-actions to do more things:
+            customActions: {},
             // The list object property (or data attribute) with the object type:
             typeProperty: 'type',
             // The list object property (or data attribute) with the object title:
@@ -844,9 +846,22 @@
             var options = this.options,
                 target = event.target || event.srcElement,
                 parent = target.parentNode,
+                customAction = null,
                 isTarget = function (className) {
                     return $(target).hasClass(className) ||
                         $(parent).hasClass(className);
+                },
+                isCustomTarget = function () {
+                    if (options.customActions) {
+                        for (var cls in options.customActions) {
+                            if (options.customActions.hasOwnProperty(cls)) {
+                                if (isTarget(cls)) {
+                                    return options.customActions[cls];
+                                }
+                            }
+                        }
+                    }
+                    return false;
                 };
             if (isTarget(options.toggleClass)) {
                 // Click on "toggle" control
@@ -868,6 +883,10 @@
                 // Click on "play-pause" control
                 this.preventDefault(event);
                 this.toggleSlideshow();
+            } else if (customAction = isCustomTarget()) {
+                // Click on custom control
+                this.preventDefault(event);
+                this.setTimeout(customAction, [this.index, this.slides[this.index]]);
             } else if (parent === this.slidesContainer[0]) {
                 // Click on slide background
                 this.preventDefault(event);
