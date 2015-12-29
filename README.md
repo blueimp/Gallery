@@ -12,6 +12,7 @@
     - [Event callbacks](#event-callbacks)
     - [Carousel options](#carousel-options)
     - [Indicator options](#indicator-options)
+    - [Custom actions](#custom-actions)
     - [Fullscreen options](#fullscreen-options)
     - [Video options](#video-options)
         - [Video factory options](#video-factory-options)
