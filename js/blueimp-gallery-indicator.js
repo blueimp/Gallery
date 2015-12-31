@@ -38,7 +38,9 @@
         // used as alternative to a thumbnail child element:
         thumbnailProperty: 'thumbnail',
         // Defines if the gallery indicators should display a thumbnail:
-        thumbnailIndicators: true
+        thumbnailIndicators: true,
+        // The size of the indicator. Available values: null(small circle), 'medium', 'large', or an integer
+        indicatorSize: null
     });
 
     var initSlides = Gallery.prototype.initSlides,
@@ -69,6 +71,11 @@
                 if (thumbnailUrl) {
                     indicator.style.backgroundImage = 'url("' + thumbnailUrl + '")';
                 }
+            }
+            if (typeof(this.options.indicatorSize) == 'string') {
+                indicator.classList.add(this.options.indicatorSize);
+            } else if (typeof(this.options.indicatorSize) == 'number') {
+                indicator.style.width = indicator.style.height = this.options.indicatorSize + 'px';
             }
             if (title) {
                 indicator.title = title;

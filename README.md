@@ -12,6 +12,7 @@
     - [Event callbacks](#event-callbacks)
     - [Carousel options](#carousel-options)
     - [Indicator options](#indicator-options)
+    - [Custom actions](#custom-actions)
     - [Fullscreen options](#fullscreen-options)
     - [Video options](#video-options)
         - [Video factory options](#video-factory-options)
@@ -225,6 +226,8 @@ var options = {
     closeClass: 'close',
     // The class for the "play-pause" toggle control:
     playPauseClass: 'play-pause',
+    // The customized class-actions to do more things:
+    customActions: {},
     // The list object property (or data attribute) with the object type:
     typeProperty: 'type',
     // The list object property (or data attribute) with the object title:
@@ -387,8 +390,53 @@ var indicatorOptions = {
     // used as alternative to a thumbnail child element:
     thumbnailProperty: 'thumbnail',
     // Defines if the gallery indicators should display a thumbnail:
-    thumbnailIndicators: true
+    thumbnailIndicators: true,
+    // The size of the indicator. Available values: null(small circle), 'medium', 'large', or an integer
+    indicatorSize: null
 };
+```
+
+### Custom actions
+The following shows how to add custom button and the related action, you can find this example in the demo as well.
+
+First, add a link with 'custom' class and your class to the handler list:
+
+```html
+<div id="blueimp-image-carousel" class="blueimp-gallery blueimp-gallery-carousel">
+    <div class="slides"></div>
+    <h3 class="title"></h3>
+    <a class="prev">‹</a>
+    <a class="next">›</a>
+    <a class="custom url">Show URL(Custom button)</a>
+    <a class="play-pause"></a>
+</div>
+```
+
+Next, add the css definition to your class:
+
+```css
+.blueimp-gallery > .url {
+  top: auto;
+  bottom: 0;
+  left: 0;
+}
+```
+
+At last, define your action as following. Arguments definition:
+
+* **index**: index of current slide
+* **slide**: current slide's div widget
+* **btn**: the custom button itself
+
+```js
+blueimp.Gallery(carouselLinks, {
+    // other options...
+    customActions: {
+        "url" : function (index, slide, btn) {
+            alert(carouselLinks[index].href);
+        }
+    }
+});
 ```
 
 ### Fullscreen options
