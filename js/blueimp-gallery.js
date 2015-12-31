@@ -886,7 +886,7 @@
             } else if (customAction = isCustomTarget()) {
                 // Click on custom control
                 this.preventDefault(event);
-                this.setTimeout(customAction, [this.index, this.slides[this.index]]);
+                this.setTimeout(customAction, [this.index, this.slides[this.index], target]);
             } else if (parent === this.slidesContainer[0]) {
                 // Click on slide background
                 this.preventDefault(event);
