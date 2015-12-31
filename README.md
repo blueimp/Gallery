@@ -390,7 +390,9 @@ var indicatorOptions = {
     // used as alternative to a thumbnail child element:
     thumbnailProperty: 'thumbnail',
     // Defines if the gallery indicators should display a thumbnail:
-    thumbnailIndicators: true
+    thumbnailIndicators: true,
+    // The size of the indicator. Available values: null(small circle), 'medium', 'large', or an integer
+    indicatorSize: null
 };
 ```
 

@@ -65,6 +65,16 @@
           user-select: none;
 }
 
+/* Different sizes */
+.blueimp-gallery > .indicator > li.medium {
+    width: 42px;
+    height: 42px;
+}
+.blueimp-gallery > .indicator > li.large {
+    width: 64px;
+    height: 64px;
+}
+
 /* IE7 fixes */
 *+html .blueimp-gallery > .indicator > li {
   display: inline;
