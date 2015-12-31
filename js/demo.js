@@ -50,7 +50,7 @@ $(function () {
             container: '#blueimp-image-carousel',
             carousel: true,
             customActions: {
-                "url" : function (index, slide) {
+                "url" : function (index, slide, btn) {
                     alert(carouselLinks[index].href);
                 }
             }

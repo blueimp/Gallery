@@ -420,13 +420,17 @@ Next, add the css definition to your class:
 }
 ```
 
-At last, define your action:
+At last, define your action as following. Arguments definition:
+
+* **index**: index of current slide
+* **slide**: current slide's div widget
+* **btn**: the custom button itself
 
 ```js
 blueimp.Gallery(carouselLinks, {
     // other options...
     customActions: {
-        "url" : function (index, slide) {
+        "url" : function (index, slide, btn) {
             alert(carouselLinks[index].href);
         }
     }
