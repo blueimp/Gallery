@@ -151,5 +151,5 @@
 
   })
 
-  return Gallery
-}))
+  return Gallery;
+}));
