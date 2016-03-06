@@ -120,6 +120,17 @@
       return this
     },
 
+    attr: function (attributeName, value) {
+      var i = this.length
+      var element
+      while (i) {
+        i -= 1
+        element = this[i]
+        element.setAttribute(attributeName, value)
+      }
+      return this
+    },
+
     on: function (eventName, handler) {
       var eventNames = eventName.split(/\s+/)
       var i
