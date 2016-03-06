@@ -1013,10 +1013,10 @@
         }])
       }
 
-      //If the srcsetProperty is set, set it as image srcset attribute
+      // If the srcsetProperty is set, set it as image srcset attribute
       var srcset = this.getItemProperty(obj, this.options.srcsetProperty)
 
-      if(srcset) {
+      if (srcset) {
         $(element).attr('srcset', srcset)
       }
 
