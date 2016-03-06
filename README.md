@@ -231,6 +231,8 @@ var options = {
     titleProperty: 'title',
     // The list object property (or data attribute) with the object URL:
     urlProperty: 'href',
+    // The list object property (or data attribute) with the object srcset URL(s):
+    srcsetProperty: 'urlset',
     // The gallery listens for transitionend events before triggering the
     // opened and closed events, unless the following option is set to false:
     displayTransition: true,

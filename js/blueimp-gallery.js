@@ -96,6 +96,8 @@
       titleProperty: 'title',
       // The list object property (or data attribute) with the object URL:
       urlProperty: 'href',
+      // The list object property (or data attribute) with the object srcset URL(s):
+      srcsetProperty: 'urlset',
       // The gallery listens for transitionend events before triggering the
       // opened and closed events, unless the following option is set to false:
       displayTransition: true,
@@ -1005,14 +1007,18 @@
     createElement: function (obj, callback) {
       var type = obj && this.getItemProperty(obj, this.options.typeProperty)
       var factory = (type && this[type.split('/')[0] + 'Factory']) ||
-      this.imageFactory
+        this.imageFactory
       var element = obj && factory.call(this, obj, callback)
+      var srcset = this.getItemProperty(obj, this.options.srcsetProperty)
       if (!element) {
         element = this.elementPrototype.cloneNode(false)
         this.setTimeout(callback, [{
           type: 'error',
           target: element
         }])
+      }
+      if (srcset) {
+        element.setAttribute('srcset', srcset)
       }
       $(element).addClass(this.options.slideContentClass)
       return element
