@@ -96,6 +96,8 @@
       titleProperty: 'title',
       // The list object property (or data attribute) with the object URL:
       urlProperty: 'href',
+      // The list object property (or data attribute) with the object srcset URL(s):
+      srcsetProperty: 'srcset',
       // The gallery listens for transitionend events before triggering the
       // opened and closed events, unless the following option is set to false:
       displayTransition: true,
@@ -1010,6 +1012,14 @@
           target: element
         }])
       }
+
+      // If the srcsetProperty is set, set it as image srcset attribute
+      var srcset = this.getItemProperty(obj, this.options.srcsetProperty)
+
+      if (srcset) {
+        $(element).attr('srcset', srcset)
+      }
+
       $(element).addClass(this.options.slideContentClass)
       return element
     },
