@@ -9,7 +9,7 @@
  * http://www.opensource.org/licenses/MIT
  */
 
-/* global define, window, document, location, $f */
+/* global define, window, document, $f */
 
 ;(function (factory) {
   'use strict'
@@ -69,8 +69,7 @@
 
     loadAPI: function () {
       var that = this
-      var apiUrl = '//' + (location.protocol === 'https' ? 'secure-' : '') +
-                    'a.vimeocdn.com/js/froogaloop2.min.js'
+      var apiUrl = '//f.vimeocdn.com/js/froogaloop2.min.js'
       var scriptTags = document.getElementsByTagName('script')
       var i = scriptTags.length
       var scriptTag
