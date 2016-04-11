@@ -110,8 +110,8 @@
       stretchImages: false,
       // Toggle the controls on pressing the Return key:
       toggleControlsOnReturn: true,
-      // Toggle the controls on click Image.
-      toggleControlsOnClickSlide: true,
+      // Toggle the controls on slide click:
+      toggleControlsOnSlideClick: true,
       // Toggle the automatic slideshow interval on pressing the Space key:
       toggleSlideshowOnSpace: true,
       // Navigate the gallery by pressing left and right on the keyboard:
@@ -882,8 +882,8 @@
       } else if (parent.parentNode &&
         parent.parentNode === this.slidesContainer[0]) {
         // Click on displayed element
-        this.preventDefault(event)
-        if (options.toggleControlsOnClickSlide) {
+        if (options.toggleControlsOnSlideClick) {
+          this.preventDefault(event)
           this.toggleControls()
         }
       }
