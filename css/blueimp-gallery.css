@@ -75,11 +75,11 @@
 }
 .blueimp-gallery,
 .blueimp-gallery > .slides > .slide > .slide-content {
-  -webkit-transition: opacity 0.5s linear;
-     -moz-transition: opacity 0.5s linear;
-      -ms-transition: opacity 0.5s linear;
-       -o-transition: opacity 0.5s linear;
-          transition: opacity 0.5s linear;
+  -webkit-transition: opacity 0.2s linear;
+     -moz-transition: opacity 0.2s linear;
+      -ms-transition: opacity 0.2s linear;
+       -o-transition: opacity 0.2s linear;
+          transition: opacity 0.2s linear;
 }
 .blueimp-gallery > .slides > .slide-loading {
   background: url(../img/loading.gif) center no-repeat;
