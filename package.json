@@ -45,7 +45,7 @@
     "build:less": "cd css && lessc --clean-css --source-map blueimp-gallery.less blueimp-gallery.min.css",
     "build": "npm run build:js && npm run build:jquery && npm run build:less",
     "preversion": "npm test",
-    "version": "npm run build && git add -A js",
+    "version": "npm run build && git add -A js css",
     "postversion": "git push --tags origin master master:gh-pages && npm publish"
   },
   "main": "js/blueimp-gallery.js"
