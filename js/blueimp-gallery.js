@@ -875,10 +875,11 @@
         this.toggleSlideshow()
       } else if (parent === this.slidesContainer[0]) {
         // Click on slide background
-        this.preventDefault(event)
         if (options.closeOnSlideClick) {
+          this.preventDefault(event)
           this.close()
-        } else {
+        } else if (options.toggleControlsOnSlideClick) {
+          this.preventDefault(event)
           this.toggleControls()
         }
       } else if (parent.parentNode &&
