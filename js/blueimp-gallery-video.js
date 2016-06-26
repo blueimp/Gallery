@@ -115,7 +115,7 @@
             that.setTimeout(callback, errorArgs)
           })
           .on('pause', function () {
-            if (video.seeking) { return; }
+            if (video.seeking) return
             isLoading = false
             videoContainer
               .removeClass(that.options.videoLoadingClass)
