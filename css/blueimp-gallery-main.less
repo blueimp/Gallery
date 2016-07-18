@@ -82,14 +82,14 @@
           transition: opacity 0.2s linear;
 }
 .blueimp-gallery > .slides > .slide-loading {
-  background: url(../img/loading.gif) center no-repeat;
+  background: url("@{bi-image-path}/loading.gif") center no-repeat;
   background-size: 64px 64px;
 }
 .blueimp-gallery > .slides > .slide-loading > .slide-content {
   opacity: 0;
 }
 .blueimp-gallery > .slides > .slide-error {
-  background: url(../img/error.png) center no-repeat;
+  background: url("@{bi-image-path}/error.png") center no-repeat;
 }
 .blueimp-gallery > .slides > .slide-error > .slide-content {
   display: none;
@@ -155,7 +155,7 @@
   bottom: 15px;
   width: 15px;
   height: 15px;
-  background: url(../img/play-pause.png) 0 0 no-repeat;
+  background: url("@{bi-image-path}/play-pause.png") 0 0 no-repeat;
   cursor: pointer;
   opacity: 0.5;
   display: none;
@@ -205,13 +205,13 @@
 
 /* Replace PNGs with SVGs for capable browsers (excluding IE<9) */
 body:last-child .blueimp-gallery > .slides > .slide-error {
-  background-image: url(../img/error.svg);
+  background-image: url("@{bi-image-path}/error.svg");
 }
 body:last-child .blueimp-gallery > .play-pause {
   width: 20px;
   height: 20px;
   background-size: 40px 20px;
-  background-image: url(../img/play-pause.svg);
+  background-image: url("@{bi-image-path}/play-pause.svg");
 }
 body:last-child .blueimp-gallery-playing > .play-pause {
   background-position: -20px 0;

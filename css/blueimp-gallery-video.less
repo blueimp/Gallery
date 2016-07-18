@@ -50,7 +50,7 @@
   margin: -64px auto 0;
   width: 128px;
   height: 128px;
-  background: url(../img/video-play.png) center no-repeat;
+  background: url("@{bi-image-path}/video-play.png") center no-repeat;
   opacity: 0.8;
   cursor: pointer;
 }
@@ -68,13 +68,13 @@
   display: block;
 }
 .blueimp-gallery > .slides > .slide > .video-loading > a {
-  background: url(../img/loading.gif) center no-repeat;
+  background: url("@{bi-image-path}/loading.gif") center no-repeat;
   background-size: 64px 64px;
 }
 
 /* Replace PNGs with SVGs for capable browsers (excluding IE<9) */
 body:last-child .blueimp-gallery > .slides > .slide > .video-content:not(.video-loading) > a {
-  background-image: url(../img/video-play.svg);
+  background-image: url("@{bi-image-path}/video-play.svg");
 }
 
 /* IE7 fixes */
