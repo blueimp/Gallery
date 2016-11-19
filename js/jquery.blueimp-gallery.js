@@ -78,6 +78,6 @@
     if (options.filter) {
       links = links.filter(options.filter)
     }
-    return new Gallery(links, options)
+    return new Gallery(links, options);
   })
 }))
