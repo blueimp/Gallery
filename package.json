@@ -41,7 +41,7 @@
     "test": "standard js/*.js",
     "build:js": "cd js && uglifyjs blueimp-helper.js blueimp-gallery.js blueimp-gallery-fullscreen.js blueimp-gallery-indicator.js blueimp-gallery-video.js blueimp-gallery-vimeo.js blueimp-gallery-youtube.js -c -m -o blueimp-gallery.min.js --source-map blueimp-gallery.min.js.map",
     "build:jquery": "cd js && uglifyjs blueimp-gallery.js blueimp-gallery-fullscreen.js blueimp-gallery-indicator.js blueimp-gallery-video.js blueimp-gallery-vimeo.js blueimp-gallery-youtube.js jquery.blueimp-gallery.js -c -m -o jquery.blueimp-gallery.min.js --source-map jquery.blueimp-gallery.min.js.map",
-    "build:css": "cd css && cleancss --source-map -o blueimp-gallery.min.css blueimp-gallery.css blueimp-gallery-indicator.css blueimp-gallery-video.css",
+    "build:css": "cd css && cleancss -c ie7 --source-map -o blueimp-gallery.min.css blueimp-gallery.css blueimp-gallery-indicator.css blueimp-gallery-video.css",
     "build": "npm run build:js && npm run build:jquery && npm run build:css",
     "preversion": "npm test",
     "version": "npm run build && git add -A js css",
