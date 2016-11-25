@@ -82,8 +82,8 @@
       if (video.canPlayType) {
         if (url && type && video.canPlayType(type)) {
           video.src = url
-        } else {
-          while (sources && sources.length) {
+        } else if (sources) {
+          while (sources.length) {
             source = sources.shift()
             url = this.getItemProperty(source, options.urlProperty)
             type = this.getItemProperty(source, options.typeProperty)
