@@ -1,0 +1,8 @@
+*
+!css/*.css
+!css/*.css.map
+!img/*.gif
+!img/*.png
+!img/*.svg
+!js/*.js
+!js/*.js.map
