@@ -16,8 +16,6 @@ $(function () {
 
   // Load demo images from flickr:
   $.ajax({
-    // Flickr API is SSL only:
-    // https://code.flickr.net/2014/04/30/flickr-api-going-ssl-only-on-june-27th-2014/
     url: 'https://api.flickr.com/services/rest/',
     data: {
       format: 'json',
@@ -56,25 +54,24 @@ $(function () {
   blueimp.Gallery([
     {
       title: 'Sintel',
-      href: 'https://archive.org/download/Sintel/sintel-2048-surround_512kb.mp4',
+      href: 'https://archive.org/download/Sintel/' +
+        'sintel-2048-surround.mp4',
       type: 'video/mp4',
       poster: 'https://i.imgur.com/MUSw4Zu.jpg'
     },
     {
       title: 'Big Buck Bunny',
-      href: 'https://upload.wikimedia.org/wikipedia/commons/7/75/' +
-        'Big_Buck_Bunny_Trailer_400p.ogg',
-      type: 'video/ogg',
-      poster: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/' +
-        'Big.Buck.Bunny.-.Opening.Screen.png/' +
-        '800px-Big.Buck.Bunny.-.Opening.Screen.png'
+      href: 'https://upload.wikimedia.org/wikipedia/commons/c/c0/' +
+        'Big_Buck_Bunny_4K.webm',
+      type: 'video/webm',
+      poster: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/' +
+        'Big_Buck_Bunny_4K.webm/4000px--Big_Buck_Bunny_4K.webm.jpg'
     },
     {
       title: 'Elephants Dream',
-      href: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/8/83/' +
-        'Elephants_Dream_%28high_quality%29.ogv/' +
-        'Elephants_Dream_%28high_quality%29.ogv.360p.webm',
-      type: 'video/webm',
+      href: 'https://upload.wikimedia.org/wikipedia/commons/8/83/' +
+        'Elephants_Dream_%28high_quality%29.ogv',
+      type: 'video/ogg',
       poster: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/' +
         'Elephants_Dream_s1_proog.jpg/800px-Elephants_Dream_s1_proog.jpg'
     },
