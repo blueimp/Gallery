@@ -673,7 +673,7 @@
           index = indices.pop()
           this.translateX(index, touchDeltaX + this.positions[index], 0)
         }
-      } else if (this.options.closeOnSwipeUpOrDown) {
+      } else {
         this.translateY(index, this.touchDelta.y + this.positions[index], 0)
       }
     },
