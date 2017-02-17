@@ -1088,7 +1088,7 @@ blueimp Gallery has been tested with and supports the following browsers:
 * Opera Mobile 12.0+
 
 ## License
-Released under the [MIT license](http://www.opensource.org/licenses/MIT).
+Released under the [MIT license](https://opensource.org/licenses/MIT).
 
 ## Credits
 The swipe implementation is based on code from the
