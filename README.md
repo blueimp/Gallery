@@ -793,24 +793,37 @@ Then, add the additional element information to each of your links:
 </div>
 ```
 
-Finally, initialize the Gallery with an onslide callback option, to set the
+Finally, replace the old JavaScript code with the new one. Which contains onslide callback option, to set the
 element content based on the information from the current link:
 
 ```js
-blueimp.Gallery(
-    document.getElementById('links'),
-    {
-        onslide: function (index, slide) {
-            var text = this.list[index].getAttribute('data-description'),
-                node = this.container.find('.description');
-            node.empty();
-            if (text) {
-                node[0].appendChild(document.createTextNode(text));
-            }
-        }
-    }
-);
+document.getElementById('links').onclick = function (event) {
+  event = event || window.event;
+  var target = event.target || event.srcElement,
+    link = target.src ? target.parentNode : target,
+    options = {
+      index: link, event: event,
+      onslide: function (index, slide) {
+
+        self = this;
+        var initializeAdditional = function (index, data, klass, self) {
+          var text = self.list[index].getAttribute(data),
+            node = self.container.find(klass);
+          node.empty();
+          if (text) {
+            node[0].appendChild(document.createTextNode(text));
+          }
+        };
+        initializeAdditional(index, 'data-description', '.description', self);
+      }
+    },
+    links = this.getElementsByTagName('a');
+  blueimp.Gallery(links, options);
+};
 ```
+If you need to add more elements simply add a new line:
+`initializeAdditional(index, 'data-example', '.example', self);`
+Where `data-example` and `.example` are your data and CSS class for it accordingly. It is also necessary to add this class to your css file and html to Gallery widget like on example above.
 
 ### Additional content types
 By extending the Gallery prototype with new factory methods, additional content
