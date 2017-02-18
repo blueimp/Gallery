@@ -1,0 +1,26 @@
+{
+  "name": "Gallery",
+  "homepage": "https://github.com/blueimp/Gallery",
+  "main": [
+    "css/blueimp-gallery.min.css",
+    "js/blueimp-gallery.min.js",
+    "img/error.png",
+    "img/error.svg",
+    "img/loading.gif",
+    "img/play-pause.png",
+    "img/play-pause.svg",
+    "img/video-play.png",
+    "img/video-play.svg"
+  ],
+  "version": "2.17.0",
+  "_release": "2.17.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "v2.17.0",
+    "commit": "5c71362953ea58b2303fa23b890fc65dfa7860c0"
+  },
+  "_source": "git://github.com/blueimp/Gallery.git",
+  "_target": "~2.17.0",
+  "_originalSource": "blueimp/Gallery",
+  "_direct": true
+}
