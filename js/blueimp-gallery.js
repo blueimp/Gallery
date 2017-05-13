@@ -933,7 +933,7 @@
     },
 
     setTitle: function (index) {
-      var text = this.slides[index].firstChild.title
+      var text = this.getItemProperty(this.list[index], this.options.titleProperty)
       var titleElement = this.titleElement
       if (titleElement.length) {
         this.titleElement.empty()
@@ -1208,7 +1208,7 @@
 
     getItemProperty: function (obj, property) {
       var prop = obj[property]
-      if (prop === undefined) {
+      if (prop === undefined || prop === '') {
         prop = this.getDataProperty(obj, property)
         if (prop === undefined) {
           prop = this.getNestedProperty(obj, property)
