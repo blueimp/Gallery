@@ -1190,29 +1190,32 @@
     },
 
     getDataProperty: function (obj, property) {
-      if (obj.getAttribute) {
-        var prop = obj.getAttribute('data-' +
-          property.replace(/([A-Z])/g, '-$1').toLowerCase())
-        if (typeof prop === 'string') {
-          // eslint-disable-next-line no-useless-escape
-          if (/^(true|false|null|-?\d+(\.\d+)?|\{[\s\S]*\}|\[[\s\S]*\])$/
-              .test(prop)) {
-            try {
-              return $.parseJSON(prop)
-            } catch (ignore) {}
-          }
-          return prop
+      var prop
+      if (obj.dataset) {
+        prop = obj.dataset[property]
+      } else if (obj.getAttribute) {
+        prop = obj.getAttribute('data-' +
+            property.replace(/([A-Z])/g, '-$1').toLowerCase())
+      }
+      if (typeof prop === 'string') {
+        // eslint-disable-next-line no-useless-escape
+        if (/^(true|false|null|-?\d+(\.\d+)?|\{[\s\S]*\}|\[[\s\S]*\])$/
+            .test(prop)) {
+          try {
+            return $.parseJSON(prop)
+          } catch (ignore) {}
         }
+        return prop
       }
     },
 
     getItemProperty: function (obj, property) {
-      var prop = obj[property]
+      var prop = this.getDataProperty(obj, property)
       if (prop === undefined) {
-        prop = this.getDataProperty(obj, property)
-        if (prop === undefined) {
-          prop = this.getNestedProperty(obj, property)
-        }
+        prop = obj[property]
+      }
+      if (prop === undefined) {
+        prop = this.getNestedProperty(obj, property)
       }
       return prop
     },
