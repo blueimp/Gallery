@@ -1192,7 +1192,7 @@
     getDataProperty: function (obj, property) {
       var prop
       if (obj.dataset) {
-        prop = obj.dataset[property]
+        prop = obj.dataset[property.replace(/-([a-z])/g, function(_, b) {return b.toUpperCase()})]
       } else if (obj.getAttribute) {
         prop = obj.getAttribute('data-' +
             property.replace(/([A-Z])/g, '-$1').toLowerCase())
