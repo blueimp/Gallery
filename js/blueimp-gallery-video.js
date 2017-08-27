@@ -15,18 +15,12 @@
   'use strict'
   if (typeof define === 'function' && define.amd) {
     // Register as an anonymous AMD module:
-    define([
-      './blueimp-helper',
-      './blueimp-gallery'
-    ], factory)
+    define(['./blueimp-helper', './blueimp-gallery'], factory)
   } else {
     // Browser globals:
-    factory(
-      window.blueimp.helper || window.jQuery,
-      window.blueimp.Gallery
-    )
+    factory(window.blueimp.helper || window.jQuery, window.blueimp.Gallery)
   }
-}(function ($, Gallery) {
+})(function ($, Gallery) {
   'use strict'
 
   $.extend(Gallery.prototype.options, {
@@ -57,20 +51,19 @@
       var options = this.options
       var videoContainerNode = this.elementPrototype.cloneNode(false)
       var videoContainer = $(videoContainerNode)
-      var errorArgs = [{
-        type: 'error',
-        target: videoContainerNode
-      }]
+      var errorArgs = [
+        {
+          type: 'error',
+          target: videoContainerNode
+        }
+      ]
       var video = videoInterface || document.createElement('video')
       var url = this.getItemProperty(obj, options.urlProperty)
       var type = this.getItemProperty(obj, options.typeProperty)
       var title = this.getItemProperty(obj, options.titleProperty)
       var posterUrl = this.getItemProperty(obj, options.videoPosterProperty)
       var posterImage
-      var sources = this.getItemProperty(
-        obj,
-        options.videoSourcesProperty
-      )
+      var sources = this.getItemProperty(obj, options.videoSourcesProperty)
       var source
       var playMediaControl
       var isLoading
@@ -159,13 +152,15 @@
         )
       }
       videoContainerNode.appendChild(playMediaControl)
-      this.setTimeout(callback, [{
-        type: 'load',
-        target: videoContainerNode
-      }])
+      this.setTimeout(callback, [
+        {
+          type: 'load',
+          target: videoContainerNode
+        }
+      ])
       return videoContainerNode
     }
   })
 
   return Gallery
-}))
+})

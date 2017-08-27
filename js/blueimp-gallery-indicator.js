@@ -15,18 +15,12 @@
   'use strict'
   if (typeof define === 'function' && define.amd) {
     // Register as an anonymous AMD module:
-    define([
-      './blueimp-helper',
-      './blueimp-gallery'
-    ], factory)
+    define(['./blueimp-helper', './blueimp-gallery'], factory)
   } else {
     // Browser globals:
-    factory(
-      window.blueimp.helper || window.jQuery,
-      window.blueimp.Gallery
-    )
+    factory(window.blueimp.helper || window.jQuery, window.blueimp.Gallery)
   }
-}(function ($, Gallery) {
+})(function ($, Gallery) {
   'use strict'
 
   $.extend(Gallery.prototype.options, {
@@ -87,12 +81,10 @@
     setActiveIndicator: function (index) {
       if (this.indicators) {
         if (this.activeIndicator) {
-          this.activeIndicator
-            .removeClass(this.options.activeIndicatorClass)
+          this.activeIndicator.removeClass(this.options.activeIndicatorClass)
         }
         this.activeIndicator = $(this.indicators[index])
-        this.activeIndicator
-          .addClass(this.options.activeIndicatorClass)
+        this.activeIndicator.addClass(this.options.activeIndicatorClass)
       }
     },
 
@@ -143,13 +135,11 @@
 
     handleClose: function () {
       if (this.activeIndicator) {
-        this.activeIndicator
-          .removeClass(this.options.activeIndicatorClass)
+        this.activeIndicator.removeClass(this.options.activeIndicatorClass)
       }
       handleClose.call(this)
     }
-
   })
 
   return Gallery
-}))
+})

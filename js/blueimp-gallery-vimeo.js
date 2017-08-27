@@ -15,18 +15,12 @@
   'use strict'
   if (typeof define === 'function' && define.amd) {
     // Register as an anonymous AMD module:
-    define([
-      './blueimp-helper',
-      './blueimp-gallery-video'
-    ], factory)
+    define(['./blueimp-helper', './blueimp-gallery-video'], factory)
   } else {
     // Browser globals:
-    factory(
-      window.blueimp.helper || window.jQuery,
-      window.blueimp.Gallery
-    )
+    factory(window.blueimp.helper || window.jQuery, window.blueimp.Gallery)
   }
-}(function ($, Gallery) {
+})(function ($, Gallery) {
   'use strict'
 
   if (!window.postMessage) {
@@ -38,15 +32,16 @@
     vimeoVideoIdProperty: 'vimeo',
     // The URL for the Vimeo video player, can be extended with custom parameters:
     // https://developer.vimeo.com/player/embedding
-    vimeoPlayerUrl: '//player.vimeo.com/video/VIDEO_ID?api=1&player_id=PLAYER_ID',
+    vimeoPlayerUrl:
+      '//player.vimeo.com/video/VIDEO_ID?api=1&player_id=PLAYER_ID',
     // The prefix for the Vimeo video player ID:
     vimeoPlayerIdPrefix: 'vimeo-player-',
     // Require a click on the native Vimeo player for the initial playback:
     vimeoClickToPlay: true
   })
 
-  var textFactory = Gallery.prototype.textFactory ||
-                      Gallery.prototype.imageFactory
+  var textFactory =
+    Gallery.prototype.textFactory || Gallery.prototype.imageFactory
   var VimeoPlayer = function (url, videoId, playerId, clickToPlay) {
     this.url = url
     this.videoId = videoId
@@ -146,8 +141,12 @@
         this.playStatus = 1
       }
       if (this.ready) {
-        if (!this.hasPlayed && (this.clickToPlay || (window.navigator &&
-          /iP(hone|od|ad)/.test(window.navigator.platform)))) {
+        if (
+          !this.hasPlayed &&
+          (this.clickToPlay ||
+            (window.navigator &&
+              /iP(hone|od|ad)/.test(window.navigator.platform)))
+        ) {
           // Manually trigger the playing callback if clickToPlay
           // is enabled and to workaround a limitation in iOS,
           // which requires synchronous user interaction to start
@@ -179,7 +178,6 @@
         delete this.playStatus
       }
     }
-
   })
 
   $.extend(Gallery.prototype, {
@@ -206,8 +204,7 @@
       }
       return textFactory.call(this, obj, callback)
     }
-
   })
 
   return Gallery
-}))
+})

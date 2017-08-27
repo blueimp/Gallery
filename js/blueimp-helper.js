@@ -86,8 +86,9 @@
       if (!this[0]) {
         return false
       }
-      return new RegExp('(^|\\s+)' + className +
-        '(\\s+|$)').test(this[0].className)
+      return new RegExp('(^|\\s+)' + className + '(\\s+|$)').test(
+        this[0].className
+      )
     },
 
     addClass: function (className) {
@@ -176,7 +177,6 @@
     first: function () {
       return new Helper(this[0])
     }
-
   })
 
   if (typeof define === 'function' && define.amd) {
@@ -187,4 +187,4 @@
     window.blueimp = window.blueimp || {}
     window.blueimp.helper = Helper
   }
-}())
+})()
