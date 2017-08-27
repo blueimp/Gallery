@@ -656,11 +656,11 @@
           this.touchDelta.x = touchDeltaX =
             touchDeltaX /
             (
-            ((!index && touchDeltaX > 0) ||
-            (index === this.num - 1 && touchDeltaX < 0))
-              ? (Math.abs(touchDeltaX) / this.slideWidth + 1)
-              : 1
-          )
+              ((!index && touchDeltaX > 0) ||
+                (index === this.num - 1 && touchDeltaX < 0))
+                ? (Math.abs(touchDeltaX) / this.slideWidth + 1)
+                : 1
+            )
           indices = [index]
           if (index) {
             indices.push(index - 1)
@@ -1203,7 +1203,7 @@
       if (typeof prop === 'string') {
         // eslint-disable-next-line no-useless-escape
         if (/^(true|false|null|-?\d+(\.\d+)?|\{[\s\S]*\}|\[[\s\S]*\])$/
-            .test(prop)) {
+          .test(prop)) {
           try {
             return $.parseJSON(prop)
           } catch (ignore) {}
