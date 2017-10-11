@@ -286,6 +286,12 @@
       window.webkitRequestAnimationFrame ||
       window.mozRequestAnimationFrame,
 
+    cancelAnimationFrame:
+      window.cancelAnimationFrame ||
+      window.webkitCancelRequestAnimationFrame ||
+      window.webkitCancelAnimationFrame ||
+      window.mozCancelAnimationFrame,
+
     initialize: function () {
       this.initStartIndex()
       if (this.initWidget() === false) {
@@ -402,6 +408,12 @@
     pause: function () {
       window.clearTimeout(this.timeout)
       this.interval = null
+
+      if (this.cancelAnimationFrame) {
+        this.cancelAnimationFrame.call(window, this.animationFrameId)
+        this.animationFrameId = null
+      }
+
       this.container.removeClass(this.options.playingClass)
     },
 
