@@ -948,7 +948,8 @@
     },
 
     setTitle: function (index) {
-      var text = this.slides[index].firstChild.title
+      var firstChild = this.slides[index].firstChild
+      var text = firstChild.title || firstChild.alt
       var titleElement = this.titleElement
       if (titleElement.length) {
         this.titleElement.empty()
