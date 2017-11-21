@@ -46,16 +46,18 @@
   opacity: 1;
 }
 
+
 .blueimp-gallery > .indicator > li:after {
   opacity: 0;
-  content: '';
   display: block;
   position: absolute;
-  bottom: 30px;
+  content: '';
+  top: -5em;
   width: 75px;
   height: 75px;
   transition: transform 600ms ease-out, opacity 400ms ease-out;
   transform: translateX(-50%) translateY(0) translateZ(0px);
+  pointer-events:none;
 }
 
 .blueimp-gallery > .indicator > li:hover:after {
@@ -63,6 +65,10 @@
   border-radius: 50%;
   background: inherit;
   transform: translateX(-50%) translateY(-5px) translateZ(0px);
+}
+
+.blueimp-gallery > .indicator > .active:after {
+  display: none;
 }
 
 .blueimp-gallery-controls > .indicator {
