@@ -1078,6 +1078,13 @@ blueimp Gallery has been tested with and supports the following browsers:
 * Mozilla Firefox 4.0+
 * Opera 10.0+
 * Microsoft Internet Explorer 7.0+
+* Microsoft Edge 41.0+
+
+*Please note:*  
+Microsoft Edge version 40 has a query selector bug which prevents the Gallery
+lightbox demo from opening the image view. This has been fixed in Microsoft Edge
+version 41 and later.  
+Thanks to Kenneth G. Chin for the information.
 
 ### Mobile browsers
 
