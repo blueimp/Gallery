@@ -32,6 +32,7 @@
     "url": "git://github.com/blueimp/Gallery.git"
   },
   "license": "MIT",
+  "main": "js/dist/blueimp-gallery.min.js",
   "devDependencies": {
     "clean-css-cli": "^4.1.6",
     "eslint": "^4.5.0",
@@ -57,6 +58,5 @@
     "preversion": "npm test",
     "version": "npm run build && git add -A js css",
     "postversion": "git push --tags origin master master:gh-pages && npm publish"
-  },
-  "main": "js/blueimp-gallery.js"
+  }
 }
