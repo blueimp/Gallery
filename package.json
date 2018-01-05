@@ -32,6 +32,18 @@
     "url": "git://github.com/blueimp/Gallery.git"
   },
   "license": "MIT",
+  "browserslist": [
+    "> 1%",
+    "Chrome >= 14",
+    "Safari >= 4",
+    "Firefox >= 4",
+    "Opera >= 10",
+    "Edge >= 41",
+    "not ie <= 7",
+    "iOS >= 6",
+    "ChromeAndroid >= 4",
+    "OperaMobile >= 12"
+  ],
   "main": "js/dist/blueimp-gallery.min.js",
   "devDependencies": {
     "clean-css-cli": "^4.1.6",
