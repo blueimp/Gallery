@@ -41,6 +41,9 @@
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^3.0.1",
     "prettier-eslint-cli": "^4.2.1",
+    "rollup": "^0.53.3",
+    "rollup-plugin-buble": "^0.18.0",
+    "rollup-plugin-uglify": "^2.0.1",
     "uglify-js": "^3.0.28"
   },
   "scripts": {
@@ -50,6 +53,7 @@
     "build:jquery": "cd js && uglifyjs blueimp-gallery.js blueimp-gallery-fullscreen.js blueimp-gallery-indicator.js blueimp-gallery-video.js blueimp-gallery-vimeo.js blueimp-gallery-youtube.js jquery.blueimp-gallery.js -c -m -o jquery.blueimp-gallery.min.js --source-map url=jquery.blueimp-gallery.min.js.map",
     "build:css": "cd css && cleancss -c ie7 --source-map -o blueimp-gallery.min.css blueimp-gallery.css blueimp-gallery-indicator.css blueimp-gallery-video.css",
     "build": "npm run build:js && npm run build:jquery && npm run build:css",
+    "build:rollup": "rollup -c",
     "preversion": "npm test",
     "version": "npm run build && git add -A js css",
     "postversion": "git push --tags origin master master:gh-pages && npm publish"

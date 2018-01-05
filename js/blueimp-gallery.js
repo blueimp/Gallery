@@ -16,11 +16,6 @@
 
 import $ from './blueimp-helper'
 
-if (typeof window !== 'undefined') {
-  window.blueimp = window.blueimp || {}
-  window.blueimp.Gallery = $
-}
-
 function Gallery (list, options) {
   if (document.body.style.maxHeight === undefined) {
     // document.body.style.maxHeight is undefined on IE6 and lower
@@ -704,7 +699,7 @@ $.extend(Gallery.prototype, {
       (isShortDuration && Math.abs(this.touchDelta.x) > 20) ||
       Math.abs(this.touchDelta.x) > slideWidth / 2
     // Determine if slide attempt is past start or end:
-    const isPastBounds =
+    let isPastBounds =
       (!index && this.touchDelta.x > 0) ||
       (index === this.num - 1 && this.touchDelta.x < 0)
     const isValidClose =
