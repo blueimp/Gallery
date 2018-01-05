@@ -10,7 +10,10 @@ import Gallery from './blueimp-gallery'
 if (typeof window !== 'undefined') {
   window.blueimp = window.blueimp || {}
   window.blueimp.Gallery = Gallery
-  window.$ = helper
+
+  if (typeof window.jQuery === 'undefined') {
+    window.$ = helper
+  }
 }
 
 export default Gallery
