@@ -13,7 +13,10 @@ export default {
   output: {
     file: 'js/dist/jquery.blueimp-gallery.min.js',
     name: 'blueimp-gallery-jquery',
-    format: 'umd'
+    format: 'umd',
+    globals: {
+      jquery: '$'
+    }
   },
-  external: ['jquery', '$']
+  external: ['jquery']
 }

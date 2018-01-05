@@ -355,7 +355,7 @@ $.extend(Gallery.prototype, {
     this.onslide(to)
   },
 
-  getIndex: function() {
+  getIndex: function () {
     return this.index
   },
 

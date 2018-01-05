@@ -9,22 +9,27 @@
  * https://opensource.org/licenses/MIT
  */
 
-/* global window, document */
+/* global define, window, document */
 
-import $ from 'jquery'
-import Gallery from './blueimp-gallery'
+;(function (factory) {
+  'use strict'
+  if (typeof define === 'function' && define.amd) {
+    define(['jquery', './blueimp-gallery'], factory)
+  } else {
+    factory(window.jQuery, window.blueimp.Gallery)
+  }
+})(function ($, Gallery) {
+  'use strict'
 
-export default function () {
   // Global click handler to open links with data-gallery attribute
   // in the Gallery lightbox:
-
-  $(document).on('click', '[data-gallery]', (event) => {
+  $(document).on('click', '[data-gallery]', function (event) {
     // Get the container id from the data-gallery attribute:
-    const id = $(this).data('gallery')
-    const widget = $(id)
-    const container = (widget.length && widget) || $(Gallery.prototype.options.container)
-
-    const callbacks = {
+    var id = $(this).data('gallery')
+    var widget = $(id)
+    var container =
+      (widget.length && widget) || $(Gallery.prototype.options.container)
+    var callbacks = {
       onopen: function () {
         container.data('gallery', this).trigger('open')
       },
@@ -47,20 +52,22 @@ export default function () {
         container.trigger('closed').removeData('gallery')
       }
     }
-
-    const options = $.extend(
+    var options = $.extend(
       // Retrieve custom options from data-attributes
       // on the Gallery widget:
       container.data(),
-      { container: container[0], index: this, event: event },
+      {
+        container: container[0],
+        index: this,
+        event: event
+      },
       callbacks
     )
-
     // Select all links with the same data-gallery attribute:
-    let links = $(`[data-gallery=${id}]`)
-
-    if (options.filter) links = links.filter(options.filter)
-
+    var links = $('[data-gallery="' + id + '"]')
+    if (options.filter) {
+      links = links.filter(options.filter)
+    }
     return new Gallery(links, options)
   })
-}
+})
