@@ -43,6 +43,22 @@
 - [License](#license)
 - [Credits](#credits)
 
+## Forked Version, bundled with Rollup
+This is a forked version of [blueimp's Gallery](https://github.com/blueimp/Gallery)
+
+There are no major differences from the original. 
+
+Except for:
+
+- fullscreen, indicator, video, youtube and vimeo functionality are included by default
+- jquery-plugin can be included as a standalone script (doesn't need to include the Gallery, as it is included by default)
+- all minified js files are bundled with [Rollup](https://github.com/rollup/rollup)
+
+Future Plans:
+- first and foremost, to be up to date as much as possible from upstream (blueimp's original Gallery)
+- rewrite additional functionality (fullscreen, indicator, video, youtube, and vimeo) to be [tree-shaking](https://github.com/rollup/rollup#tree-shaking)
+- up to suggestions! (feel free to post issues)
+
 ## Demo
 [blueimp Gallery Demo](https://blueimp.github.io/Gallery/)
 
@@ -1029,40 +1045,16 @@ $('#blueimp-gallery')
 blueimp Gallery doesn't require any other libraries and can be used standalone
 without any dependencies.
 
-You can also use the individual source files instead of the standalone minified
-version:
+blueimp Gallery makes use of a helper script (internally) which will automatically be replaced by [jQuery](https://jquery.com/) v. 1.7+, if present.
 
-```html
-<link rel="stylesheet" href="css/blueimp-gallery.css">
-<link rel="stylesheet" href="css/blueimp-gallery-indicator.css">
-<link rel="stylesheet" href="css/blueimp-gallery-video.css">
-<!-- ... -->
-<script src="js/blueimp-helper.js"></script>
-<script src="js/blueimp-gallery.js"></script>
-<script src="js/blueimp-gallery-fullscreen.js"></script>
-<script src="js/blueimp-gallery-indicator.js"></script>
-<script src="js/blueimp-gallery-video.js"></script>
-<script src="js/blueimp-gallery-youtube.js"></script>
-<script src="js/blueimp-gallery-vimeo.js"></script>
-```
-
-The helper script can be replaced by [jQuery](https://jquery.com/) v. 1.7+.  
-The fullscreen, indicator, video, youtube and vimeo source files are optional if
-their functionality is not required.
+fullscreen, indicator, video, youtube and vimeo functionality are included in the minified version (of this fork). If you wish to include only some functionality, please refer back to the [blueimp Gallery original](https://github.com/blueimp/Gallery)
 
 The [jQuery plugin](#jquery-plugin) requires
-[jQuery](https://jquery.com/) v. 1.7+ and the basic Gallery script, while the
-fullscreen, indicator, video, youtube and vimeo source files are also optional:
+[jQuery](https://jquery.com/) v. 1.7+ and the basic Gallery script:
 
 ```html
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="js/blueimp-gallery.js"></script>
-<script src="js/blueimp-gallery-fullscreen.js"></script>
-<script src="js/blueimp-gallery-indicator.js"></script>
-<script src="js/blueimp-gallery-video.js"></script>
-<script src="js/blueimp-gallery-youtube.js"></script>
-<script src="js/blueimp-gallery-vimeo.js"></script>
-<script src="js/jquery.blueimp-gallery.js"></script>
+<script src="js/jquery.blueimp-gallery.min.js"></script>
 ```
 
 Please note that the jQuery plugin is an optional extension and not required for
@@ -1098,5 +1090,7 @@ Thanks to Kenneth G. Chin for the information.
 Released under the [MIT license](https://opensource.org/licenses/MIT).
 
 ## Credits
+[blueimp](https://github.com/blueimp) (Original author)
+
 The swipe implementation is based on code from the
 [Swipe](http://swipejs.com/) library.
