@@ -32,6 +32,19 @@
     "url": "git://github.com/blueimp/Gallery.git"
   },
   "license": "MIT",
+  "browserslist": [
+    "> 1%",
+    "Chrome >= 14",
+    "Safari >= 4",
+    "Firefox >= 4",
+    "Opera >= 10",
+    "Edge >= 41",
+    "not ie <= 7",
+    "iOS >= 6",
+    "ChromeAndroid >= 4",
+    "OperaMobile >= 12"
+  ],
+  "main": "js/dist/blueimp-gallery.min.js",
   "devDependencies": {
     "clean-css-cli": "^4.1.6",
     "eslint": "^4.5.0",
@@ -41,18 +54,24 @@
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-standard": "^3.0.1",
     "prettier-eslint-cli": "^4.2.1",
+    "rollup": "^0.53.3",
+    "rollup-plugin-buble": "^0.18.0",
+    "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-plugin-uglify": "^2.0.1",
     "uglify-js": "^3.0.28"
   },
   "scripts": {
     "format": "prettier-eslint --no-semi --single-quote --write **/*.js",
     "test": "eslint .",
-    "build:js": "cd js && uglifyjs blueimp-helper.js blueimp-gallery.js blueimp-gallery-fullscreen.js blueimp-gallery-indicator.js blueimp-gallery-video.js blueimp-gallery-vimeo.js blueimp-gallery-youtube.js -c -m -o blueimp-gallery.min.js --source-map url=blueimp-gallery.min.js.map",
-    "build:jquery": "cd js && uglifyjs blueimp-gallery.js blueimp-gallery-fullscreen.js blueimp-gallery-indicator.js blueimp-gallery-video.js blueimp-gallery-vimeo.js blueimp-gallery-youtube.js jquery.blueimp-gallery.js -c -m -o jquery.blueimp-gallery.min.js --source-map url=jquery.blueimp-gallery.min.js.map",
+    "build:js": "rollup -c rollup.config.js",
+    "build:jquery": "rollup -c rollup.config.jquery.js",
     "build:css": "cd css && cleancss -c ie7 --source-map -o blueimp-gallery.min.css blueimp-gallery.css blueimp-gallery-indicator.css blueimp-gallery-video.css",
     "build": "npm run build:js && npm run build:jquery && npm run build:css",
     "preversion": "npm test",
     "version": "npm run build && git add -A js css",
     "postversion": "git push --tags origin master master:gh-pages && npm publish"
   },
-  "main": "js/blueimp-gallery.js"
+  "peerDependencies": {
+    "jquery": "^3.2.1"
+  }
 }
