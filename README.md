@@ -42,6 +42,7 @@
     - [Mobile browsers](#mobile-browsers)
 - [License](#license)
 - [Credits](#credits)
+- [Notable forks](#notable-forks)
 
 ## Demo
 [blueimp Gallery Demo](https://blueimp.github.io/Gallery/)
@@ -1100,3 +1101,6 @@ Released under the [MIT license](https://opensource.org/licenses/MIT).
 ## Credits
 The swipe implementation is based on code from the
 [Swipe](http://swipejs.com/) library.
+
+## Notable Forks
+* [Rollup bundled version by Khoa Nguyen](https://github.com/khoanguyen96/Gallery/tree/rewrite-js)
