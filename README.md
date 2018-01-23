@@ -904,7 +904,7 @@ minified Gallery script with the jQuery plugin version and include it after
 including [jQuery](https://jquery.com/):
 
 ```html
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="js/jquery.blueimp-gallery.min.js"></script>
 ```
 
@@ -1056,7 +1056,7 @@ The [jQuery plugin](#jquery-plugin) requires
 fullscreen, indicator, video, youtube and vimeo source files are also optional:
 
 ```html
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="js/blueimp-gallery.js"></script>
 <script src="js/blueimp-gallery-fullscreen.js"></script>
 <script src="js/blueimp-gallery-indicator.js"></script>
