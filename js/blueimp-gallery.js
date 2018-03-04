@@ -92,6 +92,8 @@
       typeProperty: 'type',
       // The list object property (or data attribute) with the object title:
       titleProperty: 'title',
+      // The list object property (or data attribute) with the object alt text:
+      altTextProperty: 'alt',
       // The list object property (or data attribute) with the object URL:
       urlProperty: 'href',
       // The list object property (or data attribute) with the object srcset URL(s):
@@ -977,6 +979,7 @@
       var called
       var element
       var title
+      var altText
       function callbackWrapper (event) {
         if (!called) {
           event = {
@@ -1003,6 +1006,8 @@
       if (typeof url !== 'string') {
         url = this.getItemProperty(obj, this.options.urlProperty)
         title = this.getItemProperty(obj, this.options.titleProperty)
+        altText =
+          this.getItemProperty(obj, this.options.altTextProperty) || title
       }
       if (backgroundSize === true) {
         backgroundSize = 'contain'
@@ -1019,6 +1024,9 @@
       }
       if (title) {
         element.title = title
+      }
+      if (altText) {
+        element.alt = altText
       }
       $(img).on('load error', callbackWrapper)
       img.src = url

@@ -230,6 +230,8 @@ var options = {
     typeProperty: 'type',
     // The list object property (or data attribute) with the object title:
     titleProperty: 'title',
+    // The list object property (or data attribute) with the object alt text:
+    altTextProperty: 'alt',
     // The list object property (or data attribute) with the object URL:
     urlProperty: 'href',
     // The list object property (or data attribute) with the object srcset URL(s):

@@ -61,6 +61,8 @@
       var url = this.getItemProperty(obj, options.urlProperty)
       var type = this.getItemProperty(obj, options.typeProperty)
       var title = this.getItemProperty(obj, options.titleProperty)
+      var altText =
+        this.getItemProperty(obj, this.options.altTextProperty) || title
       var posterUrl = this.getItemProperty(obj, options.videoPosterProperty)
       var posterImage
       var sources = this.getItemProperty(obj, options.videoSourcesProperty)
@@ -93,6 +95,7 @@
         $(posterImage).addClass(options.toggleClass)
         posterImage.src = posterUrl
         posterImage.draggable = false
+        posterImage.alt = altText
         videoContainerNode.appendChild(posterImage)
       }
       playMediaControl = document.createElement('a')
