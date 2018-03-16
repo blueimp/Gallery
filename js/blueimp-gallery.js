@@ -1142,8 +1142,8 @@
         clearSlides =
           this.options.clearSlides || this.slides.length !== this.num
       }
-      this.slideWidth = this.container[0].offsetWidth
-      this.slideHeight = this.container[0].offsetHeight
+      this.slideWidth = this.container[0].clientWidth
+      this.slideHeight = this.container[0].clientHeight
       this.slidesContainer[0].style.width = this.num * this.slideWidth + 'px'
       if (clearSlides) {
         this.resetSlides()
