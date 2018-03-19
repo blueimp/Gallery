@@ -565,7 +565,7 @@
 
     onmousedown: function (event) {
       // Trigger on clicks of the left mouse button only
-      // and exclude video elements:
+      // and exclude video & audio elements:
       if (
         event.which &&
         event.which === 1 &&
