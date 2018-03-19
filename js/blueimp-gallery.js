@@ -569,7 +569,8 @@
       if (
         event.which &&
         event.which === 1 &&
-        event.target.nodeName !== 'VIDEO'
+        event.target.nodeName !== 'VIDEO' &&
+        event.target.nodeName !== 'AUDIO'
       ) {
         // Preventing the default mousedown action is required
         // to make touch emulation work with Firefox:
