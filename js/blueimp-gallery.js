@@ -565,11 +565,12 @@
 
     onmousedown: function (event) {
       // Trigger on clicks of the left mouse button only
-      // and exclude video elements:
+      // and exclude video & audio elements:
       if (
         event.which &&
         event.which === 1 &&
-        event.target.nodeName !== 'VIDEO'
+        event.target.nodeName !== 'VIDEO' &&
+        event.target.nodeName !== 'AUDIO'
       ) {
         // Preventing the default mousedown action is required
         // to make touch emulation work with Firefox:
