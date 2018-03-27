@@ -64,7 +64,7 @@
       callbacks
     )
     // Select all links with the same data-gallery attribute:
-    var links = $('[data-gallery="' + id + '"]')
+    var links = $(this).closest('[data-gallery-group], body').find('[data-gallery="' + id + '"]')
     if (options.filter) {
       links = links.filter(options.filter)
     }
