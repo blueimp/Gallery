@@ -33,14 +33,14 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "clean-css-cli": "^4.1.6",
-    "eslint": "^4.5.0",
-    "eslint-config-standard": "^10.2.1",
-    "eslint-plugin-import": "^2.7.0",
-    "eslint-plugin-node": "^5.1.1",
-    "eslint-plugin-promise": "^3.5.0",
-    "eslint-plugin-standard": "^3.0.1",
-    "uglify-js": "^3.0.28"
+    "clean-css-cli": "4",
+    "eslint": "6",
+    "eslint-config-standard": "13",
+    "eslint-plugin-import": "2",
+    "eslint-plugin-node": "9",
+    "eslint-plugin-promise": "4",
+    "eslint-plugin-standard": "4",
+    "uglify-js": "3"
   },
   "scripts": {
     "test": "eslint .",
