@@ -17,7 +17,7 @@
   function extend (obj1, obj2) {
     var prop
     for (prop in obj2) {
-      if (obj2.hasOwnProperty(prop)) {
+      if (Object.prototype.hasOwnProperty.call(obj2, prop)) {
         obj1[prop] = obj2[prop]
       }
     }

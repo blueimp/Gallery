@@ -230,7 +230,7 @@
       var prop
       for (prop in transitions) {
         if (
-          transitions.hasOwnProperty(prop) &&
+          Object.prototype.hasOwnProperty.call(transitions, prop) &&
           element.style[prop] !== undefined
         ) {
           support.transition = transitions[prop]
@@ -1094,7 +1094,7 @@
     unloadElements: function (index) {
       var i, diff
       for (i in this.elements) {
-        if (this.elements.hasOwnProperty(i)) {
+        if (Object.prototype.hasOwnProperty.call(this.elements, i)) {
           diff = Math.abs(index - i)
           if (
             diff > this.options.preloadRange &&
