@@ -17,6 +17,11 @@
   right: 0;
   bottom: 0;
   left: 0;
+  -webkit-transition: opacity 0.2s linear;
+  -moz-transition: opacity 0.2s linear;
+  -ms-transition: opacity 0.2s linear;
+  -o-transition: opacity 0.2s linear;
+  transition: opacity 0.2s linear;
   /* Prevent artifacts in Mozilla Firefox: */
   backface-visibility: hidden;
   -moz-backface-visibility: hidden;
@@ -28,11 +33,6 @@
   max-width: 100%;
   max-height: 100%;
   opacity: 1;
-  -webkit-transition: opacity 0.2s linear;
-  -moz-transition: opacity 0.2s linear;
-  -ms-transition: opacity 0.2s linear;
-  -o-transition: opacity 0.2s linear;
-  transition: opacity 0.2s linear;
 }
 .blueimp-gallery {
   position: fixed;
