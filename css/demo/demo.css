@@ -19,7 +19,7 @@ body {
   background: #222;
   color: #fff;
   -webkit-text-size-adjust: 100%;
-      -ms-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
 }
 a {
   color: orange;

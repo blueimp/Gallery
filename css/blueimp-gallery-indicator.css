@@ -22,6 +22,11 @@
   text-align: center;
   line-height: 10px;
   display: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 .blueimp-gallery > .indicator > li {
   display: inline-block;
@@ -29,8 +34,8 @@
   height: 9px;
   margin: 6px 3px 0 3px;
   -webkit-box-sizing: content-box;
-     -moz-box-sizing: content-box;
-          box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
   border: 1px solid transparent;
   background: #ccc;
   background: rgba(255, 255, 255, 0.25) center no-repeat;
@@ -39,13 +44,18 @@
   opacity: 0.5;
   cursor: pointer;
 }
+
+/* IE7 fixes */
+* + html .blueimp-gallery > .indicator > li {
+  display: inline;
+}
+
 .blueimp-gallery > .indicator > li:hover,
 .blueimp-gallery > .indicator > .active {
   background-color: #fff;
   border-color: #fff;
   opacity: 1;
 }
-
 
 .blueimp-gallery > .indicator > li:after {
   opacity: 0;
@@ -57,7 +67,7 @@
   height: 75px;
   transition: transform 600ms ease-out, opacity 400ms ease-out;
   transform: translateX(-50%) translateY(0) translateZ(0px);
-  pointer-events:none;
+  pointer-events: none;
 }
 
 .blueimp-gallery > .indicator > li:hover:after {
@@ -75,23 +85,11 @@
   display: block;
   /* Fix z-index issues (controls behind slide element) on Android: */
   -webkit-transform: translateZ(0);
-     -moz-transform: translateZ(0);
-      -ms-transform: translateZ(0);
-       -o-transform: translateZ(0);
-          transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  -o-transform: translateZ(0);
+  transform: translateZ(0);
 }
 .blueimp-gallery-single > .indicator {
   display: none;
-}
-.blueimp-gallery > .indicator {
-  -webkit-user-select: none;
-   -khtml-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none;
-}
-
-/* IE7 fixes */
-*+html .blueimp-gallery > .indicator > li {
-  display: inline;
 }

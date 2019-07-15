@@ -35,15 +35,46 @@
   "devDependencies": {
     "clean-css-cli": "4",
     "eslint": "6",
-    "eslint-config-standard": "13",
-    "eslint-plugin-import": "2",
-    "eslint-plugin-node": "9",
-    "eslint-plugin-promise": "4",
-    "eslint-plugin-standard": "4",
+    "eslint-config-blueimp": "1",
+    "eslint-config-prettier": "6",
+    "eslint-plugin-jsdoc": "15",
+    "eslint-plugin-prettier": "3",
+    "prettier": "1",
+    "stylelint": "10",
+    "stylelint-config-prettier": "5",
+    "stylelint-config-recommended": "2",
     "uglify-js": "3"
   },
+  "stylelint": {
+    "extends": [
+      "stylelint-config-recommended",
+      "stylelint-config-prettier"
+    ],
+    "ignoreFiles": [
+      "css/*.min.css"
+    ]
+  },
+  "eslintConfig": {
+    "extends": [
+      "blueimp",
+      "plugin:jsdoc/recommended",
+      "plugin:prettier/recommended"
+    ],
+    "env": {
+      "browser": true
+    }
+  },
+  "eslintIgnore": [
+    "js/*.min.js",
+    "js/vendor"
+  ],
+  "prettier": {
+    "proseWrap": "always",
+    "semi": false,
+    "singleQuote": true
+  },
   "scripts": {
-    "test": "eslint .",
+    "test": "stylelint '**/*.css' && eslint .",
     "build:js": "cd js && uglifyjs blueimp-helper.js blueimp-gallery.js blueimp-gallery-fullscreen.js blueimp-gallery-indicator.js blueimp-gallery-video.js blueimp-gallery-vimeo.js blueimp-gallery-youtube.js -c -m -o blueimp-gallery.min.js --source-map url=blueimp-gallery.min.js.map",
     "build:jquery": "cd js && uglifyjs blueimp-gallery.js blueimp-gallery-fullscreen.js blueimp-gallery-indicator.js blueimp-gallery-video.js blueimp-gallery-vimeo.js blueimp-gallery-youtube.js jquery.blueimp-gallery.js -c -m -o jquery.blueimp-gallery.min.js --source-map url=jquery.blueimp-gallery.min.js.map",
     "build:css": "cd css && cleancss -c ie7 --source-map -o blueimp-gallery.min.css blueimp-gallery.css blueimp-gallery-indicator.css blueimp-gallery-video.css",
@@ -52,5 +83,14 @@
     "version": "npm run build && git add -A js css",
     "postversion": "git push --tags origin master master:gh-pages && npm publish"
   },
+  "files": [
+    "css/*.css",
+    "css/*.css.map",
+    "img/*.gif",
+    "img/*.png",
+    "img/*.svg",
+    "js/*.js",
+    "js/*.js.map"
+  ],
   "main": "js/blueimp-gallery.js"
 }
