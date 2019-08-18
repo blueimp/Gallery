@@ -520,6 +520,8 @@
     },
 
     translate: function(index, x, y, speed) {
+      if (!this.slides[index])
+        return;
       var style = this.slides[index].style
       var transition = this.support.transition
       var transform = this.support.transform
