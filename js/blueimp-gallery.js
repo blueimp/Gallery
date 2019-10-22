@@ -153,6 +153,8 @@
       startSlideshow: false,
       // Delay in milliseconds between slides for the automatic slideshow:
       slideshowInterval: 5000,
+      // The direction the slides are moving: ltr=LeftToRight or rtl=RightToLeft
+      slideshowDirection: 'ltr',
       // The starting index as integer.
       // Can also be an object of the given list,
       // or an equal object with the same url property:
@@ -400,6 +402,8 @@
 
     play: function(time) {
       var that = this
+      var nextIndex =
+        this.index + (this.options.slideshowDirection === 'rtl' ? -1 : 1)
       window.clearTimeout(this.timeout)
       this.interval = time || this.options.slideshowInterval
       if (this.elements[this.index] > 1) {
@@ -413,7 +417,7 @@
                 }
               )
             },
-          [this.index + 1, this.options.slideshowTransitionSpeed],
+          [nextIndex, this.options.slideshowTransitionSpeed],
           this.interval
         )
       }
