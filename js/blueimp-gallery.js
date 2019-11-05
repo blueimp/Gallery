@@ -147,6 +147,8 @@
       // Allow continuous navigation, moving from last to first
       // and from first to last slide:
       continuous: true,
+      // Minimal number of slides required for continuous sliding
+      minSlidesForContinuous: 0,
       // Remove elements outside of the preload range from the DOM:
       unloadElements: true,
       // Start with the automatic slideshow:
@@ -364,7 +366,7 @@
         to = this.circle(to)
         this.move(index, this.slideWidth * direction, speed)
         this.move(to, 0, speed)
-        if (this.options.continuous) {
+        if (this.options.continuous && this.num > 2) {
           this.move(
             this.circle(to - direction),
             -(this.slideWidth * direction),
@@ -442,7 +444,10 @@
       }
       this.list = this.list.concat(list)
       this.num = this.list.length
-      if (this.num > 2 && this.options.continuous === null) {
+      if (
+        this.num >= this.minSlidesForContinuous &&
+        this.options.continuous === null
+      ) {
         this.options.continuous = true
         this.container.removeClass(this.options.leftEdgeClass)
       }
@@ -1446,9 +1451,7 @@
       }
       // Override any given options:
       $.extend(this.options, options)
-      if (this.num < 3) {
-        // 1 or 2 slides cannot be displayed continuous,
-        // remember the original option by setting to null instead of false:
+      if (this.num < this.options.minSlidesForContinuous) {
         this.options.continuous = this.options.continuous ? null : false
       }
       if (!this.support.transition) {
