@@ -11,7 +11,7 @@
 
 /* global define, YT */
 
-;(function(factory) {
+;(function (factory) {
   'use strict'
   if (typeof define === 'function' && define.amd) {
     // Register as an anonymous AMD module:
@@ -20,7 +20,7 @@
     // Browser globals:
     factory(window.blueimp.helper || window.jQuery, window.blueimp.Gallery)
   }
-})(function($, Gallery) {
+})(function ($, Gallery) {
   'use strict'
 
   if (!window.postMessage) {
@@ -41,7 +41,7 @@
 
   var textFactory =
     Gallery.prototype.textFactory || Gallery.prototype.imageFactory
-  var YouTubePlayer = function(videoId, playerVars, clickToPlay) {
+  var YouTubePlayer = function (videoId, playerVars, clickToPlay) {
     this.videoId = videoId
     this.playerVars = playerVars
     this.clickToPlay = clickToPlay
@@ -50,23 +50,23 @@
   }
 
   $.extend(YouTubePlayer.prototype, {
-    canPlayType: function() {
+    canPlayType: function () {
       return true
     },
 
-    on: function(type, func) {
+    on: function (type, func) {
       this.listeners[type] = func
       return this
     },
 
-    loadAPI: function() {
+    loadAPI: function () {
       var that = this
       var onYouTubeIframeAPIReady = window.onYouTubeIframeAPIReady
       var apiUrl = '//www.youtube.com/iframe_api'
       var scriptTags = document.getElementsByTagName('script')
       var i = scriptTags.length
       var scriptTag
-      window.onYouTubeIframeAPIReady = function() {
+      window.onYouTubeIframeAPIReady = function () {
         if (onYouTubeIframeAPIReady) {
           onYouTubeIframeAPIReady.apply(this)
         }
@@ -85,25 +85,25 @@
       scriptTags[0].parentNode.insertBefore(scriptTag, scriptTags[0])
     },
 
-    onReady: function() {
+    onReady: function () {
       this.ready = true
       if (this.playOnReady) {
         this.play()
       }
     },
 
-    onPlaying: function() {
+    onPlaying: function () {
       if (this.playStatus < 2) {
         this.listeners.playing()
         this.playStatus = 2
       }
     },
 
-    onPause: function() {
+    onPause: function () {
       Gallery.prototype.setTimeout.call(this, this.checkSeek, null, 2000)
     },
 
-    checkSeek: function() {
+    checkSeek: function () {
       if (
         this.stateChange === YT.PlayerState.PAUSED ||
         this.stateChange === YT.PlayerState.ENDED
@@ -114,7 +114,7 @@
       }
     },
 
-    onStateChange: function(event) {
+    onStateChange: function (event) {
       switch (event.data) {
         case YT.PlayerState.PLAYING:
           this.hasPlayed = true
@@ -129,11 +129,11 @@
       this.stateChange = event.data
     },
 
-    onError: function(event) {
+    onError: function (event) {
       this.listeners.error(event)
     },
 
-    play: function() {
+    play: function () {
       var that = this
       if (!this.playStatus) {
         this.listeners.play()
@@ -163,13 +163,13 @@
             videoId: this.videoId,
             playerVars: this.playerVars,
             events: {
-              onReady: function() {
+              onReady: function () {
                 that.onReady()
               },
-              onStateChange: function(event) {
+              onStateChange: function (event) {
                 that.onStateChange(event)
               },
-              onError: function(event) {
+              onError: function (event) {
                 that.onError(event)
               }
             }
@@ -178,7 +178,7 @@
       }
     },
 
-    pause: function() {
+    pause: function () {
       if (this.ready) {
         this.player.pauseVideo()
       } else if (this.playStatus) {
@@ -192,7 +192,7 @@
   $.extend(Gallery.prototype, {
     YouTubePlayer: YouTubePlayer,
 
-    textFactory: function(obj, callback) {
+    textFactory: function (obj, callback) {
       var options = this.options
       var videoId = this.getItemProperty(obj, options.youTubeVideoIdProperty)
       if (videoId) {

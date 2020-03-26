@@ -11,7 +11,7 @@
 
 /* global blueimp, $ */
 
-$(function() {
+$(function () {
   'use strict'
 
   // Load demo images from flickr:
@@ -25,12 +25,12 @@ $(function() {
     },
     dataType: 'jsonp',
     jsonp: 'jsoncallback'
-  }).done(function(result) {
+  }).done(function (result) {
     var carouselLinks = []
     var linksContainer = $('#links')
     var baseUrl
     // Add the demo images as links with thumbnails to the page:
-    $.each(result.photos.photo, function(index, photo) {
+    $.each(result.photos.photo, function (index, photo) {
       baseUrl =
         'https://farm' +
         photo.farm +

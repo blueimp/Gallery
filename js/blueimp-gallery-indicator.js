@@ -11,7 +11,7 @@
 
 /* global define */
 
-;(function(factory) {
+;(function (factory) {
   'use strict'
   if (typeof define === 'function' && define.amd) {
     // Register as an anonymous AMD module:
@@ -20,7 +20,7 @@
     // Browser globals:
     factory(window.blueimp.helper || window.jQuery, window.blueimp.Gallery)
   }
-})(function($, Gallery) {
+})(function ($, Gallery) {
   'use strict'
 
   $.extend(Gallery.prototype.options, {
@@ -43,7 +43,7 @@
   var handleClose = Gallery.prototype.handleClose
 
   $.extend(Gallery.prototype, {
-    createIndicator: function(obj) {
+    createIndicator: function (obj) {
       var indicator = this.indicatorPrototype.cloneNode(false)
       var title = this.getItemProperty(obj, this.options.titleProperty)
       var thumbnailProperty = this.options.thumbnailProperty
@@ -69,7 +69,7 @@
       return indicator
     },
 
-    addIndicator: function(index) {
+    addIndicator: function (index) {
       if (this.indicatorContainer.length) {
         var indicator = this.createIndicator(this.list[index])
         indicator.setAttribute('data-index', index)
@@ -78,7 +78,7 @@
       }
     },
 
-    setActiveIndicator: function(index) {
+    setActiveIndicator: function (index) {
       if (this.indicators) {
         if (this.activeIndicator) {
           this.activeIndicator.removeClass(this.options.activeIndicatorClass)
@@ -88,7 +88,7 @@
       }
     },
 
-    initSlides: function(reload) {
+    initSlides: function (reload) {
       if (!reload) {
         this.indicatorContainer = this.container.find(
           this.options.indicatorContainer
@@ -101,18 +101,18 @@
       initSlides.call(this, reload)
     },
 
-    addSlide: function(index) {
+    addSlide: function (index) {
       addSlide.call(this, index)
       this.addIndicator(index)
     },
 
-    resetSlides: function() {
+    resetSlides: function () {
       resetSlides.call(this)
       this.indicatorContainer.empty()
       this.indicators = []
     },
 
-    handleClick: function(event) {
+    handleClick: function (event) {
       var target = event.target || event.srcElement
       var parent = target.parentNode
       if (parent === this.indicatorContainer[0]) {
@@ -128,12 +128,12 @@
       }
     },
 
-    handleSlide: function(index) {
+    handleSlide: function (index) {
       handleSlide.call(this, index)
       this.setActiveIndicator(index)
     },
 
-    handleClose: function() {
+    handleClose: function () {
       if (this.activeIndicator) {
         this.activeIndicator.removeClass(this.options.activeIndicatorClass)
       }
