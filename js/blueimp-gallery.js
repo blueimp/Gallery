@@ -134,6 +134,8 @@
       closeOnSlideClick: true,
       // Close the gallery by swiping up or down:
       closeOnSwipeUpOrDown: true,
+      // Close the gallery when URL changed:
+      closeOnHashChange: true,
       // Emulate touch events on mouse-pointer devices such as desktop browsers:
       emulateTouchEvents: true,
       // Stop touch events from bubbling up to ancestor elements of the Gallery:
@@ -586,6 +588,11 @@
 
     onresize: function () {
       this.initSlides(true)
+    },
+    onhashchange: function () {
+      if (this.options.closeOnHashChange) {
+        this.close()
+      }
     },
 
     onmousedown: function (event) {
@@ -1338,6 +1345,7 @@
         that['on' + type](event)
       }
       $(window).on('resize', proxyListener)
+      $(window).on('hashchange', proxyListener)
       $(document.body).on('keydown', proxyListener)
       this.container.on('click', proxyListener)
       if (this.support.touch) {
