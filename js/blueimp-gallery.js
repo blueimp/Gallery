@@ -134,7 +134,7 @@
       closeOnSlideClick: true,
       // Close the gallery by swiping up or down:
       closeOnSwipeUpOrDown: true,
-      // Close the gallery when URL changed:
+      // Close the gallery when URL changes:
       closeOnHashChange: true,
       // Emulate touch events on mouse-pointer devices such as desktop browsers:
       emulateTouchEvents: true,
@@ -589,6 +589,7 @@
     onresize: function () {
       this.initSlides(true)
     },
+
     onhashchange: function () {
       if (this.options.closeOnHashChange) {
         this.close()
