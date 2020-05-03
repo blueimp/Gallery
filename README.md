@@ -2,7 +2,7 @@
 
 ## Contents
 
-- [Demo](#demo)
+- [Demo](https://blueimp.github.io/Gallery/)
 - [Description](#description)
 - [Setup](#setup)
   - [Lightbox setup](#lightbox-setup)
@@ -46,10 +46,6 @@
 - [Credits](#credits)
 - [Notable forks](#notable-forks)
 
-## Demo
-
-[blueimp Gallery Demo](https://blueimp.github.io/Gallery/)
-
 ## Description
 
 blueimp Gallery is a touch-enabled, responsive and customizable image and video
@@ -60,6 +56,12 @@ functionality, fullscreen support and on-demand content loading and can be
 extended to display additional content types.
 
 ## Setup
+
+Install the **blueimp-gallery** package with [NPM](https://www.npmjs.org/):
+
+```sh
+npm install blueimp-gallery
+```
 
 ### Lightbox setup
 
@@ -115,7 +117,7 @@ the images in the Gallery lightbox on click of the links:
 
 ```html
 <script>
-  document.getElementById('links').onclick = function(event) {
+  document.getElementById('links').onclick = function (event) {
     event = event || window.event
     var target = event.target || event.srcElement,
       link = target.src ? target.parentNode : target,
@@ -342,26 +344,26 @@ to the Gallery initialization function:
 
 ```js
 var gallery = blueimp.Gallery(linkList, {
-  onopen: function() {
+  onopen: function () {
     // Callback function executed when the Gallery is initialized.
   },
-  onopened: function() {
+  onopened: function () {
     // Callback function executed when the Gallery has been initialized
     // and the initialization transition has been completed.
   },
-  onslide: function(index, slide) {
+  onslide: function (index, slide) {
     // Callback function executed on slide change.
   },
-  onslideend: function(index, slide) {
+  onslideend: function (index, slide) {
     // Callback function executed after the slide change transition.
   },
-  onslidecomplete: function(index, slide) {
+  onslidecomplete: function (index, slide) {
     // Callback function executed on slide content load.
   },
-  onclose: function() {
+  onclose: function () {
     // Callback function executed when the Gallery is about to be closed.
   },
-  onclosed: function() {
+  onclosed: function () {
     // Callback function executed when the Gallery has been closed
     // and the closing transition has been completed.
   }
@@ -832,7 +834,7 @@ element content based on the information from the current link:
 
 ```js
 blueimp.Gallery(document.getElementById('links'), {
-  onslide: function(index, slide) {
+  onslide: function (index, slide) {
     var text = this.list[index].getAttribute('data-description'),
       node = this.container.find('.description')
     node.empty()
@@ -873,19 +875,17 @@ Please also note that although blueimp Gallery doesn't require
 Extend the Gallery prototype with the **textFactory** method:
 
 ```js
-blueimp.Gallery.prototype.textFactory = function(obj, callback) {
-  var $element = $('<div>')
-    .addClass('text-content')
-    .attr('title', obj.title)
+blueimp.Gallery.prototype.textFactory = function (obj, callback) {
+  var $element = $('<div>').addClass('text-content').attr('title', obj.title)
   $.get(obj.href)
-    .done(function(result) {
+    .done(function (result) {
       $element.html(result)
       callback({
         type: 'load',
         target: $element[0]
       })
     })
-    .fail(function() {
+    .fail(function () {
       callback({
         type: 'error',
         target: $element[0]
@@ -1061,25 +1061,25 @@ names equivalent to the gallery [event callbacks](#event-callbacks):
 
 ```js
 $('#blueimp-gallery')
-  .on('open', function(event) {
+  .on('open', function (event) {
     // Gallery open event handler
   })
-  .on('opened', function(event) {
+  .on('opened', function (event) {
     // Gallery opened event handler
   })
-  .on('slide', function(event, index, slide) {
+  .on('slide', function (event, index, slide) {
     // Gallery slide event handler
   })
-  .on('slideend', function(event, index, slide) {
+  .on('slideend', function (event, index, slide) {
     // Gallery slideend event handler
   })
-  .on('slidecomplete', function(event, index, slide) {
+  .on('slidecomplete', function (event, index, slide) {
     // Gallery slidecomplete event handler
   })
-  .on('close', function(event) {
+  .on('close', function (event) {
     // Gallery close event handler
   })
-  .on('closed', function(event) {
+  .on('closed', function (event) {
     // Gallery closed event handler
   })
 ```
