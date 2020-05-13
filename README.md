@@ -50,7 +50,8 @@
 
 blueimp Gallery is a touch-enabled, responsive and customizable image and video
 gallery, carousel and lightbox, optimized for both mobile and desktop web
-browsers.  
+browsers.
+
 It features swipe, mouse and keyboard navigation, transition effects, slideshow
 functionality, fullscreen support and on-demand content loading and can be
 extended to display additional content types.
