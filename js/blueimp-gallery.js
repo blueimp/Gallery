@@ -163,11 +163,11 @@
       index: 0,
       // The number of elements to load around the current index:
       preloadRange: 2,
-      // The transition speed between slide changes in milliseconds:
-      transitionSpeed: 300,
-      // The transition speed for automatic slide changes, set to an integer
-      // greater 0 to override the default transition speed:
-      slideshowTransitionSpeed: 500,
+      // The transition duration between slide changes in milliseconds:
+      transitionDuration: 300,
+      // The transition duration for automatic slide changes, set to an integer
+      // greater 0 to override the default transition duration:
+      slideshowTransitionDuration: 500,
       // The event object for which the default action will be canceled
       // on Gallery initialization (e.g. the click event to open the Gallery):
       event: undefined,
@@ -327,7 +327,7 @@
       }
     },
 
-    slide: function (to, speed) {
+    slide: function (to, duration) {
       window.clearTimeout(this.timeout)
       var index = this.index
       var direction
@@ -336,8 +336,8 @@
       if (index === to || this.num === 1) {
         return
       }
-      if (!speed) {
-        speed = this.options.transitionSpeed
+      if (!duration) {
+        duration = this.options.transitionDuration
       }
       if (this.support.transform) {
         if (!this.options.continuous) {
@@ -366,8 +366,8 @@
           )
         }
         to = this.circle(to)
-        this.move(index, this.slideWidth * direction, speed)
-        this.move(to, 0, speed)
+        this.move(index, this.slideWidth * direction, duration)
+        this.move(to, 0, duration)
         if (this.options.continuous) {
           this.move(
             this.circle(to - direction),
@@ -377,7 +377,7 @@
         }
       } else {
         to = this.circle(to)
-        this.animate(index * -this.slideWidth, to * -this.slideWidth, speed)
+        this.animate(index * -this.slideWidth, to * -this.slideWidth, duration)
       }
       this.onslide(to)
     },
@@ -411,15 +411,15 @@
       if (this.elements[this.index] > 1) {
         this.timeout = this.setTimeout(
           (!this.requestAnimationFrame && this.slide) ||
-            function (to, speed) {
+            function (to, duration) {
               that.animationFrameId = that.requestAnimationFrame.call(
                 window,
                 function () {
-                  that.slide(to, speed)
+                  that.slide(to, duration)
                 }
               )
             },
-          [nextIndex, this.options.slideshowTransitionSpeed],
+          [nextIndex, this.options.slideshowTransitionDuration],
           this.interval
         )
       }
@@ -520,17 +520,17 @@
       return (this.num + (index % this.num)) % this.num
     },
 
-    move: function (index, dist, speed) {
-      this.translateX(index, dist, speed)
+    move: function (index, dist, duration) {
+      this.translateX(index, dist, duration)
       this.positions[index] = dist
     },
 
-    translate: function (index, x, y, speed) {
+    translate: function (index, x, y, duration) {
       if (!this.slides[index]) return
       var style = this.slides[index].style
       var transition = this.support.transition
       var transform = this.support.transform
-      style[transition.name + 'Duration'] = speed + 'ms'
+      style[transition.name + 'Duration'] = duration + 'ms'
       style[transform.name] =
         'translate(' +
         x +
@@ -540,16 +540,16 @@
         (transform.translateZ ? ' translateZ(0)' : '')
     },
 
-    translateX: function (index, x, speed) {
-      this.translate(index, x, 0, speed)
+    translateX: function (index, x, duration) {
+      this.translate(index, x, 0, duration)
     },
 
-    translateY: function (index, y, speed) {
-      this.translate(index, 0, y, speed)
+    translateY: function (index, y, duration) {
+      this.translate(index, 0, y, duration)
     },
 
-    animate: function (from, to, speed) {
-      if (!speed) {
+    animate: function (from, to, duration) {
+      if (!duration) {
         this.slidesContainer[0].style.left = to + 'px'
         return
       }
@@ -557,14 +557,14 @@
       var start = new Date().getTime()
       var timer = window.setInterval(function () {
         var timeElap = new Date().getTime() - start
-        if (timeElap > speed) {
+        if (timeElap > duration) {
           that.slidesContainer[0].style.left = to + 'px'
           that.ontransitionend()
           window.clearInterval(timer)
           return
         }
         that.slidesContainer[0].style.left =
-          (to - from) * (Math.floor((timeElap / speed) * 100) / 100) +
+          (to - from) * (Math.floor((timeElap / duration) * 100) / 100) +
           from +
           'px'
       }, 4)
@@ -737,8 +737,9 @@
       var index = this.index
       var absTouchDeltaX = Math.abs(this.touchDelta.x)
       var slideWidth = this.slideWidth
-      var speed = Math.ceil(
-        (this.options.transitionSpeed * (1 - absTouchDeltaX / slideWidth)) / 2
+      var duration = Math.ceil(
+        (this.options.transitionDuration * (1 - absTouchDeltaX / slideWidth)) /
+          2
       )
       // Determine if slide attempt triggers next/prev slide:
       var isValidSlide = absTouchDeltaX > 20
@@ -772,27 +773,27 @@
           } else if (indexForward >= 0 && indexForward < this.num) {
             this.move(indexForward, distanceForward, 0)
           }
-          this.move(index, this.positions[index] + distanceForward, speed)
+          this.move(index, this.positions[index] + distanceForward, duration)
           this.move(
             this.circle(indexBackward),
             this.positions[this.circle(indexBackward)] + distanceForward,
-            speed
+            duration
           )
           index = this.circle(indexBackward)
           this.onslide(index)
         } else {
           // Move back into position
           if (this.options.continuous) {
-            this.move(this.circle(index - 1), -slideWidth, speed)
-            this.move(index, 0, speed)
-            this.move(this.circle(index + 1), slideWidth, speed)
+            this.move(this.circle(index - 1), -slideWidth, duration)
+            this.move(index, 0, duration)
+            this.move(this.circle(index + 1), slideWidth, duration)
           } else {
             if (index) {
-              this.move(index - 1, -slideWidth, speed)
+              this.move(index - 1, -slideWidth, duration)
             }
-            this.move(index, 0, speed)
+            this.move(index, 0, duration)
             if (index < this.num - 1) {
-              this.move(index + 1, slideWidth, speed)
+              this.move(index + 1, slideWidth, duration)
             }
           }
         }
@@ -801,7 +802,7 @@
           this.close()
         } else {
           // Move back into position
-          this.translateY(index, 0, speed)
+          this.translateY(index, 0, duration)
         }
       }
     },

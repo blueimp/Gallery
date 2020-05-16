@@ -301,11 +301,11 @@ var options = {
   index: 0,
   // The number of elements to load around the current index:
   preloadRange: 2,
-  // The transition speed between slide changes in milliseconds:
-  transitionSpeed: 300,
-  // The transition speed for automatic slide changes, set to an integer
-  // greater 0 to override the default transition speed:
-  slideshowTransitionSpeed: 500,
+  // The transition duration between slide changes in milliseconds:
+  transitionDuration: 300,
+  // The transition duration for automatic slide changes, set to an integer
+  // greater 0 to override the default transition duration:
+  slideshowTransitionDuration: 500,
   // The event object for which the default action will be canceled
   // on Gallery initialization (e.g. the click event to open the Gallery):
   event: undefined,
@@ -622,7 +622,7 @@ gallery.prev()
 // Move to the next slide:
 gallery.next()
 
-// Move to a slide index with the (optional) duraction speed in milliseconds:
+// Move to a slide index with the (optional) duration in milliseconds:
 gallery.slide(index, duration)
 
 // Start an automatic slideshow with the interval in milliseconds (optional):
