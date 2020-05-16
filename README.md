@@ -302,10 +302,10 @@ var options = {
   // The number of elements to load around the current index:
   preloadRange: 2,
   // The transition speed between slide changes in milliseconds:
-  transitionSpeed: 400,
+  transitionSpeed: 300,
   // The transition speed for automatic slide changes, set to an integer
   // greater 0 to override the default transition speed:
-  slideshowTransitionSpeed: undefined,
+  slideshowTransitionSpeed: 500,
   // The event object for which the default action will be canceled
   // on Gallery initialization (e.g. the click event to open the Gallery):
   event: undefined,
