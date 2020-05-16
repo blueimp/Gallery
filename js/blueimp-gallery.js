@@ -735,13 +735,13 @@
         this.stopPropagation(event)
       }
       var index = this.index
-      var speed = this.options.transitionSpeed
+      var absTouchDeltaX = Math.abs(this.touchDelta.x)
       var slideWidth = this.slideWidth
-      var isShortDuration = Number(Date.now() - this.touchStart.time) < 250
+      var speed = Math.ceil(
+        (this.options.transitionSpeed * (1 - absTouchDeltaX / slideWidth)) / 2
+      )
       // Determine if slide attempt triggers next/prev slide:
-      var isValidSlide =
-        (isShortDuration && Math.abs(this.touchDelta.x) > 20) ||
-        Math.abs(this.touchDelta.x) > slideWidth / 2
+      var isValidSlide = absTouchDeltaX > 20
       // Determine if slide attempt is past start or end:
       var isPastBounds =
         (!index && this.touchDelta.x > 0) ||
@@ -749,8 +749,7 @@
       var isValidClose =
         !isValidSlide &&
         this.options.closeOnSwipeUpOrDown &&
-        ((isShortDuration && Math.abs(this.touchDelta.y) > 20) ||
-          Math.abs(this.touchDelta.y) > this.slideHeight / 2)
+        Math.abs(this.touchDelta.y) > 20
       var direction
       var indexForward
       var indexBackward
