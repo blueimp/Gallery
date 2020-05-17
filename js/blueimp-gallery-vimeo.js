@@ -27,7 +27,9 @@
     return Gallery
   }
 
-  $.extend(Gallery.prototype.options, {
+  var galleryPrototype = Gallery.prototype
+
+  $.extend(galleryPrototype.options, {
     // The list object property (or data attribute) with the Vimeo video id:
     vimeoVideoIdProperty: 'vimeo',
     // The URL for the Vimeo video player, can be extended with custom parameters:
@@ -41,7 +43,7 @@
   })
 
   var textFactory =
-    Gallery.prototype.textFactory || Gallery.prototype.imageFactory
+    galleryPrototype.textFactory || galleryPrototype.imageFactory
   var VimeoPlayer = function (url, videoId, playerId, clickToPlay) {
     this.url = url
     this.videoId = videoId
@@ -183,7 +185,7 @@
     }
   })
 
-  $.extend(Gallery.prototype, {
+  $.extend(galleryPrototype, {
     VimeoPlayer: VimeoPlayer,
 
     textFactory: function (obj, callback) {

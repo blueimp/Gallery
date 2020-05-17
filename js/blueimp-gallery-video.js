@@ -23,7 +23,9 @@
 })(function ($, Gallery) {
   'use strict'
 
-  $.extend(Gallery.prototype.options, {
+  var galleryPrototype = Gallery.prototype
+
+  $.extend(galleryPrototype.options, {
     // The class for video content elements:
     videoContentClass: 'video-content',
     // The class for video when it is loading:
@@ -36,9 +38,9 @@
     videoSourcesProperty: 'sources'
   })
 
-  var handleSlide = Gallery.prototype.handleSlide
+  var handleSlide = galleryPrototype.handleSlide
 
-  $.extend(Gallery.prototype, {
+  $.extend(galleryPrototype, {
     handleSlide: function (index) {
       handleSlide.call(this, index)
       if (this.playingVideo) {

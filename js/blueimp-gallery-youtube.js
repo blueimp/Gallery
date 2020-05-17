@@ -27,7 +27,9 @@
     return Gallery
   }
 
-  $.extend(Gallery.prototype.options, {
+  var galleryPrototype = Gallery.prototype
+
+  $.extend(galleryPrototype.options, {
     // The list object property (or data attribute) with the YouTube video id:
     youTubeVideoIdProperty: 'youtube',
     // Optional object with parameters passed to the YouTube video player:
@@ -40,7 +42,7 @@
   })
 
   var textFactory =
-    Gallery.prototype.textFactory || Gallery.prototype.imageFactory
+    galleryPrototype.textFactory || galleryPrototype.imageFactory
   var YouTubePlayer = function (videoId, playerVars, clickToPlay) {
     this.videoId = videoId
     this.playerVars = playerVars
@@ -100,7 +102,7 @@
     },
 
     onPause: function () {
-      Gallery.prototype.setTimeout.call(this, this.checkSeek, null, 2000)
+      galleryPrototype.setTimeout.call(this, this.checkSeek, null, 2000)
     },
 
     checkSeek: function () {
@@ -189,7 +191,7 @@
     }
   })
 
-  $.extend(Gallery.prototype, {
+  $.extend(galleryPrototype, {
     YouTubePlayer: YouTubePlayer,
 
     textFactory: function (obj, callback) {
