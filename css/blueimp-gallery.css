@@ -52,7 +52,7 @@
   margin: 1em auto;
   /* Set the carousel width/height ratio to 16/9: */
   padding-bottom: 56.25%;
-  box-shadow: 0 0 10px #000;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
   -ms-touch-action: pan-y pinch-zoom;
   touch-action: pan-y pinch-zoom;
 }
