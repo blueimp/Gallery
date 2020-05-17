@@ -43,8 +43,8 @@
   opacity: 0;
   display: none;
   direction: ltr;
-  -ms-touch-action: none;
-  touch-action: none;
+  -ms-touch-action: pinch-zoom;
+  touch-action: pinch-zoom;
 }
 .blueimp-gallery-carousel {
   position: relative;
@@ -53,8 +53,8 @@
   /* Set the carousel width/height ratio to 16/9: */
   padding-bottom: 56.25%;
   box-shadow: 0 0 10px #000;
-  -ms-touch-action: pan-y;
-  touch-action: pan-y;
+  -ms-touch-action: pan-y pinch-zoom;
+  touch-action: pan-y pinch-zoom;
 }
 .blueimp-gallery-display {
   display: block;

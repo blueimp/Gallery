@@ -653,11 +653,11 @@
       }
       // jQuery doesn't copy touch event properties by default,
       // so we have to access the originalEvent object:
-      var touches = (event.originalEvent || event).touches[0]
+      var touch = (event.originalEvent || event).touches[0]
       this.touchStart = {
         // Remember the initial touch coordinates:
-        x: touches.pageX,
-        y: touches.pageY,
+        x: touch.pageX,
+        y: touch.pageY,
         // Store the time to determine touch duration:
         time: Date.now()
       }
@@ -673,7 +673,8 @@
       }
       // jQuery doesn't copy touch event properties by default,
       // so we have to access the originalEvent object:
-      var touches = (event.originalEvent || event).touches[0]
+      var touches = (event.originalEvent || event).touches
+      var touch = touches[0]
       var scale = (event.originalEvent || event).scale
       var index = this.index
       var touchDeltaX
@@ -687,8 +688,8 @@
       }
       // Measure change in x and y coordinates:
       this.touchDelta = {
-        x: touches.pageX - this.touchStart.x,
-        y: touches.pageY - this.touchStart.y
+        x: touch.pageX - this.touchStart.x,
+        y: touch.pageY - this.touchStart.y
       }
       touchDeltaX = this.touchDelta.x
       // Detect if this is a vertical scroll movement (run only once per touch):
@@ -725,7 +726,7 @@
           index = indices.pop()
           this.translateX(index, touchDeltaX + this.positions[index], 0)
         }
-      } else {
+      } else if (!this.options.carousel) {
         this.translateY(index, this.touchDelta.y + this.positions[index], 0)
       }
     },
