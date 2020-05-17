@@ -39,7 +39,6 @@
   z-index: 999999;
   overflow: hidden;
   background: #000;
-  background: rgba(0, 0, 0, 0.9);
   opacity: 0;
   display: none;
   direction: ltr;
@@ -221,4 +220,10 @@ body:last-child .blueimp-gallery-playing > .play-pause {
 }
 * + html .blueimp-gallery > .slides > .slide > .slide-content {
   position: relative;
+}
+
+@media (prefers-color-scheme: light) {
+  .blueimp-gallery-carousel {
+    background: #fff;
+  }
 }
