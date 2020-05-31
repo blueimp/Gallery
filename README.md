@@ -1116,7 +1116,11 @@ The [jQuery plugin](#jquery-plugin) requires [jQuery](https://jquery.com/) v.
 youtube and vimeo source files are also optional:
 
 ```html
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script
+  src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"
+  integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ"
+  crossorigin="anonymous"
+></script>
 <script src="js/blueimp-gallery.js"></script>
 <script src="js/blueimp-gallery-fullscreen.js"></script>
 <script src="js/blueimp-gallery-indicator.js"></script>
