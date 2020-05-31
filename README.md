@@ -9,6 +9,7 @@
   - [Controls](#controls)
   - [Contain](#contain)
   - [Carousel setup](#carousel-setup)
+  - [Responsive images](#responsive-images)
 - [Keyboard shortcuts](#keyboard-shortcuts)
 - [Options](#options)
   - [Default options](#default-options)
@@ -198,6 +199,65 @@ initialize the carousel:
 </script>
 ```
 
+### Responsive images
+
+The Gallery supports the concept of
+[responsive images](https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images)
+with the `srcset` and `sizes` object properties, e.g. using the [API](#api):
+
+```js
+var gallery = blueimp.Gallery([
+  {
+    title: 'Banana',
+    href: 'https://example.org/images/banana-1024w.jpg',
+    srcset:
+      'https://example.org/images/banana-800w.jpg 800w,' +
+      'https://example.org/images/banana-1024w.jpg 1024w,' +
+      'https://example.org/images/banana-1600w.jpg 1600w',
+    sizes: '(min-width: 990px) 990px, 100vw',
+    thumbnail: 'https://example.org/images/banana-75.jpg'
+  },
+  {
+    title: 'Apple',
+    href: 'https://example.org/images/apple-1024w.jpg',
+    srcset:
+      'https://example.org/images/apple-800w.jpg 800w,' +
+      'https://example.org/images/apple-1024w.jpg 1024w,' +
+      'https://example.org/images/apple-1600w.jpg 1600w',
+    sizes: '(min-width: 990px) 990px, 100vw',
+    thumbnail: 'https://example.org/images/apple-75.jpg'
+  }
+])
+```
+
+With link elements, those same properties can be defined via `data-srcset` and
+`data-sizes` attributes:
+
+```html
+<div id="links">
+  <a
+    href="images/banana-1024w.jpg"
+    data-srcset="images/banana-800w.jpg 800w,
+                 images/banana-1024w.jpg 1024w,
+                 images/banana-1600w.jpg 1600w"
+    data-sizes="(min-width: 990px) 990px, 100vw"
+    title="Banana"
+  >
+    <img src="images/banana-75.jpg" alt="Banana" />
+  </a>
+  <a
+    href="images/apple-1024w.jpg"
+    data-srcset="images/apple-800w.jpg 800w,
+                 images/apple-1024w.jpg 1024w,
+                 images/apple-1600w.jpg 1600w"
+    data-sizes="(min-width: 990px) 990px, 100vw"
+    title="Apple"
+  >
+    <img src="images/apple-75.jpg" alt="Apple" />
+  </a>
+</div>
+```
+
 ## Keyboard shortcuts
 
 The Gallery can be controlled with the following keyboard shortcuts:
@@ -263,8 +323,10 @@ var options = {
   altTextProperty: 'alt',
   // The list object property (or data attribute) with the object URL:
   urlProperty: 'href',
-  // The list object property (or data attribute) with the object srcset URL(s):
-  srcsetProperty: 'urlset',
+  // The list object property (or data attribute) with the object srcset:
+  srcsetProperty: 'srcset',
+  // The list object property (or data attribute) with the object sizes:
+  sizesProperty: 'sizes',
   // The gallery listens for transitionend events before triggering the
   // opened and closed events, unless the following option is set to false:
   displayTransition: true,

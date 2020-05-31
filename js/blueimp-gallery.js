@@ -106,8 +106,10 @@
       altTextProperty: 'alt',
       // The list object property (or data attribute) with the object URL:
       urlProperty: 'href',
-      // The list object property (or data attribute) with the object srcset URL(s):
-      srcsetProperty: 'urlset',
+      // The list object property (or data attribute) with the object srcset:
+      srcsetProperty: 'srcset',
+      // The list object property (or data attribute) with the object sizes:
+      sizesProperty: 'sizes',
       // The gallery listens for transitionend events before triggering the
       // opened and closed events, unless the following option is set to false:
       displayTransition: true,
@@ -998,6 +1000,8 @@
       var img = this.imagePrototype.cloneNode(false)
       var url = obj
       var called
+      var srcset
+      var sizes
       var title
       var altText
       /**
@@ -1025,6 +1029,8 @@
       }
       if (typeof url !== 'string') {
         url = this.getItemProperty(obj, this.options.urlProperty)
+        srcset = this.getItemProperty(obj, this.options.srcsetProperty)
+        sizes = this.getItemProperty(obj, this.options.sizesProperty)
         title = this.getItemProperty(obj, this.options.titleProperty)
         altText =
           this.getItemProperty(obj, this.options.altTextProperty) || title
@@ -1037,6 +1043,12 @@
         img.alt = altText
       }
       $(img).on('load error', callbackWrapper)
+      if (srcset) {
+        if (sizes) {
+          img.sizes = sizes
+        }
+        img.srcset = srcset
+      }
       img.src = url
       return img
     },
@@ -1046,7 +1058,6 @@
       var factory =
         (type && this[type.split('/')[0] + 'Factory']) || this.imageFactory
       var element = obj && factory.call(this, obj, callback)
-      var srcset = this.getItemProperty(obj, this.options.srcsetProperty)
       if (!element) {
         element = this.elementPrototype.cloneNode(false)
         this.setTimeout(callback, [
@@ -1055,9 +1066,6 @@
             target: element
           }
         ])
-      }
-      if (srcset) {
-        element.setAttribute('srcset', srcset)
       }
       $(element).addClass(this.options.slideContentClass)
       return element
