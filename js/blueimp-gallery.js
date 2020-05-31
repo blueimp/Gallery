@@ -114,12 +114,6 @@
       // Defines if the gallery slides are cleared from the gallery modal,
       // or reused for the next gallery initialization:
       clearSlides: true,
-      // Defines if images should be stretched to fill the available space,
-      // while maintaining their aspect ratio (will only be enabled for browsers
-      // supporting background-size="contain", which excludes IE < 9).
-      // Set to "cover", to make images cover all available space (requires
-      // support for background-size="cover", which excludes IE < 9):
-      stretchImages: false,
       // Toggle the controls on pressing the Return key:
       toggleControlsOnReturn: true,
       // Toggle the controls on slide click:
@@ -274,19 +268,6 @@
               translateZ: !!translateZ && translateZ !== 'none'
             }
           }
-        }
-        if (element.style.backgroundSize !== undefined) {
-          support.backgroundSize = {}
-          element.style.backgroundSize = 'contain'
-          support.backgroundSize.contain =
-            window
-              .getComputedStyle(element)
-              .getPropertyValue('background-size') === 'contain'
-          element.style.backgroundSize = 'cover'
-          support.backgroundSize.cover =
-            window
-              .getComputedStyle(element)
-              .getPropertyValue('background-size') === 'cover'
         }
         document.body.removeChild(element)
       }
@@ -1016,9 +997,7 @@
       var that = this
       var img = this.imagePrototype.cloneNode(false)
       var url = obj
-      var backgroundSize = this.options.stretchImages
       var called
-      var element
       var title
       var altText
       /**
@@ -1031,9 +1010,9 @@
         if (!called) {
           event = {
             type: event.type,
-            target: element
+            target: img
           }
-          if (!element.parentNode) {
+          if (!img.parentNode) {
             // Fix for IE7 firing the load event for
             // cached images before the element could
             // be added to the DOM:
@@ -1041,12 +1020,6 @@
           }
           called = true
           $(img).off('load error', callbackWrapper)
-          if (backgroundSize) {
-            if (event.type === 'load') {
-              element.style.background = 'url("' + url + '") center no-repeat'
-              element.style.backgroundSize = backgroundSize
-            }
-          }
           callback(event)
         }
       }
@@ -1056,28 +1029,16 @@
         altText =
           this.getItemProperty(obj, this.options.altTextProperty) || title
       }
-      if (backgroundSize === true) {
-        backgroundSize = 'contain'
-      }
-      backgroundSize =
-        this.support.backgroundSize &&
-        this.support.backgroundSize[backgroundSize] &&
-        backgroundSize
-      if (backgroundSize) {
-        element = this.elementPrototype.cloneNode(false)
-      } else {
-        element = img
-        img.draggable = false
-      }
+      img.draggable = false
       if (title) {
-        element.title = title
+        img.title = title
       }
       if (altText) {
-        element.alt = altText
+        img.alt = altText
       }
       $(img).on('load error', callbackWrapper)
       img.src = url
-      return element
+      return img
     },
 
     createElement: function (obj, callback) {
