@@ -274,6 +274,8 @@ var options = {
   closeOnSlideClick: true,
   // Close the gallery by swiping up or down:
   closeOnSwipeUpOrDown: true,
+  // Close the gallery when the URL hash changes:
+  closeOnHashChange: true,
   // Emulate touch events on mouse-pointer devices such as desktop browsers:
   emulateTouchEvents: true,
   // Stop touch events from bubbling up to ancestor elements of the Gallery:
