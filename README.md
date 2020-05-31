@@ -7,6 +7,7 @@
 - [Setup](#setup)
   - [Lightbox setup](#lightbox-setup)
   - [Controls](#controls)
+  - [Contain](#contain)
   - [Carousel setup](#carousel-setup)
 - [Keyboard shortcuts](#keyboard-shortcuts)
 - [Options](#options)
@@ -136,6 +137,24 @@ To initialize the Gallery with visible controls, add the CSS class
 
 ```html
 <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
+  <div class="slides"></div>
+  <h3 class="title"></h3>
+  <a class="prev">‹</a>
+  <a class="next">›</a>
+  <a class="close">×</a>
+  <a class="play-pause"></a>
+  <ol class="indicator"></ol>
+</div>
+```
+
+### Contain
+
+To stretch smaller images to the dimensions of the Gallery container while
+keeping their aspect ratio, add the CSS class `blueimp-gallery-contain` to the
+Gallery widget:
+
+```html
+<div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-contain">
   <div class="slides"></div>
   <h3 class="title"></h3>
   <a class="prev">‹</a>
