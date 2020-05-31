@@ -419,7 +419,7 @@ The following are the additional default options set for the fullscreen mode:
 ```js
 var fullscreenOptions = {
   // Defines if the gallery should open in fullscreen mode:
-  fullScreen: false
+  fullscreen: false
 }
 ```
 
