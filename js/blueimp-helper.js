@@ -78,7 +78,7 @@
   }
 
   Helper.parseJSON = function (string) {
-    return window.JSON && JSON.parse(string)
+    return JSON.parse(string)
   }
 
   extend(Helper.prototype, {
