@@ -106,4 +106,8 @@ $(function () {
       carousel: true
     }
   )
+
+  $('#fullscreen').change(function () {
+    $('#blueimp-gallery').data('fullscreen', this.checked)
+  })
 })
