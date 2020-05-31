@@ -40,9 +40,7 @@
     - [Gallery object](#gallery-object)
     - [jQuery events](#jquery-events)
 - [Requirements](#requirements)
-- [Browsers](#browsers)
-  - [Desktop browsers](#desktop-browsers)
-  - [Mobile browsers](#mobile-browsers)
+- [Browser support](#browser-support)
 - [License](#license)
 - [Credits](#credits)
 - [Notable forks](#notable-forks)
@@ -1147,32 +1145,21 @@ youtube and vimeo source files are also optional:
 Please note that the jQuery plugin is an optional extension and not required for
 the Gallery functionality.
 
-## Browsers
+## Browser support
 
 blueimp Gallery has been tested with and supports the following browsers:
 
-### Desktop browsers
-
-- Google Chrome 14.0+
-- Apple Safari 4.0+
-- Mozilla Firefox 4.0+
+- Chrome 14.0+
+- Safari 4.0+
+- Firefox 4.0+
 - Opera 10.0+
-- Microsoft Internet Explorer 7.0+
-- Microsoft Edge 41.0+
-
-_Please note:_  
-Microsoft Edge version 40 has a query selector bug which prevents the Gallery
-lightbox demo from opening the image view. This has been fixed in Microsoft Edge
-version 41 and later.  
-Thanks to Kenneth G. Chin for the information.
-
-### Mobile browsers
-
-- Apple Safari on iOS 6.0+
-- Google Chrome on iOS 6.0+
-- Google Chrome on Android 4.0+
+- Mobile Safari 6.0+
+- Mobile Chrome 30.0+
 - Default Browser on Android 2.3+
 - Opera Mobile 12.0+
+- Edge 74+
+- Edge Legacy 41.0+
+- Internet Explorer 7.0+
 
 ## License
 
@@ -1183,6 +1170,6 @@ Released under the [MIT license](https://opensource.org/licenses/MIT).
 The swipe implementation is based on code from the
 [Swipe](https://github.com/thebird/swipe/) library.
 
-## Notable Forks
+## Notable forks
 
 - [Rollup bundled version by Khoa Nguyen](https://github.com/khoanguyen96/Gallery/tree/rewrite-js)
