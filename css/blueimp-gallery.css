@@ -156,8 +156,8 @@
   position: absolute;
   right: 15px;
   bottom: 15px;
-  width: 15px;
-  height: 15px;
+  width: 30px;
+  height: 30px;
   background: url(../img/play-pause.png) 0 0 no-repeat;
   cursor: pointer;
   opacity: 0.5;
@@ -167,7 +167,7 @@
   background-image: url(../img/play-pause.svg);
 }
 .blueimp-gallery-playing > .play-pause {
-  background-position: -15px 0;
+  background-position: -30px 0;
 }
 .blueimp-gallery-controls > .prev,
 .blueimp-gallery-controls > .next,
