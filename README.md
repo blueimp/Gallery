@@ -83,6 +83,7 @@ webpage:
   id="blueimp-gallery"
   class="blueimp-gallery"
   aria-label="image gallery"
+  aria-modal="true"
   role="dialog"
 >
   <div class="slides" aria-live="polite"></div>
@@ -172,6 +173,7 @@ To initialize the Gallery with visible controls, add the CSS class
   id="blueimp-gallery"
   class="blueimp-gallery blueimp-gallery-controls"
   aria-label="image gallery"
+  aria-modal="true"
   role="dialog"
 >
   <!-- ... -->
@@ -189,6 +191,7 @@ Gallery widget:
   id="blueimp-gallery"
   class="blueimp-gallery blueimp-gallery-contain"
   aria-label="image gallery"
+  aria-modal="true"
   role="dialog"
 >
   <!-- ... -->
@@ -917,6 +920,7 @@ First, add the desired HTML element to the Gallery widget:
   id="blueimp-gallery"
   class="blueimp-gallery"
   aria-label="image gallery"
+  aria-modal="true"
   role="dialog"
 >
   <div class="slides" aria-live="polite"></div>
@@ -1133,6 +1137,7 @@ duplicates from the list:
   id="blueimp-gallery"
   class="blueimp-gallery"
   aria-label="image gallery"
+  aria-modal="true"
   role="dialog"
   data-start-slideshow="true"
   data-filter=":even"
