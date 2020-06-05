@@ -997,7 +997,7 @@ Then, add the additional element information to each of your links:
 </div>
 ```
 
-Finally, initialize the Gallery with an onslide callback option, to set the
+Finally, initialize the Gallery with an `onslide` callback option, to set the
 element content based on the information from the current link:
 
 ```js
@@ -1124,7 +1124,7 @@ Next, add the attribute `data-gallery` to your Gallery links:
 </div>
 ```
 
-The onclick handler from the [lightbox setup](#lightbox-setup) guide is not
+The `onclick` handler from the [lightbox setup](#lightbox-setup) guide is not
 required and can be removed.
 
 #### HTML5 data-attributes
