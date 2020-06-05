@@ -126,13 +126,13 @@
     },
 
     removeClass: function (className) {
-      var regexp = new RegExp('(^|\\s+)' + className + '(\\s+|$)')
+      var regexp = new RegExp('(?:^|\\s+)' + className + '(\\s+|$)', 'g')
       var i = this.length
       var element
       while (i) {
         i -= 1
         element = this[i]
-        element.className = element.className.replace(regexp, ' ')
+        element.className = element.className.replace(regexp, '$1')
       }
       return this
     },
