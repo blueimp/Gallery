@@ -148,16 +148,16 @@ add them to the body of your webpage, before including the Gallery script:
 ```
 
 Add the following JavaScript code after including the Gallery script, to display
-the images in the Gallery lightbox on click of the links:
+the images in the Gallery lightbox on click of one of those links:
 
 ```html
 <script>
   document.getElementById('links').onclick = function (event) {
     event = event || window.event
-    var target = event.target || event.srcElement,
-      link = target.src ? target.parentNode : target,
-      options = { index: link, event: event },
-      links = this.getElementsByTagName('a')
+    var target = event.target || event.srcElement
+    var link = target.src ? target.parentNode : target
+    var options = { index: link, event: event }
+    var links = this.getElementsByTagName('a')
     blueimp.Gallery(links, options)
   }
 </script>
