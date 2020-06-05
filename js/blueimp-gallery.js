@@ -993,7 +993,7 @@
       this.updateSlideVisibility(oldIndex, newIndex)
       this.loadElements(newIndex)
       if (this.options.unloadElements) {
-        this.unloadElements(newIndex)
+        this.unloadElements(oldIndex, newIndex)
       }
       this.setTitle(newIndex)
     },
@@ -1102,6 +1102,29 @@
       return element
     },
 
+    iteratePreloadRange: function (index, func) {
+      var num = this.num
+      var options = this.options
+      var limit = Math.min(num, options.preloadRange * 2 + 1)
+      var j = index
+      var i
+      for (i = 0; i < limit; i += 1) {
+        // First iterate to the current index (0),
+        // then the next one (+1),
+        // then the previous one (-1),
+        // then the next after next (+2),
+        // then the one before the previous one (-2), etc.:
+        j += i * (i % 2 === 0 ? -1 : 1)
+        if (j < 0 || j >= num) {
+          if (!options.continuous) continue
+          // Connect the ends of the list to load slide elements for
+          // continuous iteration:
+          j = this.circle(j)
+        }
+        func.call(this, j)
+      }
+    },
+
     loadElement: function (index) {
       if (!this.elements[index]) {
         if (this.slides[index].firstChild) {
@@ -1121,36 +1144,18 @@
     },
 
     loadElements: function (index) {
-      var limit = Math.min(this.num, this.options.preloadRange * 2 + 1)
-      var j = index
-      var i
-      for (i = 0; i < limit; i += 1) {
-        // First load the current slide element (0),
-        // then the next one (+1),
-        // then the previous one (-2),
-        // then the next after next (+2), etc.:
-        j += i * (i % 2 === 0 ? -1 : 1)
-        // Connect the ends of the list to load slide elements for
-        // continuous navigation:
-        j = this.circle(j)
-        this.loadElement(j)
-      }
+      this.iteratePreloadRange(index, this.loadElement)
     },
 
-    unloadElements: function (index) {
-      var i, diff
-      for (i in this.elements) {
-        if (Object.prototype.hasOwnProperty.call(this.elements, i)) {
-          diff = Math.abs(index - i)
-          if (
-            diff > this.options.preloadRange &&
-            diff + this.options.preloadRange < this.num
-          ) {
-            this.unloadSlide(i)
-            delete this.elements[i]
-          }
+    unloadElements: function (oldIndex, newIndex) {
+      var preloadRange = this.options.preloadRange
+      this.iteratePreloadRange(oldIndex, function (i) {
+        var diff = Math.abs(i - newIndex)
+        if (diff > preloadRange && diff + preloadRange < this.num) {
+          this.unloadSlide(i)
+          delete this.elements[i]
         }
-      }
+      })
     },
 
     addSlide: function (index) {
