@@ -11,7 +11,8 @@
  */
 
 .blueimp-gallery,
-.blueimp-gallery > .slides > .slide > .slide-content {
+.blueimp-gallery > .slides > .slide > .slide-content,
+.blueimp-gallery > .slides > .slide > .slide-content > img {
   position: absolute;
   top: 0;
   right: 0;
@@ -26,7 +27,8 @@
   backface-visibility: hidden;
   -moz-backface-visibility: hidden;
 }
-.blueimp-gallery > .slides > .slide > .slide-content {
+.blueimp-gallery > .slides > .slide > .slide-content,
+.blueimp-gallery > .slides > .slide > .slide-content > img {
   margin: auto;
   width: auto;
   height: auto;
@@ -220,6 +222,9 @@
   min-height: 300px;
 }
 * + html .blueimp-gallery > .slides > .slide > .slide-content {
+  position: relative;
+}
+* + html .blueimp-gallery > .slides > .slide > .slide-content > img {
   position: relative;
 }
 

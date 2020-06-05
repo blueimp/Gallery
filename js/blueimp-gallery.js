@@ -120,6 +120,8 @@
       srcsetProperty: 'srcset',
       // The list object property (or data attribute) with the object sizes:
       sizesProperty: 'sizes',
+      // The list object property (or data attribute) with the object sources:
+      sourcesProperty: 'sources',
       // The gallery listens for transitionend events before triggering the
       // opened and closed events, unless the following option is set to false:
       displayTransition: true,
@@ -225,6 +227,8 @@
     // Detect touch, transition, transform and background-size support:
     support: (function (element) {
       var support = {
+        source: !!window.HTMLSourceElement,
+        picture: !!window.HTMLPictureElement,
         svgasimg: document.implementation.hasFeature(
           'http://www.w3.org/TR/SVG11/feature#Image',
           '1.1'
@@ -1058,14 +1062,18 @@
     },
 
     imageFactory: function (obj, callback) {
+      var options = this.options
       var that = this
-      var img = this.imagePrototype.cloneNode(false)
       var url = obj
+      var img = this.imagePrototype.cloneNode(false)
+      var picture
       var called
+      var sources
       var srcset
       var sizes
       var title
       var altText
+      var i
       /**
        * Wraps the callback function for the load/error event
        *
@@ -1076,10 +1084,10 @@
         if (!called) {
           event = {
             type: event.type,
-            target: img
+            target: picture || img
           }
-          if (!img.parentNode) {
-            // Fix for IE7 firing the load event for
+          if (!event.target.parentNode) {
+            // Fix for browsers (e.g. IE7) firing the load event for
             // cached images before the element could
             // be added to the DOM:
             return that.setTimeout(callbackWrapper, [event])
@@ -1090,12 +1098,15 @@
         }
       }
       if (typeof url !== 'string') {
-        url = this.getItemProperty(obj, this.options.urlProperty)
-        srcset = this.getItemProperty(obj, this.options.srcsetProperty)
-        sizes = this.getItemProperty(obj, this.options.sizesProperty)
-        title = this.getItemProperty(obj, this.options.titleProperty)
-        altText =
-          this.getItemProperty(obj, this.options.altTextProperty) || title
+        url = this.getItemProperty(obj, options.urlProperty)
+        sources =
+          this.support.picture &&
+          this.support.source &&
+          this.getItemProperty(obj, options.sourcesProperty)
+        srcset = this.getItemProperty(obj, options.srcsetProperty)
+        sizes = this.getItemProperty(obj, options.sizesProperty)
+        title = this.getItemProperty(obj, options.titleProperty)
+        altText = this.getItemProperty(obj, options.altTextProperty) || title
       }
       img.draggable = false
       if (title) {
@@ -1105,6 +1116,16 @@
         img.alt = altText
       }
       $(img).on('load error', callbackWrapper)
+      if (sources && sources.length) {
+        picture = this.picturePrototype.cloneNode(false)
+        for (i = 0; i < sources.length; i += 1) {
+          picture.appendChild(
+            $.extend(this.sourcePrototype.cloneNode(false), sources[i])
+          )
+        }
+        picture.appendChild(img)
+        $(picture).addClass(options.toggleClass)
+      }
       if (srcset) {
         if (sizes) {
           img.sizes = sizes
@@ -1112,6 +1133,7 @@
         img.srcset = srcset
       }
       img.src = url
+      if (picture) return picture
       return img
     },
 
@@ -1220,9 +1242,13 @@
         this.positions = []
         this.positions.length = this.num
         this.elements = {}
+        this.picturePrototype =
+          this.support.picture && document.createElement('picture')
+        this.sourcePrototype =
+          this.support.source && document.createElement('source')
         this.imagePrototype = document.createElement('img')
         this.elementPrototype = document.createElement('div')
-        this.slidePrototype = document.createElement('div')
+        this.slidePrototype = this.elementPrototype.cloneNode(false)
         $(this.slidePrototype).addClass(this.options.slideClass)
         this.slides = this.slidesContainer[0].children
         clearSlides =
