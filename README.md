@@ -354,6 +354,12 @@ var options = {
   smilClass: 'blueimp-gallery-smil',
   // The class for all slides:
   slideClass: 'slide',
+  // The slide class for the active (current index) slide:
+  slideActiveClass: 'slide-active',
+  // The slide class for the previous (before current index) slide:
+  slidePrevClass: 'slide-prev',
+  // The slide class for the next (after current index) slide:
+  slideNextClass: 'slide-next',
   // The slide class for loading elements:
   slideLoadingClass: 'slide-loading',
   // The slide class for elements that failed to load:

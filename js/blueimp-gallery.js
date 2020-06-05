@@ -86,6 +86,12 @@
       smilClass: 'blueimp-gallery-smil',
       // The class for all slides:
       slideClass: 'slide',
+      // The slide class for the active (current index) slide:
+      slideActiveClass: 'slide-active',
+      // The slide class for the previous (before current index) slide:
+      slidePrevClass: 'slide-prev',
+      // The slide class for the next (after current index) slide:
+      slideNextClass: 'slide-next',
       // The slide class for loading elements:
       slideLoadingClass: 'slide-loading',
       // The slide class for elements that failed to load:
@@ -979,18 +985,43 @@
       }
     },
 
-    updateSlideVisibility: function (oldIndex, newIndex) {
-      this.slides[newIndex].removeAttribute('aria-hidden')
-      if (oldIndex !== newIndex) {
-        this.slides[oldIndex].setAttribute('aria-hidden', 'true')
+    updateActiveSlide: function (oldIndex, newIndex) {
+      var slides = this.slides
+      var options = this.options
+      var list = [
+        {
+          index: newIndex,
+          method: 'addClass',
+          hidden: false
+        },
+        {
+          index: oldIndex,
+          method: 'removeClass',
+          hidden: true
+        }
+      ]
+      var item, index
+      while (list.length) {
+        item = list.pop()
+        $(slides[item.index])[item.method](options.slideActiveClass)
+        index = this.circle(item.index - 1)
+        if (options.continuous || index < item.index) {
+          $(slides[index])[item.method](options.slidePrevClass)
+        }
+        index = this.circle(item.index + 1)
+        if (options.continuous || index > item.index) {
+          $(slides[index])[item.method](options.slideNextClass)
+        }
       }
+      this.slides[oldIndex].setAttribute('aria-hidden', 'true')
+      this.slides[newIndex].removeAttribute('aria-hidden')
     },
 
     handleSlide: function (oldIndex, newIndex) {
       if (!this.options.continuous) {
         this.updateEdgeClasses(newIndex)
       }
-      this.updateSlideVisibility(oldIndex, newIndex)
+      this.updateActiveSlide(oldIndex, newIndex)
       this.loadElements(newIndex)
       if (this.options.unloadElements) {
         this.unloadElements(oldIndex, newIndex)
