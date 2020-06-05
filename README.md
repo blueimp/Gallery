@@ -80,7 +80,7 @@ webpage:
 ```html
 <!-- The Gallery as lightbox dialog, should be a document body child element -->
 <div id="blueimp-gallery" class="blueimp-gallery">
-  <div class="slides"></div>
+  <div class="slides" aria-live="polite"></div>
   <h3 class="title"></h3>
   <a
     class="prev"
@@ -164,7 +164,7 @@ To initialize the Gallery with visible controls, add the CSS class
 
 ```html
 <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
-  <div class="slides"></div>
+  <div class="slides" aria-live="polite"></div>
   <h3 class="title"></h3>
   <a
     class="prev"
@@ -207,7 +207,7 @@ Gallery widget:
 
 ```html
 <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-contain">
-  <div class="slides"></div>
+  <div class="slides" aria-live="polite"></div>
   <h3 class="title"></h3>
   <a
     class="prev"
@@ -256,7 +256,7 @@ your webpage:
   id="blueimp-gallery-carousel"
   class="blueimp-gallery blueimp-gallery-carousel"
 >
-  <div class="slides"></div>
+  <div class="slides" aria-live="off"></div>
   <h3 class="title"></h3>
   <a
     class="prev"
@@ -960,7 +960,7 @@ First, add the desired HTML element to the Gallery widget:
 
 ```html
 <div id="blueimp-gallery" class="blueimp-gallery">
-  <div class="slides"></div>
+  <div class="slides" aria-live="polite"></div>
   <h3 class="title"></h3>
   <!-- The placeholder for the description label: -->
   <p class="description"></p>
@@ -1176,7 +1176,7 @@ duplicates from the list:
   data-start-slideshow="true"
   data-filter=":even"
 >
-  <div class="slides"></div>
+  <div class="slides" aria-live="off"></div>
   <h3 class="title"></h3>
   <a
     class="prev"

@@ -422,6 +422,7 @@
         )
       }
       this.container.addClass(this.options.playingClass)
+      this.slidesContainer[0].setAttribute('aria-live', 'off')
       if (this.playPauseElement.length) {
         this.playPauseElement[0].setAttribute('aria-pressed', 'true')
       }
@@ -435,6 +436,7 @@
         this.animationFrameId = null
       }
       this.container.removeClass(this.options.playingClass)
+      this.slidesContainer[0].setAttribute('aria-live', 'polite')
       if (this.playPauseElement.length) {
         this.playPauseElement[0].setAttribute('aria-pressed', 'false')
       }
