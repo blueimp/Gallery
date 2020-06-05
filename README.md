@@ -1302,12 +1302,12 @@ version:
 ```
 
 The helper script can be replaced by [jQuery](https://jquery.com/) v. 1.7+.  
-The fullscreen, indicator, video, youtube and vimeo source files are optional if
+The fullscreen, indicator, video, YouTube and Vimeo source files are optional if
 their functionality is not required.
 
 The [jQuery plugin](#jquery-plugin) requires [jQuery](https://jquery.com/) v.
 1.7+ and the basic Gallery script, while the fullscreen, indicator, video,
-youtube and vimeo source files are also optional:
+YouTube and Vimeo source files are also optional:
 
 ```html
 <script
