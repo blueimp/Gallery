@@ -67,6 +67,9 @@
   background: url(../img/loading.gif) center no-repeat;
   background-size: 64px 64px;
 }
+.blueimp-gallery-smil > .slides > .slide > .video-loading > a {
+  background-image: url(../img/loading.svg);
+}
 
 /* IE7 fixes */
 * + html .blueimp-gallery > .slides > .slide > .video-content {

@@ -297,6 +297,8 @@ var options = {
   rightEdgeClass: 'blueimp-gallery-right',
   // The class to add when the automatic slideshow is active:
   playingClass: 'blueimp-gallery-playing',
+  // The class to add when the browser supports SMIL (animated SVGs):
+  smilClass: 'blueimp-gallery-smil',
   // The class for all slides:
   slideClass: 'slide',
   // The slide class for loading elements:

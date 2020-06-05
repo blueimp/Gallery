@@ -82,6 +82,9 @@
   background: url(../img/loading.gif) center no-repeat;
   background-size: 64px 64px;
 }
+.blueimp-gallery-smil > .slides > .slide-loading {
+  background-image: url(../img/loading.svg);
+}
 .blueimp-gallery > .slides > .slide-loading > .slide-content {
   opacity: 0;
 }
