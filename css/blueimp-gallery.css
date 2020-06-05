@@ -91,6 +91,9 @@
 .blueimp-gallery > .slides > .slide-error {
   background: url(../img/error.png) center no-repeat;
 }
+.blueimp-gallery-svgasimg > .slides > .slide-error {
+  background-image: url(../img/error.svg);
+}
 .blueimp-gallery > .slides > .slide-error > .slide-content {
   display: none;
 }
@@ -160,6 +163,9 @@
   opacity: 0.5;
   display: none;
 }
+.blueimp-gallery-svgasimg > .play-pause {
+  background-image: url(../img/play-pause.svg);
+}
 .blueimp-gallery-playing > .play-pause {
   background-position: -15px 0;
 }
@@ -201,20 +207,6 @@
 .blueimp-gallery > .play-pause:hover {
   color: #fff;
   opacity: 1;
-}
-
-/* Replace PNGs with SVGs for capable browsers (excluding IE<9) */
-body:last-child .blueimp-gallery > .slides > .slide-error {
-  background-image: url(../img/error.svg);
-}
-body:last-child .blueimp-gallery > .play-pause {
-  width: 20px;
-  height: 20px;
-  background-size: 40px 20px;
-  background-image: url(../img/play-pause.svg);
-}
-body:last-child .blueimp-gallery-playing > .play-pause {
-  background-position: -20px 0;
 }
 
 /* IE7 fixes */

@@ -80,6 +80,8 @@
       rightEdgeClass: 'blueimp-gallery-right',
       // The class to add when the automatic slideshow is active:
       playingClass: 'blueimp-gallery-playing',
+      // The class to add when the browser supports SVG as img (or background):
+      svgasimgClass: 'blueimp-gallery-svgasimg',
       // The class to add when the browser supports SMIL (animated SVGs):
       smilClass: 'blueimp-gallery-smil',
       // The class for all slides:
@@ -217,6 +219,10 @@
     // Detect touch, transition, transform and background-size support:
     support: (function (element) {
       var support = {
+        svgasimg: document.implementation.hasFeature(
+          'http://www.w3.org/TR/SVG11/feature#Image',
+          '1.1'
+        ),
         smil:
           !!document.createElementNS &&
           /SVGAnimate/.test(
@@ -1407,6 +1413,9 @@
       this.titleElement = this.container.find(this.options.titleElement).first()
       if (this.num === 1) {
         this.container.addClass(this.options.singleClass)
+      }
+      if (this.support.svgasimg) {
+        this.container.addClass(this.options.svgasimgClass)
       }
       if (this.support.smil) {
         this.container.addClass(this.options.smilClass)

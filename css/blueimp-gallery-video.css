@@ -56,6 +56,9 @@
   opacity: 0.8;
   cursor: pointer;
 }
+.blueimp-gallery-svgasimg > .slides > .slide > .video-content > a {
+  background-image: url(../img/video-play.svg);
+}
 .blueimp-gallery > .slides > .slide > .video-playing > a,
 .blueimp-gallery > .slides > .slide > .video-playing > img {
   display: none;
@@ -82,16 +85,6 @@
 
 .blueimp-gallery > .slides > .slide > .video-content > a:hover {
   opacity: 1;
-}
-
-/* Replace PNGs with SVGs for capable browsers (excluding IE<9) */
-body:last-child
-  .blueimp-gallery
-  > .slides
-  > .slide
-  > .video-content:not(.video-loading)
-  > a {
-  background-image: url(../img/video-play.svg);
 }
 
 /* IE7 fixes */
