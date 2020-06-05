@@ -79,7 +79,12 @@ webpage:
 
 ```html
 <!-- The Gallery as lightbox dialog, should be a document body child element -->
-<div id="blueimp-gallery" class="blueimp-gallery">
+<div
+  id="blueimp-gallery"
+  class="blueimp-gallery"
+  aria-label="image gallery"
+  role="dialog"
+>
   <div class="slides" aria-live="polite"></div>
   <h3 class="title"></h3>
   <a
@@ -163,39 +168,13 @@ To initialize the Gallery with visible controls, add the CSS class
 `blueimp-gallery-controls` to the Gallery widget:
 
 ```html
-<div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
-  <div class="slides" aria-live="polite"></div>
-  <h3 class="title"></h3>
-  <a
-    class="prev"
-    aria-controls="blueimp-gallery"
-    aria-label="previous slide"
-    aria-keyshortcuts="ArrowLeft"
-    >‹</a
-  >
-  <a
-    class="next"
-    aria-controls="blueimp-gallery"
-    aria-label="next slide"
-    aria-keyshortcuts="ArrowRight"
-    >›</a
-  >
-  <a
-    class="close"
-    aria-controls="blueimp-gallery"
-    aria-label="close"
-    aria-keyshortcuts="Escape"
-    >×</a
-  >
-  <a
-    class="play-pause"
-    aria-controls="blueimp-gallery"
-    aria-label="play slideshow"
-    aria-keyshortcuts="Space"
-    aria-pressed="false"
-    role="button"
-  ></a>
-  <ol class="indicator"></ol>
+<div
+  id="blueimp-gallery"
+  class="blueimp-gallery blueimp-gallery-controls"
+  aria-label="image gallery"
+  role="dialog"
+>
+  <!-- ... -->
 </div>
 ```
 
@@ -206,39 +185,13 @@ keeping their aspect ratio, add the CSS class `blueimp-gallery-contain` to the
 Gallery widget:
 
 ```html
-<div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-contain">
-  <div class="slides" aria-live="polite"></div>
-  <h3 class="title"></h3>
-  <a
-    class="prev"
-    aria-controls="blueimp-gallery"
-    aria-label="previous slide"
-    aria-keyshortcuts="ArrowLeft"
-    >‹</a
-  >
-  <a
-    class="next"
-    aria-controls="blueimp-gallery"
-    aria-label="next slide"
-    aria-keyshortcuts="ArrowRight"
-    >›</a
-  >
-  <a
-    class="close"
-    aria-controls="blueimp-gallery"
-    aria-label="close"
-    aria-keyshortcuts="Escape"
-    >×</a
-  >
-  <a
-    class="play-pause"
-    aria-controls="blueimp-gallery"
-    aria-label="play slideshow"
-    aria-keyshortcuts="Space"
-    aria-pressed="false"
-    role="button"
-  ></a>
-  <ol class="indicator"></ol>
+<div
+  id="blueimp-gallery"
+  class="blueimp-gallery blueimp-gallery-contain"
+  aria-label="image gallery"
+  role="dialog"
+>
+  <!-- ... -->
 </div>
 ```
 
@@ -255,6 +208,7 @@ your webpage:
 <div
   id="blueimp-gallery-carousel"
   class="blueimp-gallery blueimp-gallery-carousel"
+  aria-label="image carousel"
 >
   <div class="slides" aria-live="off"></div>
   <h3 class="title"></h3>
@@ -959,7 +913,12 @@ description label.
 First, add the desired HTML element to the Gallery widget:
 
 ```html
-<div id="blueimp-gallery" class="blueimp-gallery">
+<div
+  id="blueimp-gallery"
+  class="blueimp-gallery"
+  aria-label="image gallery"
+  role="dialog"
+>
   <div class="slides" aria-live="polite"></div>
   <h3 class="title"></h3>
   <!-- The placeholder for the description label: -->
@@ -1173,6 +1132,8 @@ duplicates from the list:
 <div
   id="blueimp-gallery"
   class="blueimp-gallery"
+  aria-label="image gallery"
+  role="dialog"
   data-start-slideshow="true"
   data-filter=":even"
 >
