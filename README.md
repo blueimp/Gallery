@@ -1351,7 +1351,3 @@ Released under the [MIT license](https://opensource.org/licenses/MIT).
 
 The swipe implementation is based on code from the
 [Swipe](https://github.com/thebird/swipe/) library.
-
-## Notable forks
-
-- [Rollup bundled version by Khoa Nguyen](https://github.com/khoanguyen96/Gallery/tree/rewrite-js)
