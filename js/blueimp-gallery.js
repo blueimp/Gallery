@@ -422,6 +422,9 @@
         )
       }
       this.container.addClass(this.options.playingClass)
+      if (this.playPauseElement.length) {
+        this.playPauseElement[0].setAttribute('aria-pressed', 'true')
+      }
     },
 
     pause: function () {
@@ -432,6 +435,9 @@
         this.animationFrameId = null
       }
       this.container.removeClass(this.options.playingClass)
+      if (this.playPauseElement.length) {
+        this.playPauseElement[0].setAttribute('aria-pressed', 'false')
+      }
     },
 
     add: function (list) {
@@ -1411,6 +1417,9 @@
         return false
       }
       this.titleElement = this.container.find(this.options.titleElement).first()
+      this.playPauseElement = this.container
+        .find('.' + this.options.playPauseClass)
+        .first()
       if (this.num === 1) {
         this.container.addClass(this.options.singleClass)
       }

@@ -82,13 +82,41 @@ webpage:
 <div id="blueimp-gallery" class="blueimp-gallery">
   <div class="slides"></div>
   <h3 class="title"></h3>
-  <a class="prev">‹</a>
-  <a class="next">›</a>
-  <a class="close">×</a>
-  <a class="play-pause"></a>
+  <a
+    class="prev"
+    aria-controls="blueimp-gallery"
+    aria-label="previous slide"
+    aria-keyshortcuts="ArrowLeft"
+    >‹</a
+  >
+  <a
+    class="next"
+    aria-controls="blueimp-gallery"
+    aria-label="next slide"
+    aria-keyshortcuts="ArrowRight"
+    >›</a
+  >
+  <a
+    class="close"
+    aria-controls="blueimp-gallery"
+    aria-label="close"
+    aria-keyshortcuts="Escape"
+    >×</a
+  >
+  <a
+    class="play-pause"
+    aria-controls="blueimp-gallery"
+    aria-label="play slideshow"
+    aria-keyshortcuts="Space"
+    aria-pressed="false"
+    role="button"
+  ></a>
   <ol class="indicator"></ol>
 </div>
 ```
+
+Please note that each `aria-controls` attribute should have the same value as
+the `id` attribute of the Gallery widget.
 
 Include the Gallery script at the bottom of the body of your webpage:
 
@@ -138,10 +166,35 @@ To initialize the Gallery with visible controls, add the CSS class
 <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
   <div class="slides"></div>
   <h3 class="title"></h3>
-  <a class="prev">‹</a>
-  <a class="next">›</a>
-  <a class="close">×</a>
-  <a class="play-pause"></a>
+  <a
+    class="prev"
+    aria-controls="blueimp-gallery"
+    aria-label="previous slide"
+    aria-keyshortcuts="ArrowLeft"
+    >‹</a
+  >
+  <a
+    class="next"
+    aria-controls="blueimp-gallery"
+    aria-label="next slide"
+    aria-keyshortcuts="ArrowRight"
+    >›</a
+  >
+  <a
+    class="close"
+    aria-controls="blueimp-gallery"
+    aria-label="close"
+    aria-keyshortcuts="Escape"
+    >×</a
+  >
+  <a
+    class="play-pause"
+    aria-controls="blueimp-gallery"
+    aria-label="play slideshow"
+    aria-keyshortcuts="Space"
+    aria-pressed="false"
+    role="button"
+  ></a>
   <ol class="indicator"></ol>
 </div>
 ```
@@ -156,10 +209,35 @@ Gallery widget:
 <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-contain">
   <div class="slides"></div>
   <h3 class="title"></h3>
-  <a class="prev">‹</a>
-  <a class="next">›</a>
-  <a class="close">×</a>
-  <a class="play-pause"></a>
+  <a
+    class="prev"
+    aria-controls="blueimp-gallery"
+    aria-label="previous slide"
+    aria-keyshortcuts="ArrowLeft"
+    >‹</a
+  >
+  <a
+    class="next"
+    aria-controls="blueimp-gallery"
+    aria-label="next slide"
+    aria-keyshortcuts="ArrowRight"
+    >›</a
+  >
+  <a
+    class="close"
+    aria-controls="blueimp-gallery"
+    aria-label="close"
+    aria-keyshortcuts="Escape"
+    >×</a
+  >
+  <a
+    class="play-pause"
+    aria-controls="blueimp-gallery"
+    aria-label="play slideshow"
+    aria-keyshortcuts="Space"
+    aria-pressed="false"
+    role="button"
+  ></a>
   <ol class="indicator"></ol>
 </div>
 ```
@@ -180,9 +258,25 @@ your webpage:
 >
   <div class="slides"></div>
   <h3 class="title"></h3>
-  <a class="prev">‹</a>
-  <a class="next">›</a>
-  <a class="play-pause"></a>
+  <a
+    class="prev"
+    aria-controls="blueimp-gallery-carousel"
+    aria-label="previous slide"
+    >‹</a
+  >
+  <a
+    class="next"
+    aria-controls="blueimp-gallery-carousel"
+    aria-label="next slide"
+    >›</a
+  >
+  <a
+    class="play-pause"
+    aria-controls="blueimp-gallery-carousel"
+    aria-label="play slideshow"
+    aria-pressed="true"
+    role="button"
+  ></a>
   <ol class="indicator"></ol>
 </div>
 ```
@@ -262,11 +356,11 @@ With link elements, those same properties can be defined via `data-srcset` and
 
 The Gallery can be controlled with the following keyboard shortcuts:
 
-- `Return`: Toggle controls visibility.
-- `Esc`: Close the Gallery lightbox.
+- `Enter`: Toggle controls visibility.
+- `Escape`: Close the Gallery lightbox.
 - `Space`: Toggle the slideshow (play/pause).
-- `Left`: Move to the previous slide.
-- `Right`: Move to the next slide.
+- `ArrowLeft`: Move to the previous slide.
+- `ArrowRight`: Move to the next slide.
 
 Please note that setting the `carousel` option to `true` disables the keyboard
 shortcuts by default.
@@ -870,10 +964,35 @@ First, add the desired HTML element to the Gallery widget:
   <h3 class="title"></h3>
   <!-- The placeholder for the description label: -->
   <p class="description"></p>
-  <a class="prev">‹</a>
-  <a class="next">›</a>
-  <a class="close">×</a>
-  <a class="play-pause"></a>
+  <a
+    class="prev"
+    aria-controls="blueimp-gallery"
+    aria-label="previous slide"
+    aria-keyshortcuts="ArrowLeft"
+    >‹</a
+  >
+  <a
+    class="next"
+    aria-controls="blueimp-gallery"
+    aria-label="next slide"
+    aria-keyshortcuts="ArrowRight"
+    >›</a
+  >
+  <a
+    class="close"
+    aria-controls="blueimp-gallery"
+    aria-label="close"
+    aria-keyshortcuts="Escape"
+    >×</a
+  >
+  <a
+    class="play-pause"
+    aria-controls="blueimp-gallery"
+    aria-label="play slideshow"
+    aria-keyshortcuts="Space"
+    aria-pressed="false"
+    role="button"
+  ></a>
   <ol class="indicator"></ol>
 </div>
 ```
@@ -1059,10 +1178,35 @@ duplicates from the list:
 >
   <div class="slides"></div>
   <h3 class="title"></h3>
-  <a class="prev">‹</a>
-  <a class="next">›</a>
-  <a class="close">×</a>
-  <a class="play-pause"></a>
+  <a
+    class="prev"
+    aria-controls="blueimp-gallery"
+    aria-label="previous slide"
+    aria-keyshortcuts="ArrowLeft"
+    >‹</a
+  >
+  <a
+    class="next"
+    aria-controls="blueimp-gallery"
+    aria-label="next slide"
+    aria-keyshortcuts="ArrowRight"
+    >›</a
+  >
+  <a
+    class="close"
+    aria-controls="blueimp-gallery"
+    aria-label="close"
+    aria-keyshortcuts="Escape"
+    >×</a
+  >
+  <a
+    class="play-pause"
+    aria-controls="blueimp-gallery"
+    aria-label="play slideshow"
+    aria-keyshortcuts="Space"
+    aria-pressed="true"
+    role="button"
+  ></a>
   <ol class="indicator"></ol>
 </div>
 ```

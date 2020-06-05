@@ -68,6 +68,7 @@
       if (title) {
         indicator.title = title
       }
+      indicator.setAttribute('role', 'link')
       return indicator
     },
 

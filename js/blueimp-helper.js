@@ -89,6 +89,8 @@
           query = container.querySelectorAll(query)
         } else if (query.charAt(0) === '#') {
           query = container.getElementById(query.slice(1))
+        } else if (query.charAt(0) === '.') {
+          query = container.getElementsByClassName(query.slice(1))
         } else {
           query = container.getElementsByTagName(query)
         }
