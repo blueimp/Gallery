@@ -979,20 +979,28 @@
       }
     },
 
-    handleSlide: function (index) {
+    updateSlideVisibility: function (oldIndex, newIndex) {
+      this.slides[newIndex].removeAttribute('aria-hidden')
+      if (oldIndex !== newIndex) {
+        this.slides[oldIndex].setAttribute('aria-hidden', 'true')
+      }
+    },
+
+    handleSlide: function (oldIndex, newIndex) {
       if (!this.options.continuous) {
-        this.updateEdgeClasses(index)
+        this.updateEdgeClasses(newIndex)
       }
-      this.loadElements(index)
+      this.updateSlideVisibility(oldIndex, newIndex)
+      this.loadElements(newIndex)
       if (this.options.unloadElements) {
-        this.unloadElements(index)
+        this.unloadElements(newIndex)
       }
-      this.setTitle(index)
+      this.setTitle(newIndex)
     },
 
     onslide: function (index) {
+      this.handleSlide(this.index, index)
       this.index = index
-      this.handleSlide(index)
       this.setTimeout(this.options.onslide, [index, this.slides[index]])
     },
 
@@ -1148,6 +1156,7 @@
     addSlide: function (index) {
       var slide = this.slidePrototype.cloneNode(false)
       slide.setAttribute('data-index', index)
+      slide.setAttribute('aria-hidden', 'true')
       this.slidesContainer[0].appendChild(slide)
       this.slides.push(slide)
     },

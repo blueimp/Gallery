@@ -41,8 +41,8 @@
   var handleSlide = galleryPrototype.handleSlide
 
   $.extend(galleryPrototype, {
-    handleSlide: function (index) {
-      handleSlide.call(this, index)
+    handleSlide: function (oldIndex, newIndex) {
+      handleSlide.call(this, oldIndex, newIndex)
       if (this.playingVideo) {
         this.playingVideo.pause()
       }
