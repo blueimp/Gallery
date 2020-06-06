@@ -276,6 +276,10 @@ var gallery = blueimp.Gallery([
       {
         type: 'image/svg+xml',
         srcset: 'https://example.org/images/apple.svg'
+      },
+      {
+        type: 'image/webp',
+        srcset: 'https://example.org/images/apple.webp'
       }
     ]
   }
@@ -300,11 +304,24 @@ With link elements, those same properties can be defined via `data-srcset`,
   <a
     title="Apple"
     href="images/apple.png"
-    data-sources='[{"type":"image/svg+xml","srcset":"images/apple.svg"}]'
+    data-sources='[
+      {
+        "type": "image/svg+xml",
+        "srcset": "images/apple.svg"
+      },
+      {
+        "type": "image/webp",
+        "srcset": "images/apple.webp"
+      }
+    ]'
     >Apple</a
   >
 </div>
 ```
+
+Please note that `data-sources` must be a valid
+[JSON](https://developer.mozilla.org/en-US/docs/Glossary/JSON) `string` listing
+the sources array.
 
 ## Keyboard shortcuts
 
@@ -642,7 +659,7 @@ var options = {
 
 It is also possible to define the container and element options with a more
 complex
-[querySelector](https://developer.mozilla.org/en-US/docs/Web/API/document.querySelector),
+[querySelector](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector),
 which is supported by IE8+ and all modern web browsers.
 
 If the helper script is replaced with [jQuery](https://jquery.com/), the
@@ -709,14 +726,14 @@ var gallery = blueimp.Gallery([
 var gallery = blueimp.Gallery([
   {
     title: 'Banana',
-    href: 'https://example.org/images/banana.jpg',
     type: 'image/jpeg',
+    href: 'https://example.org/images/banana.jpg',
     thumbnail: 'https://example.org/thumbnails/banana.jpg'
   },
   {
     title: 'Apple',
-    href: 'https://example.org/images/apple.jpg',
     type: 'image/jpeg',
+    href: 'https://example.org/images/apple.jpg',
     thumbnail: 'https://example.org/thumbnails/apple.jpg'
   }
 ])
@@ -782,14 +799,14 @@ combination of both:
 blueimp.Gallery([
   {
     title: 'Fruits',
-    href: 'https://example.org/videos/fruits.mp4',
     type: 'video/mp4',
+    href: 'https://example.org/videos/fruits.mp4',
     poster: 'https://example.org/images/fruits.jpg'
   },
   {
     title: 'Banana',
-    href: 'https://example.org/images/banana.jpg',
     type: 'image/jpeg',
+    href: 'https://example.org/images/banana.jpg',
     thumbnail: 'https://example.org/thumbnails/banana.jpg'
   }
 ])
@@ -817,33 +834,43 @@ displayed:
 blueimp.Gallery([
   {
     title: 'Fruits',
-    type: 'video/*',
-    poster: 'https://example.org/images/fruits.jpg',
+    type: 'video',
     sources: [
       {
-        href: 'https://example.org/videos/fruits.mp4',
-        type: 'video/mp4'
+        type: 'video/mp4',
+        src: 'https://example.org/videos/fruits.mp4'
       },
       {
-        href: 'https://example.org/videos/fruits.ogg',
-        type: 'video/ogg'
+        type: 'video/ogg',
+        src: 'https://example.org/videos/fruits.ogv'
       }
-    ]
+    ],
+    poster: 'https://example.org/images/fruits.jpg'
   }
 ])
 ```
 
-It is also possible to define the video sources as data-attribute on a link
-element in [JSON](https://developer.mozilla.org/en-US/docs/JSON) array format:
+It is also possible to define the video sources as `data-sources` attribute as a
+[JSON](https://developer.mozilla.org/en-US/docs/Glossary/JSON) `string` listing
+the sources array:
 
 ```html
 <div id="links">
   <a
-    href="https://example.org/videos/fruits.mp4"
     title="Fruits"
     type="video/mp4"
+    href="https://example.org/videos/fruits.mp4"
+    data-sources='[
+      {
+        "type": "video/mp4",
+        "src": "videos/fruits.mp4"
+      },
+      {
+        "type": "video/ogg",
+        "src": "videos/fruits.ogv"
+      }
+    ]'
     data-poster="https://example.org/images/fruits.jpg"
-    data-sources='[{"href": "https://example.org/videos/fruits.mp4", "type": "video/mp4"}, {"href": "https://example.org/videos/fruits.ogg", "type": "video/ogg"}]'
     >Fruits</a
   >
 </div>
@@ -859,15 +886,15 @@ items with a `type` of `text/html` and a `youtube` property (configurable via
 blueimp.Gallery([
   {
     title: 'A YouYube video',
-    href: 'https://www.youtube.com/watch?v=VIDEO_ID',
     type: 'text/html',
+    href: 'https://www.youtube.com/watch?v=VIDEO_ID',
     youtube: 'VIDEO_ID',
     poster: 'https://img.youtube.com/vi/VIDEO_ID/maxresdefault.jpg'
   },
   {
     title: 'Banana',
-    href: 'https://example.org/images/banana.jpg',
     type: 'image/jpeg',
+    href: 'https://example.org/images/banana.jpg',
     thumbnail: 'https://example.org/thumbnails/banana.jpg'
   }
 ])
@@ -877,7 +904,7 @@ If the `href` and `poster` properties are undefined, they are set automatically
 based on the video ID.
 
 Please note that the Gallery YouTube integration requires a browser with
-[postMessage](https://developer.mozilla.org/en-US/docs/Web/API/window.postMessage)
+[postMessage](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage)
 support, which excludes IE7.
 
 #### Vimeo
@@ -890,15 +917,15 @@ with a `type` of `text/html` and a `vimeo` property (configurable via
 blueimp.Gallery([
   {
     title: 'A Vimeo video',
-    href: 'https://vimeo.com/VIDEO_ID',
     type: 'text/html',
+    href: 'https://vimeo.com/VIDEO_ID',
     vimeo: 'VIDEO_ID',
     poster: 'https://secure-b.vimeocdn.com/ts/POSTER_ID.jpg'
   },
   {
     title: 'Banana',
-    href: 'https://example.org/images/banana.jpg',
     type: 'image/jpeg',
+    href: 'https://example.org/images/banana.jpg',
     thumbnail: 'https://example.org/thumbnails/banana.jpg'
   }
 ])
@@ -908,7 +935,7 @@ If the `href` property is undefined, it is set automatically based on the video
 ID.
 
 Please note that the Gallery Vimeo integration requires a browser with
-[postMessage](https://developer.mozilla.org/en-US/docs/Web/API/window.postMessage)
+[postMessage](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage)
 support, which excludes IE7.
 
 ### Additional Gallery elements
@@ -1078,13 +1105,13 @@ types:
 blueimp.Gallery([
   {
     title: 'Noodle soup',
-    href: 'https://example.org/text/noodle-soup.html',
-    type: 'text/html'
+    type: 'text/html',
+    href: 'https://example.org/text/noodle-soup.html'
   },
   {
     title: 'Tomato salad',
-    href: 'https://example.org/text/tomato-salad.html',
-    type: 'text/html'
+    type: 'text/html',
+    href: 'https://example.org/text/tomato-salad.html'
   }
 ])
 ```
