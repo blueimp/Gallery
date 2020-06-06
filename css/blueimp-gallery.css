@@ -229,7 +229,8 @@
 }
 
 @supports (object-fit: contain) {
-  .blueimp-gallery-contain > .slides > .slide > .slide-content {
+  .blueimp-gallery-contain > .slides > .slide > .slide-content,
+  .blueimp-gallery-contain > .slides > .slide > .slide-content > img {
     width: 100%;
     height: 100%;
     object-fit: contain;
