@@ -58,37 +58,18 @@
         }
       ]
       var video = videoInterface || document.createElement('video')
+      var playMediaControl = document.createElement('a')
       var url = this.getItemProperty(obj, options.urlProperty)
-      var type = this.getItemProperty(obj, options.typeProperty)
+      var sources = this.getItemProperty(obj, options.sourcesProperty)
       var title = this.getItemProperty(obj, options.titleProperty)
-      var altText =
-        this.getItemProperty(obj, this.options.altTextProperty) || title
       var posterUrl = this.getItemProperty(obj, options.videoPosterProperty)
       var posterImage
-      var sources = this.getItemProperty(obj, options.sourcesProperty)
-      var source
-      var playMediaControl
       var isLoading
       var hasControls
+      var i
       videoContainer.addClass(options.videoContentClass)
       if (title) {
         videoContainerNode.title = title
-      }
-      if (video.canPlayType) {
-        video.preload = 'none'
-        if (url && type && video.canPlayType(type)) {
-          video.src = url
-        } else if (sources) {
-          while (sources.length) {
-            source = sources.shift()
-            url = source.src
-            type = source.type
-            if (url && type && video.canPlayType(type)) {
-              video.src = url
-              break
-            }
-          }
-        }
       }
       if (posterUrl) {
         video.poster = posterUrl
@@ -96,17 +77,23 @@
         $(posterImage).addClass(options.toggleClass)
         posterImage.src = posterUrl
         posterImage.draggable = false
-        posterImage.alt = altText
+        posterImage.alt =
+          this.getItemProperty(obj, this.options.altTextProperty) || title
         videoContainerNode.appendChild(posterImage)
       }
-      playMediaControl = document.createElement('a')
-      playMediaControl.setAttribute('target', '_blank')
-      if (!videoInterface) {
-        playMediaControl.setAttribute('download', title)
+      video.controls = true
+      video.preload = 'none'
+      if (this.support.source && sources) {
+        for (i = 0; i < sources.length; i += 1) {
+          video.appendChild(
+            $.extend(this.sourcePrototype.cloneNode(false), sources[i])
+          )
+        }
       }
-      playMediaControl.href = url
-      if (video.src) {
-        video.controls = true
+      if (url) video.src = url
+      playMediaControl.href =
+        url || (sources && sources.length && sources[0].src)
+      if (video.play && video.pause) {
         ;(videoInterface || $(video))
           .on('error', function () {
             that.setTimeout(callback, errorArgs)
