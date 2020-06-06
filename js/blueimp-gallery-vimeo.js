@@ -55,10 +55,6 @@
   var counter = 0
 
   $.extend(VimeoPlayer.prototype, {
-    canPlayType: function () {
-      return true
-    },
-
     on: function (type, func) {
       this.listeners[type] = func
       return this

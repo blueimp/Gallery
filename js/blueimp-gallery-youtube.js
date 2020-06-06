@@ -52,10 +52,6 @@
   }
 
   $.extend(YouTubePlayer.prototype, {
-    canPlayType: function () {
-      return true
-    },
-
     on: function (type, func) {
       this.listeners[type] = func
       return this
