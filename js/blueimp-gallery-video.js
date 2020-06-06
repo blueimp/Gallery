@@ -70,6 +70,7 @@
       videoContainer.addClass(options.videoContentClass)
       if (title) {
         videoContainerNode.title = title
+        playMediaControl.setAttribute('aria-label', title)
       }
       if (posterUrl) {
         video.poster = posterUrl
