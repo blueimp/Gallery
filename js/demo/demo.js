@@ -52,6 +52,7 @@ $(function () {
     // Add the demo images as links with thumbnails to the page:
     $.each(result.photos.photo, function (_, photo) {
       var thumbnail = $('<img>')
+        .prop('loading', 'lazy')
         .prop('src', photo.url_sq)
         .prop('alt', photo.title)
       var srcset = []
