@@ -75,6 +75,7 @@
         videoContainerNode.title = title
       }
       if (video.canPlayType) {
+        video.preload = 'none'
         if (url && type && video.canPlayType(type)) {
           video.src = url
         } else if (sources) {
