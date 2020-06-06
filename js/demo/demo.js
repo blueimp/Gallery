@@ -126,7 +126,8 @@ $(function () {
     ],
     {
       container: '#blueimp-video-carousel',
-      carousel: true
+      carousel: true,
+      startSlideshow: false
     }
   )
 
