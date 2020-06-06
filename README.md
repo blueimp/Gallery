@@ -537,6 +537,7 @@ var carouselOptions = {
   closeOnEscape: false,
   closeOnSlideClick: false,
   closeOnSwipeUpOrDown: false,
+  closeOnHashChange: false,
   disableScroll: false,
   startSlideshow: true
 }
