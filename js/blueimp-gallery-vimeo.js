@@ -39,7 +39,7 @@
     // The prefix for the Vimeo video player ID:
     vimeoPlayerIdPrefix: 'vimeo-player-',
     // Require a click on the native Vimeo player for the initial playback:
-    vimeoClickToPlay: true
+    vimeoClickToPlay: false
   })
 
   var textFactory =
