@@ -53,6 +53,8 @@ $(function () {
     $.each(result.photos.photo, function (_, photo) {
       var thumbnail = $('<img>')
         .prop('loading', 'lazy')
+        .prop('width', photo.width_sq)
+        .prop('height', photo.height_sq)
         .prop('src', photo.url_sq)
         .prop('alt', photo.title)
       var srcset = []
