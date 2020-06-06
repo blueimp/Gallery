@@ -72,10 +72,10 @@
   opacity: 1;
 }
 
-@supports (object-fit: cover) {
+@supports (object-fit: contain) {
   .blueimp-gallery > .slides > .slide > .video-content > img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
   }
 }
