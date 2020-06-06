@@ -33,9 +33,7 @@
     // The class for video when it is playing:
     videoPlayingClass: 'video-playing',
     // The list object property (or data attribute) for the video poster URL:
-    videoPosterProperty: 'poster',
-    // The list object property (or data attribute) for the video sources array:
-    videoSourcesProperty: 'sources'
+    videoPosterProperty: 'poster'
   })
 
   var handleSlide = galleryPrototype.handleSlide
@@ -67,7 +65,7 @@
         this.getItemProperty(obj, this.options.altTextProperty) || title
       var posterUrl = this.getItemProperty(obj, options.videoPosterProperty)
       var posterImage
-      var sources = this.getItemProperty(obj, options.videoSourcesProperty)
+      var sources = this.getItemProperty(obj, options.sourcesProperty)
       var source
       var playMediaControl
       var isLoading
@@ -82,8 +80,8 @@
         } else if (sources) {
           while (sources.length) {
             source = sources.shift()
-            url = this.getItemProperty(source, options.urlProperty)
-            type = this.getItemProperty(source, options.typeProperty)
+            url = source.src
+            type = source.type
             if (url && type && video.canPlayType(type)) {
               video.src = url
               break

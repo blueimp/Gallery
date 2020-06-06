@@ -30,6 +30,7 @@ $(function () {
     'k', // 2048 on longest side
     'o' // original dimensions
   ]
+
   // Load demo images from Flickr:
   $.ajax({
     url: 'https://api.flickr.com/services/rest/',
@@ -90,29 +91,26 @@ $(function () {
     [
       {
         title: 'Sintel',
-        href: 'https://archive.org/download/Sintel/sintel-2048-surround.mp4',
-        type: 'video/mp4',
-        poster: 'https://i.imgur.com/MUSw4Zu.jpg'
-      },
-      {
-        title: 'Big Buck Bunny',
-        href:
-          'https://upload.wikimedia.org/wikipedia/commons/c/c0/' +
-          'Big_Buck_Bunny_4K.webm',
-        type: 'video/webm',
+        type: 'video',
+        sources: [
+          {
+            type: 'video/webm',
+            src:
+              'https://upload.wikimedia.org/wikipedia/commons/f/f1/' +
+              'Sintel_movie_4K.webm'
+          },
+          {
+            type: 'video/mp4',
+            src: 'https://archive.org/download/Sintel/sintel-2048-surround.mp4'
+          },
+          {
+            type: 'video/ogg',
+            src: 'https://archive.org/download/Sintel/sintel-2048-stereo.ogv'
+          }
+        ],
         poster:
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/' +
-          'Big_Buck_Bunny_4K.webm/4000px--Big_Buck_Bunny_4K.webm.jpg'
-      },
-      {
-        title: 'Elephants Dream',
-        href:
-          'https://upload.wikimedia.org/wikipedia/commons/8/83/' +
-          'Elephants_Dream_%28high_quality%29.ogv',
-        type: 'video/ogg',
-        poster:
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/' +
-          'Elephants_Dream_s1_proog.jpg/800px-Elephants_Dream_s1_proog.jpg'
+          'https://upload.wikimedia.org/wikipedia/commons/d/dc/' +
+          'Sintel_1920x1080.png'
       },
       {
         title: 'LES TWINS - An Industry Ahead',

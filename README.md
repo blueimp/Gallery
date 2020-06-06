@@ -573,9 +573,7 @@ var videoFactoryOptions = {
   // The class for video when it is playing:
   videoPlayingClass: 'video-playing',
   // The list object property (or data attribute) for the video poster URL:
-  videoPosterProperty: 'poster',
-  // The list object property (or data attribute) for the video sources array:
-  videoSourcesProperty: 'sources'
+  videoPosterProperty: 'poster'
 }
 ```
 
