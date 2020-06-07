@@ -32,6 +32,8 @@
     videoLoadingClass: 'video-loading',
     // The class for video when it is playing:
     videoPlayingClass: 'video-playing',
+    // Play videos inline by default:
+    videoPlaysInline: true,
     // The list object property (or data attribute) for video preload:
     videoPreloadProperty: 'preload',
     // The list object property (or data attribute) for the video poster URL:
@@ -83,6 +85,9 @@
         posterImage.alt =
           this.getItemProperty(obj, this.options.altTextProperty) || title
         videoContainerNode.appendChild(posterImage)
+      }
+      if (video.setAttribute && options.videoPlaysInline) {
+        video.setAttribute('playsinline', '')
       }
       video.controls = true
       video.preload =
