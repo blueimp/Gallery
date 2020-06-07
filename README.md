@@ -28,6 +28,9 @@
   - [API methods](#api-methods)
   - [Videos](#videos)
     - [HTML5 video player](#html5-video-player)
+    - [Video controls](#video-controls)
+    - [Video preloading](#video-preloading)
+    - [Fullscreen video](#fullscreen-video)
     - [Multiple video sources](#multiple-video-sources)
     - [YouTube](#youtube)
     - [Vimeo](#vimeo)
@@ -44,7 +47,6 @@
 - [Browser support](#browser-support)
 - [License](#license)
 - [Credits](#credits)
-- [Notable forks](#notable-forks)
 
 ## Description
 
@@ -165,8 +167,8 @@ the images in the Gallery lightbox on click of one of those links:
 
 ### Controls
 
-To initialize the Gallery with visible controls, add the CSS class
-`blueimp-gallery-controls` to the Gallery widget:
+To initialize the Gallery with visible controls (previous slide, next slide,
+etc.), add the CSS class `blueimp-gallery-controls` to the Gallery widget:
 
 ```html
 <div
@@ -179,6 +181,10 @@ To initialize the Gallery with visible controls, add the CSS class
   <!-- ... -->
 </div>
 ```
+
+Please also note that by default, a click on an image slide or any Gallery
+widget element with the `toggle` class will toggle the display of the Gallery
+controls.
 
 ### Contain
 
@@ -590,6 +596,12 @@ var videoFactoryOptions = {
   videoLoadingClass: 'video-loading',
   // The class for video when it is playing:
   videoPlayingClass: 'video-playing',
+  // The class for video content displayed in an iframe:
+  videoIframeClass: 'video-iframe',
+  // The class for the video cover element:
+  videoCoverClass: 'video-cover',
+  // The class for the video play control:
+  videoPlayClass: 'video-play',
   // Play videos inline by default:
   videoPlaysInline: true,
   // The list object property (or data attribute) for video preload:
@@ -828,10 +840,87 @@ if the browser supports the video content type.
 For videos, the `poster` property defines the URL of the poster image to
 display, before the video is started.
 
+#### Video controls
+
+To start video playback, you can either click on the video play icon or on the
+video slide itself.  
+Starting the video playback enables the native HTML5 video
+[controls](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#attr-controls).
+
+To toggle the Gallery controls (previous slide, next slide, etc.) instead of
+starting video playback on click of a video slide, add the `toggle` class to the
+video cover element using the `videoCoverClass` Gallery option:
+
+```js
+blueimp.Gallery(
+  [
+    {
+      title: 'Fruits',
+      type: 'video/mp4',
+      href: 'https://example.org/videos/fruits.mp4',
+      poster: 'https://example.org/images/fruits.jpg'
+    }
+  ],
+  {
+    videoCoverClass: 'video-cover toggle'
+  }
+)
+```
+
+#### Video preloading
+
+You can set the `preload` property of a Gallery video object to a valid value
+defined by the HTML5 video
+[preload](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#attr-preload)
+attribute:
+
+- `none`: Indicates that the video should not be preloaded.
+- `metadata`: Indicates that only video metadata (e.g. length) is fetched.
+- `auto`: Indicates that the whole video file can be preloaded.
+
+```js
+blueimp.Gallery([
+  {
+    title: 'Fruits',
+    type: 'video/mp4',
+    href: 'https://example.org/videos/fruits.mp4',
+    preload: 'auto'
+  }
+])
+```
+
+#### Fullscreen video
+
+By default, videos are displayed with the HTML5 video
+[playsinline](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video#attr-playsinline)
+attribute set, which indicates that the video is to be played inline.  
+To disable this behavior, you can set the Gallery option `videoPlaysInline` to
+`false`:
+
+```js
+blueimp.Gallery(
+  [
+    {
+      title: 'Fruits',
+      type: 'video/mp4',
+      href: 'https://example.org/videos/fruits.mp4',
+      poster: 'https://example.org/images/fruits.jpg'
+    }
+  ],
+  {
+    videoPlaysInline: false
+  }
+)
+```
+
+Please note that this attribute only has an effect on some browsers, e.g. Safari
+on iOS 10 and later.  
+However, most browser provide video controls to switch to fullscreen mode.
+
 #### Multiple video sources
 
 To provide multiple video formats, the `sources` property of a list object can
-be set to an array of objects with `href` and `type` properties for each video
+be set to an array of objects with `type` and `src` properties for each video
 source. The first video format in the list that the browser can play will be
 displayed:
 
