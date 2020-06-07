@@ -109,9 +109,13 @@
           this.hasPlayed = true
           this.onPlaying()
           break
+        case YT.PlayerState.UNSTARTED:
         case YT.PlayerState.PAUSED:
-          // YouYube sends a pause event when seeking, so initiate a pause in
-          // a timeout that gets cleared if followed by buffering or playing:
+          // YouTube sends an unstarted event if pause is triggered before the
+          // video has started.
+          // YouTube sends a pause event when seeking.
+          // In both cases, we initiate a pause in a timeout that gets cleared
+          // if followed by another event within the timeout window.
           this.pauseTimeout = galleryPrototype.setTimeout.call(
             this,
             this.onPause,
