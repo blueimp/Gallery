@@ -590,6 +590,8 @@ var videoFactoryOptions = {
   videoLoadingClass: 'video-loading',
   // The class for video when it is playing:
   videoPlayingClass: 'video-playing',
+  // The list object property (or data attribute) for video preload:
+  videoPreloadProperty: 'preload',
   // The list object property (or data attribute) for the video poster URL:
   videoPosterProperty: 'poster'
 }

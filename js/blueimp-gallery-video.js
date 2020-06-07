@@ -32,6 +32,8 @@
     videoLoadingClass: 'video-loading',
     // The class for video when it is playing:
     videoPlayingClass: 'video-playing',
+    // The list object property (or data attribute) for video preload:
+    videoPreloadProperty: 'preload',
     // The list object property (or data attribute) for the video poster URL:
     videoPosterProperty: 'poster'
   })
@@ -83,7 +85,8 @@
         videoContainerNode.appendChild(posterImage)
       }
       video.controls = true
-      video.preload = 'none'
+      video.preload =
+        this.getItemProperty(obj, options.videoPreloadProperty) || 'none'
       if (this.support.source && sources) {
         for (i = 0; i < sources.length; i += 1) {
           video.appendChild(
