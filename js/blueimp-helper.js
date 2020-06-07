@@ -101,40 +101,53 @@
     },
 
     hasClass: function (className) {
-      if (!this[0]) {
-        return false
-      }
-      return new RegExp('(^|\\s+)' + className + '(\\s+|$)').test(
+      if (!this[0]) return false
+      return new RegExp('(?:^|\\s+)' + className + '(?:\\s+|$)').test(
         this[0].className
       )
     },
 
     addClass: function (className) {
       var i = this.length
+      var classNames
       var element
+      var j
       while (i) {
         i -= 1
         element = this[i]
         if (!element.className) {
           element.className = className
-          return this
+          continue
         }
-        if (this.hasClass(className)) {
-          return this
+        if (!classNames) classNames = className.split(/\s+/)
+        for (j = 0; j < classNames.length; j += 1) {
+          if (this.hasClass(classNames[j])) {
+            continue
+          }
+          element.className += ' ' + classNames[j]
         }
-        element.className += ' ' + className
       }
       return this
     },
 
     removeClass: function (className) {
-      var regexp = new RegExp('(?:^|\\s+)' + className + '(\\s+|$)', 'g')
+      // Match any of the given class names
+      var regexp = new RegExp('^(?:' + className.split(/\s+/).join('|') + ')$')
+      // Match any class names and their trailing whitespace
+      var matcher = /(\S+)(?:\s+|$)/g
+      var replacer = function (match, className) {
+        // Replace class names that match the given ones
+        return regexp.test(className) ? '' : match
+      }
+      var trimEnd = /\s+$/
       var i = this.length
       var element
       while (i) {
         i -= 1
         element = this[i]
-        element.className = element.className.replace(regexp, '$1')
+        element.className = element.className
+          .replace(matcher, replacer)
+          .replace(trimEnd, '')
       }
       return this
     },
