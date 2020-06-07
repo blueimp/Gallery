@@ -98,33 +98,31 @@
     },
 
     onPause: function () {
-      galleryPrototype.setTimeout.call(this, this.checkSeek, null, 2000)
-    },
-
-    checkSeek: function () {
-      if (
-        this.stateChange === YT.PlayerState.PAUSED ||
-        this.stateChange === YT.PlayerState.ENDED
-      ) {
-        // check if current state change is actually paused
-        this.listeners.pause()
-        delete this.playStatus
-      }
+      this.listeners.pause()
+      delete this.playStatus
     },
 
     onStateChange: function (event) {
+      window.clearTimeout(this.pauseTimeout)
       switch (event.data) {
         case YT.PlayerState.PLAYING:
           this.hasPlayed = true
           this.onPlaying()
           break
         case YT.PlayerState.PAUSED:
+          // YouYube sends a pause event when seeking, so initiate a pause in
+          // a timeout that gets cleared if followed by buffering or playing:
+          this.pauseTimeout = galleryPrototype.setTimeout.call(
+            this,
+            this.onPause,
+            null,
+            500
+          )
+          break
         case YT.PlayerState.ENDED:
           this.onPause()
           break
       }
-      // Save most recent state change to this.stateChange
-      this.stateChange = event.data
     },
 
     onError: function (event) {
