@@ -908,9 +908,10 @@ blueimp.Gallery(
 )
 ```
 
-Please note that this attribute only has an effect on some browsers, e.g. Safari
-on iOS 10 and later.  
-However, most browser provide video controls to switch to fullscreen mode.
+Please note that this attribute only has an effect on some mobile browsers, e.g.
+Safari on iOS 10 and later.  
+However, all browsers provide video controls to switch between fullscreen and
+inline mode on user request.
 
 #### Multiple video sources
 
