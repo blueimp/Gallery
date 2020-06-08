@@ -647,8 +647,10 @@ var vimeoOptions = {
 
 ### Container and element options
 
-The widget `container` option can be set as id string (with "#" as prefix) or
-element node, so the following are equivalent:
+The widget `container`, `slidesContainer`, `titleElement` and
+`indicatorContainer` options can be set as
+[CSS selector](https://developer.mozilla.org/en-US/docs/Glossary/CSS_Selector)
+or `HTMLElement` node, so the following are equivalent:
 
 ```js
 var options = {
@@ -662,22 +664,13 @@ var options = {
 }
 ```
 
-The `slidesContainer`, `titleElement` and `indicatorContainer` options can also
-be defined using a tag name, which selects the first tag of this kind found
-inside of the widget container:
-
-```js
-var options = {
-  slidesContainer: 'div',
-  titleElement: 'h3',
-  indicatorContainer: 'ol'
-}
-```
-
-It is also possible to define the container and element options with a more
-complex
-[querySelector](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector),
-which is supported by IE8+ and all modern web browsers.
+CSS selectors are passed as argument to
+[querySelectorAll](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll),
+which is supported by IE8+ and all modern web browsers and queried with
+[getElementById](https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementById)
+or
+[getElementsByTagName](https://developer.mozilla.org/en-US/docs/Web/API/Element/getElementsByTagName)
+in older browsers.
 
 If the helper script is replaced with [jQuery](https://jquery.com/), the
 container and element options can be any valid jQuery selector.
