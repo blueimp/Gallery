@@ -882,6 +882,8 @@ blueimp.Gallery([
 ])
 ```
 
+By default, `preload` is set to `none` to save on network bandwidth consumption.
+
 #### Fullscreen video
 
 By default, videos are displayed with the HTML5 video
