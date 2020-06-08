@@ -979,12 +979,6 @@ blueimp.Gallery([
     href: 'https://www.youtube.com/watch?v=VIDEO_ID',
     youtube: 'VIDEO_ID',
     poster: 'https://img.youtube.com/vi/VIDEO_ID/maxresdefault.jpg'
-  },
-  {
-    title: 'Banana',
-    type: 'image/jpeg',
-    href: 'https://example.org/images/banana.jpg',
-    thumbnail: 'https://example.org/thumbnails/banana.jpg'
   }
 ])
 ```
@@ -1010,12 +1004,6 @@ blueimp.Gallery([
     href: 'https://vimeo.com/VIDEO_ID',
     vimeo: 'VIDEO_ID',
     poster: 'https://secure-b.vimeocdn.com/ts/POSTER_ID.jpg'
-  },
-  {
-    title: 'Banana',
-    type: 'image/jpeg',
-    href: 'https://example.org/images/banana.jpg',
-    thumbnail: 'https://example.org/thumbnails/banana.jpg'
   }
 ])
 ```
