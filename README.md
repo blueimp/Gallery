@@ -689,7 +689,7 @@ define link elements with `href` or `data-href` attributes:
 </div>
 ```
 
-If the links are passed as JavaScript array, it is also possible to define
+If the links are provided as JavaScript array, it is also possible to define
 nested property names, by using the native JavaScript accessor syntax for the
 property string:
 
@@ -785,7 +785,7 @@ gallery.next()
 // Move to a slide index with the (optional) duration in milliseconds:
 gallery.slide(index, duration)
 
-// Start an automatic slideshow with the interval in milliseconds (optional):
+// Start an automatic slideshow with the (optional) interval in milliseconds:
 gallery.play(interval)
 
 // Stop the automatic slideshow:
