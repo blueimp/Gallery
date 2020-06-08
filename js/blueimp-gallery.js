@@ -128,15 +128,15 @@
       // Defines if the gallery slides are cleared from the gallery modal,
       // or reused for the next gallery initialization:
       clearSlides: true,
-      // Toggle the controls on pressing the Return key:
-      toggleControlsOnReturn: true,
+      // Toggle the controls on pressing the Enter key:
+      toggleControlsOnEnter: true,
       // Toggle the controls on slide click:
       toggleControlsOnSlideClick: true,
       // Toggle the automatic slideshow interval on pressing the Space key:
       toggleSlideshowOnSpace: true,
-      // Navigate the gallery by pressing left and right on the keyboard:
+      // Navigate the gallery by pressing the ArrowLeft and ArrowRight keys:
       enableKeyboardNavigation: true,
-      // Close the gallery on pressing the Esc key:
+      // Close the gallery on pressing the Escape key:
       closeOnEscape: true,
       // Close the gallery when clicking on an empty slide area:
       closeOnSlideClick: true,
@@ -209,7 +209,7 @@
 
     carouselOptions: {
       hidePageScrollbars: false,
-      toggleControlsOnReturn: false,
+      toggleControlsOnEnter: false,
       toggleSlideshowOnSpace: false,
       enableKeyboardNavigation: false,
       closeOnEscape: false,
@@ -877,16 +877,16 @@
 
     onkeydown: function (event) {
       switch (event.which || event.keyCode) {
-        case 13: // Return
-          if (this.options.toggleControlsOnReturn) {
+        case 13: // Enter
+          if (this.options.toggleControlsOnEnter) {
             this.preventDefault(event)
             this.toggleControls()
           }
           break
-        case 27: // Esc
+        case 27: // Escape
           if (this.options.closeOnEscape) {
             this.close()
-            // prevent Esc from closing other things
+            // prevent Escape from closing other things
             event.stopImmediatePropagation()
           }
           break
@@ -896,13 +896,13 @@
             this.toggleSlideshow()
           }
           break
-        case 37: // Left
+        case 37: // ArrowLeft
           if (this.options.enableKeyboardNavigation) {
             this.preventDefault(event)
             this.prev()
           }
           break
-        case 39: // Right
+        case 39: // ArrowRight
           if (this.options.enableKeyboardNavigation) {
             this.preventDefault(event)
             this.next()

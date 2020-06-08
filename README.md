@@ -416,15 +416,15 @@ var options = {
   // Defines if the gallery slides are cleared from the gallery modal,
   // or reused for the next gallery initialization:
   clearSlides: true,
-  // Toggle the controls on pressing the Return key:
-  toggleControlsOnReturn: true,
+  // Toggle the controls on pressing the Enter key:
+  toggleControlsOnEnter: true,
   // Toggle the controls on slide click:
   toggleControlsOnSlideClick: true,
   // Toggle the automatic slideshow interval on pressing the Space key:
   toggleSlideshowOnSpace: true,
-  // Navigate the gallery by pressing left and right on the keyboard:
+  // Navigate the gallery by pressing the ArrowLeft and ArrowRight keys:
   enableKeyboardNavigation: true,
-  // Close the gallery on pressing the Esc key:
+  // Close the gallery on pressing the Escape key:
   closeOnEscape: true,
   // Close the gallery when clicking on an empty slide area:
   closeOnSlideClick: true,
@@ -537,7 +537,7 @@ default values:
 ```js
 var carouselOptions = {
   hidePageScrollbars: false,
-  toggleControlsOnReturn: false,
+  toggleControlsOnEnter: false,
   toggleSlideshowOnSpace: false,
   enableKeyboardNavigation: false,
   closeOnEscape: false,
