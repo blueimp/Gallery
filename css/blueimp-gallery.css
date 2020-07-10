@@ -111,33 +111,30 @@
   position: absolute;
   top: 50%;
   left: 15px;
-  width: 40px;
-  height: 40px;
+  width: 8px;
+  height: 20px;
+  padding: 10px 14px 10px 18px;
   margin-top: -23px;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-size: 60px;
-  font-weight: 100;
-  line-height: 30px;
-  color: #fff;
-  text-decoration: none;
-  text-shadow: 0 0 2px #000;
-  text-align: center;
-  background: #222;
-  background: rgba(0, 0, 0, 0.5);
-  -webkit-box-sizing: content-box;
-  -moz-box-sizing: content-box;
-  box-sizing: content-box;
+  background: #222 url(../img/prev.png) center no-repeat;
+  background-color: rgba(0, 0, 0, 0.5);
   border: 3px solid #fff;
-  -webkit-border-radius: 23px;
-  -moz-border-radius: 23px;
-  border-radius: 23px;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  border-radius: 30px;
   opacity: 0.5;
   cursor: pointer;
   display: none;
 }
+.blueimp-gallery-svgasimg > .prev {
+  background-image: url(../img/prev.svg);
+}
 .blueimp-gallery > .next {
-  left: auto;
   right: 15px;
+  left: auto;
+  background-image: url(../img/next.png);
+}
+.blueimp-gallery-svgasimg > .next {
+  background-image: url(../img/next.svg);
 }
 .blueimp-gallery > .close,
 .blueimp-gallery > .title {

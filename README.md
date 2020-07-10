@@ -95,15 +95,13 @@ webpage:
     aria-controls="blueimp-gallery"
     aria-label="previous slide"
     aria-keyshortcuts="ArrowLeft"
-    >‹</a
-  >
+  ></a>
   <a
     class="next"
     aria-controls="blueimp-gallery"
     aria-label="next slide"
     aria-keyshortcuts="ArrowRight"
-    >›</a
-  >
+  ></a>
   <a
     class="close"
     aria-controls="blueimp-gallery"
@@ -225,14 +223,12 @@ your webpage:
     class="prev"
     aria-controls="blueimp-gallery-carousel"
     aria-label="previous slide"
-    >‹</a
-  >
+  ></a>
   <a
     class="next"
     aria-controls="blueimp-gallery-carousel"
     aria-label="next slide"
-    >›</a
-  >
+  ></a>
   <a
     class="play-pause"
     aria-controls="blueimp-gallery-carousel"
@@ -1040,15 +1036,13 @@ First, add the desired HTML element to the Gallery widget:
     aria-controls="blueimp-gallery"
     aria-label="previous slide"
     aria-keyshortcuts="ArrowLeft"
-    >‹</a
-  >
+  ></a>
   <a
     class="next"
     aria-controls="blueimp-gallery"
     aria-label="next slide"
     aria-keyshortcuts="ArrowRight"
-    >›</a
-  >
+  ></a>
   <a
     class="close"
     aria-controls="blueimp-gallery"
@@ -1261,15 +1255,13 @@ duplicates from the list:
     aria-controls="blueimp-gallery"
     aria-label="previous slide"
     aria-keyshortcuts="ArrowLeft"
-    >‹</a
-  >
+  ></a>
   <a
     class="next"
     aria-controls="blueimp-gallery"
     aria-label="next slide"
     aria-keyshortcuts="ArrowRight"
-    >›</a
-  >
+  ></a>
   <a
     class="close"
     aria-controls="blueimp-gallery"
