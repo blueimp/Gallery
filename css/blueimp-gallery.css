@@ -115,6 +115,9 @@
   height: 20px;
   padding: 10px 14px 10px 18px;
   margin-top: -23px;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
   background: #222 url(../img/prev.png) center no-repeat;
   background-color: rgba(0, 0, 0, 0.5);
   border: 3px solid #fff;
