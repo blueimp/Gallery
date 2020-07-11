@@ -136,27 +136,31 @@
 .blueimp-gallery-svgasimg > .next {
   background-image: url(../img/next.svg);
 }
-.blueimp-gallery > .close,
+.blueimp-gallery > .close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 30px;
+  height: 30px;
+  background: url(../img/close.png) center no-repeat;
+  opacity: 0.8;
+  cursor: pointer;
+  display: none;
+}
+.blueimp-gallery-svgasimg > .close {
+  background-image: url(../img/close.svg);
+}
 .blueimp-gallery > .title {
   position: absolute;
   top: 15px;
   left: 15px;
-  margin: 0 40px 0 0;
+  margin: 0 60px 0 0;
   font-size: 20px;
   line-height: 30px;
   color: #fff;
   text-shadow: 0 0 2px #000;
   opacity: 0.8;
   display: none;
-}
-.blueimp-gallery > .close {
-  padding: 15px;
-  right: 15px;
-  left: auto;
-  margin: -15px;
-  font-size: 30px;
-  text-decoration: none;
-  cursor: pointer;
 }
 .blueimp-gallery > .play-pause {
   position: absolute;

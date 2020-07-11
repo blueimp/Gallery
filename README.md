@@ -107,8 +107,7 @@ webpage:
     aria-controls="blueimp-gallery"
     aria-label="close"
     aria-keyshortcuts="Escape"
-    >×</a
-  >
+  ></a>
   <a
     class="play-pause"
     aria-controls="blueimp-gallery"
@@ -1048,8 +1047,7 @@ First, add the desired HTML element to the Gallery widget:
     aria-controls="blueimp-gallery"
     aria-label="close"
     aria-keyshortcuts="Escape"
-    >×</a
-  >
+  ></a>
   <a
     class="play-pause"
     aria-controls="blueimp-gallery"
@@ -1267,8 +1265,7 @@ duplicates from the list:
     aria-controls="blueimp-gallery"
     aria-label="close"
     aria-keyshortcuts="Escape"
-    >×</a
-  >
+  ></a>
   <a
     class="play-pause"
     aria-controls="blueimp-gallery"
