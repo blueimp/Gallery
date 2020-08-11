@@ -62,7 +62,7 @@
 
     loadAPI: function () {
       var that = this
-      var apiUrl = '//f.vimeocdn.com/js/froogaloop2.min.js'
+      var apiUrl = 'https://f.vimeocdn.com/js/froogaloop2.min.js'
       var scriptTags = document.getElementsByTagName('script')
       var i = scriptTags.length
       var scriptTag
@@ -190,7 +190,7 @@
       var videoId = this.getItemProperty(obj, options.vimeoVideoIdProperty)
       if (videoId) {
         if (this.getItemProperty(obj, options.urlProperty) === undefined) {
-          obj[options.urlProperty] = '//vimeo.com/' + videoId
+          obj[options.urlProperty] = 'https://vimeo.com/' + videoId
         }
         counter += 1
         return this.videoFactory(

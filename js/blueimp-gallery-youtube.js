@@ -60,7 +60,7 @@
     loadAPI: function () {
       var that = this
       var onYouTubeIframeAPIReady = window.onYouTubeIframeAPIReady
-      var apiUrl = '//www.youtube.com/iframe_api'
+      var apiUrl = 'https://www.youtube.com/iframe_api'
       var scriptTags = document.getElementsByTagName('script')
       var i = scriptTags.length
       var scriptTag
@@ -197,13 +197,14 @@
       var videoId = this.getItemProperty(obj, options.youTubeVideoIdProperty)
       if (videoId) {
         if (this.getItemProperty(obj, options.urlProperty) === undefined) {
-          obj[options.urlProperty] = '//www.youtube.com/watch?v=' + videoId
+          obj[options.urlProperty] =
+            'https://www.youtube.com/watch?v=' + videoId
         }
         if (
           this.getItemProperty(obj, options.videoPosterProperty) === undefined
         ) {
           obj[options.videoPosterProperty] =
-            '//img.youtube.com/vi/' + videoId + '/maxresdefault.jpg'
+            'https://img.youtube.com/vi/' + videoId + '/maxresdefault.jpg'
         }
         return this.videoFactory(
           obj,
