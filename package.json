@@ -33,16 +33,17 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "clean-css-cli": "4",
+    "clean-css-cli": "5",
     "eslint": "7",
     "eslint-config-blueimp": "2",
-    "eslint-config-prettier": "6",
-    "eslint-plugin-jsdoc": "30",
-    "eslint-plugin-prettier": "3",
+    "eslint-config-prettier": "8",
+    "eslint-plugin-jsdoc": "36",
+    "eslint-plugin-prettier": "4",
+    "jquery": "1",
     "prettier": "2",
     "stylelint": "13",
     "stylelint-config-prettier": "8",
-    "stylelint-config-recommended": "3",
+    "stylelint-config-recommended": "5",
     "uglify-js": "3"
   },
   "stylelint": {
@@ -77,6 +78,7 @@
   },
   "scripts": {
     "test": "stylelint '**/*.css' && eslint .",
+    "prebuild": "bin/sync-vendor-libs.sh",
     "build:js": "cd js && uglifyjs blueimp-helper.js blueimp-gallery.js blueimp-gallery-fullscreen.js blueimp-gallery-indicator.js blueimp-gallery-video.js blueimp-gallery-vimeo.js blueimp-gallery-youtube.js --ie8 -c -m -o blueimp-gallery.min.js --source-map url=blueimp-gallery.min.js.map",
     "build:jquery": "cd js && uglifyjs blueimp-gallery.js blueimp-gallery-fullscreen.js blueimp-gallery-indicator.js blueimp-gallery-video.js blueimp-gallery-vimeo.js blueimp-gallery-youtube.js jquery.blueimp-gallery.js --ie8 -c -m -o jquery.blueimp-gallery.min.js --source-map url=jquery.blueimp-gallery.min.js.map",
     "build:css": "cd css && cleancss -c ie7 --source-map -o blueimp-gallery.min.css blueimp-gallery.css blueimp-gallery-indicator.css blueimp-gallery-video.css",
