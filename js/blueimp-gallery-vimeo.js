@@ -35,7 +35,7 @@
     // The URL for the Vimeo video player, can be extended with custom parameters:
     // https://developer.vimeo.com/player/embedding
     vimeoPlayerUrl:
-      'https://player.vimeo.com/video/VIDEO_ID?api=1&player_id=PLAYER_ID',
+      'https://player.vimeo.com/video/VIDEO_ID',
     // The prefix for the Vimeo video player ID:
     vimeoPlayerIdPrefix: 'vimeo-player-',
     // Require a click on the native Vimeo player for the initial playback:
@@ -62,7 +62,7 @@
 
     loadAPI: function () {
       var that = this
-      var apiUrl = 'https://f.vimeocdn.com/js/froogaloop2.min.js'
+      var apiUrl = 'https://player.vimeo.com/api/player.js'
       var scriptTags = document.getElementsByTagName('script')
       var i = scriptTags.length
       var scriptTag
@@ -98,14 +98,14 @@
     onReady: function () {
       var that = this
       this.ready = true
-      this.player.addEvent('play', function () {
+      this.player.on('play', function () {
         that.hasPlayed = true
         that.onPlaying()
       })
-      this.player.addEvent('pause', function () {
+      this.player.on('pause', function () {
         that.onPause()
       })
-      this.player.addEvent('finish', function () {
+      this.player.on('finish', function () {
         that.onPause()
       })
       if (this.playOnReady) {
@@ -129,7 +129,6 @@
       var iframe = document.createElement('iframe')
       iframe.src = this.url
         .replace('VIDEO_ID', this.videoId)
-        .replace('PLAYER_ID', this.playerId)
       iframe.id = this.playerId
       iframe.allow = 'autoplay'
       this.element.parentNode.replaceChild(iframe, this.element)
@@ -155,16 +154,18 @@
           // the video playback:
           this.onPlaying()
         } else {
-          this.player.api('play')
+          this.player.play().catch(function(error) {
+              console.error('error playing the video:', error.name)
+          })
         }
       } else {
         this.playOnReady = true
-        if (!window.$f) {
+        if (typeof Vimeo === "undefined") {
           this.loadAPI()
         } else if (!this.player) {
           this.insertIframe()
-          this.player = $f(this.element)
-          this.player.addEvent('ready', function () {
+          this.player = new Vimeo.Player(this.element)
+          this.player.ready().then(function() {
             that.onReady()
           })
         }
@@ -173,7 +174,7 @@
 
     pause: function () {
       if (this.ready) {
-        this.player.api('pause')
+        this.player.pause()
       } else if (this.playStatus) {
         delete this.playOnReady
         this.listeners.pause()
